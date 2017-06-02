@@ -7,11 +7,12 @@ exports.up = function(knex, Promise) {
       table.string('full_name');
       table.string('email');
       table.string('password_hash');
-      table.timestamps();
+      table.dateTime('created_at');
     }),
 
     knex.schema.createTable('caloassortments', function(table){
       table.increments('box_id').primary();
+      table.string('box_name');
       table.string('product_1');
       table.integer('qty_1');
       table.string('product_2');

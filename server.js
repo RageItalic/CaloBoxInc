@@ -61,14 +61,28 @@ app.get("/", (req, res) => {
 
 
 app.get("/boxes", (req, res) => {
-  res.render("boxes")
+  knex
+      .select('*')
+      .from('caloassortments')
+      .then(function(response){
+        //now that everything has been selected,
+        //send in everything through template vars
+        //and display on boxes page as cards.
+        console.log("YEH RESPONSE HAI", response);
+        console.log("image", response[0].box_image_url)
+
+        var templateVars = {response: response};
+        console.log(templateVars.boxImage);
+        res.render("boxes", templateVars);
+      })
 })
 
+
 app.get("/dashboard", (req, res) => {
-  if (req.session.email){
+  if (req.session.userID){
     console.log("req.session.email", req.session.email)
     var templateVars = {
-      emale: req.session.email
+      userID: req.session.userID
     }
     res.render("customer-dash", templateVars)
   }else{
@@ -81,47 +95,17 @@ app.get("/dashboard", (req, res) => {
 //   knex('caloassortments').select('*').where('')
 // })
 
-app.post("/sign-up", (req, res) => {
-  console.log(req.body);
-  if (req.body.name !== '' && req.body.email !== '' && req.body.Password !== '' && req.body.PasswordConfirm !== ''){
-    if (req.body.Password === req.body.PasswordConfirm) {
-      var hashedPassword = bcrypt.hashSync(req.body.PasswordConfirm, 10);
-      console.log(req.body.Password);
-      console.log(hashedPassword);
-      knex('calousers')
-      .insert([{
-                full_name: req.body.Name,
-                email: req.body.Email,
-                password_hash: hashedPassword
-              }])
-      .then(function (resp){
-        console.log(resp)
-        //res.send("DONE")
-        //SET COOKIE HERE
-        console.log("req.session", req.session)
-        console.log("req.session.email", req.session.email)
-        req.session.email = req.body.Email;
-        console.log("ACTUAL THING:", req.session.email)
-        res.redirect("/dashboard");
-      })
-    } else {
-      return res.send("PASSWORD ENTERED DOES NOT MATCH. TRY AGAIN SUCKA!");
-    }
-  } else {
-    return res.send("Your form is empty. Try again.");
-  }
-})
-
 app.get('/logout', (req, res) => {
-req.session.destroy(function(err) {
-  if(err) {
-    console.log(err);
-  } else {
-    console.log(req.session)
-    res.redirect('/');
-  }
-})
+  req.session.destroy(function(err) {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(req.session)
+      res.redirect('/');
+    }
+  })
 });
+
 
 app.post("/charge", (req, res) =>{
   var token = req.body.stripeToken;
@@ -139,16 +123,57 @@ app.post("/charge", (req, res) =>{
   })
 })
 
+
+app.post("/sign-up", (req, res) => {
+  console.log(req.body);
+  if (req.body.name !== '' && req.body.email !== '' && req.body.Password !== '' && req.body.PasswordConfirm !== ''){
+    if (req.body.Password === req.body.PasswordConfirm) {
+      var hashedPassword = bcrypt.hashSync(req.body.PasswordConfirm, 10);
+      console.log(req.body.Password);
+      console.log(hashedPassword);
+      knex('calousers')
+      .insert([{
+                full_name: req.body.Name,
+                email: req.body.Email,
+                password_hash: hashedPassword
+              }])
+      .then(function (resp){
+        console.log("RESPONSE BEFORE SECOND KNEX QUERY", resp)
+        knex.select('users_id')
+            .from('calousers')
+            .where({email: req.body.Email})
+            .then(function(resp){
+              console.log("RESPONSE AFTER THE SECOND KNEX QUERY", resp)
+              //res.send("DONE")
+              //SET COOKIE HERE
+              console.log("req.session.userID before", req.session.userID)
+              req.session.userID = resp[0].users_id;
+              console.log("req.session.userID after", req.session.userID)
+              res.redirect("/dashboard");
+            })
+      })
+    } else {
+      return res.send("PASSWORD ENTERED DOES NOT MATCH. TRY AGAIN SUCKA!");
+    }
+  } else {
+    return res.send("Your form is empty. Try again.");
+  }
+})
+
+
 app.post("/login", (req, res) => {
   knex('calousers').where({
     email: req.body.loginEmail
-  }).select('password_hash')
+  }).select('*')
   .then(function(response){
     console.log("THIS IS THE RESPONSE", req.body.loginPass)
     console.log("THIS IS THE RESPONSE also", response[0].password_hash)
+    console.log("this is the response that hopefully has the id:", response);
+    console.log("this is the also response that hopefully has the id:", response[0].users_id);
     var passMatch = bcrypt.compareSync(req.body.loginPass, response[0].password_hash);
     if (passMatch === true){
-      req.session.email = req.body.loginEmail;
+      req.session.userID = response[0].users_id;
+      console.log('session with userID', req.session.userID);
       // var templateVars = {
       //   emale: req.session.email
       // }
@@ -160,7 +185,9 @@ app.post("/login", (req, res) => {
   })
 })
 
-
+// knex('calousers').where({email: req.body.loginEmail}).select('*').then(function(response){
+//   console.log("this is the response that hopefully has the id:", response);
+// })
 
 
 app.listen(PORT, () => {
