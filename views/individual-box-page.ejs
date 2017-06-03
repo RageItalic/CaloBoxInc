@@ -3,23 +3,23 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>CaloBox</title>
+  <title>Calobox</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="/styles/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
-
 <body>
-
   <nav class="white for-navigation" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="/" class="brand-logo"><img src="/logo.jpg"></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
+        <!-- <li><a href="#">Navbar Link</a></li> -->
           <!-- Modal Trigger -->
-          <li><a class="waves-effect waves-light btn modal-trigger" href="login.html">Login</a></li>
+          <li><a class="waves-effect waves-light btn modal-trigger" href="/login">Login</a></li>
+          <li><a class="waves-effect waves-light btn modal-trigger" href="/boxes">Our Boxes</a></li>
+          <li><a href="#">Hello, Dude</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -33,56 +33,62 @@
   <br />
   <br />
 
-  <div class="container">
-    <div class="section">
-      <div class="row col s12 center-align"><h4><u>Our Boxes</u></h4></div>
-    </div>
-  </div>
-
-
-  <div class="container">
-    <div class="section">
-      <div class="row">
-
-  <% for (var i = 0; i < response.length; i++) { %>
-
-          <div class="col s12 m6">
-            <div class="card">
-              <div class="card-image" id='<%=response[i].box_id%>'>
-                <a href='/boxes/<%=response[i].box_id%>'>
-                  <img src=<%=response[i].box_image_url%>>
-                </a>
-                <span class="card-title"><%=response[i].box_name%></span>
-              </div>
-              <div class="card-content">
-              <p>This area will contain a description of the each box. WHICH MEANS I NEED TO ADD A DESCRIPITON COLUMN TO THE DATABASE.</p>
-              </div>
-              <div class="card-action">
-                <!-- <a class="subscribe-btn" href="#">Subscribe</a> -->
-                <a class="buy-btn" href="#">
-                  <form action="/charge" method="post">
-                    <script
-                    src="https://checkout.stripe.com/checkout.js"
-                    class="stripe-button"
-                    data-key="pk_test_zpgFMVyId6qVSFL5slAhndxM"
-                    data-amount='<%=response[i].box_price%>'
-                    data-name='<%=response[i].box_name%>'
-                    data-description="Sure to make your taste-buds tingle"
-                    data-locale="auto"
-                    data-currency="inr"></script>
-                    <input type="hidden" name="chargeAmount" value='<%response[i].box_price%>'>
-                  </form>
-                </a>
-              </div>
+<!--       <div class="row">
+      <div class="col s6">
+        <div style="padding: 35px;" align="center" class="card">
+          <div class="row">
+            <div class="left card-title">
+              <b>User Management</b>
             </div>
           </div>
 
-  <% } %>
+          <div class="row">
+            <a href="#!">
+              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                <img src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989968/seller_rcnkab.png" class="responsive-img" /><br>
+                <span class="indigo-text text-lighten-1"><h5>Seller</h5></span>
+              </div>
+            </a>
+            <div class="col s1">&nbsp;</div>
+            <div class="col s1">&nbsp;</div>
 
+            <a href="#!">
+              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                <img src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989969/people_2_knqa3y.png" class="responsive-img" /><br>
+                <span class="indigo-text text-lighten-1"><h5>Customer</h5></span>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+      </div> -->
 
+          <div class="container">
+          <div class="section">
+          <div class="row">
+            <h1><%=response[0].box_name%></h1>
+            <div><img src=<%=response[0].box_image_url%>></div>
+            <div><%=response[0].product_1%></div>
+            <div><%=response[0].product_2%></div>
+            <div><%=response[0].product_3%></div>
+            <div><%=response[0].product_4%></div>
+            <div><%=response[0].product_5%></div>
+            <div><%=response[0].product_6%></div>
+          </div>
+          </div>
+          </div>
+
+      <div class="container">
+        <div class="section">
+          <div class="row">
+            <div class="right-align">
+              <div class="card">
+                <span class="card-title">Hello, Dude</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
   <footer class="page-footer teal">
     <div class="container">
@@ -118,9 +124,10 @@
     </div>
   </footer>
 
+
+  <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="/styles/js/materialize.js"></script>
   <script src="/styles/js/init.js"></script>
-
-  </body>
+</body>
 </html>

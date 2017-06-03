@@ -78,6 +78,20 @@ app.get("/boxes", (req, res) => {
 })
 
 
+app.get("/boxes/:id", (req, res) => {
+  console.log("req",req.params)
+  console.log("req",req.body)
+  console.log("name",req.body.name)
+  knex.select('*').from('caloassortments').where('box_id','=', req.params.id).then(function(response){
+    console.log("YEH RESponse hai",response)
+    var templateVars = {
+      response: response
+    }
+    res.render("individual-box-page", templateVars);
+  })
+})
+
+
 app.get("/dashboard", (req, res) => {
   if (req.session.userID){
     console.log("req.session.email", req.session.email)
