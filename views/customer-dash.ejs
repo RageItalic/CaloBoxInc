@@ -7,6 +7,7 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="/styles/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
@@ -63,21 +64,35 @@
       </div>
       </div> -->
 
-            <div class="container">
-        <div class="section">
-          <div class="row">
-          <h1>WELLL, if you are here, you must have a cookie. CHECK YA CONSOLE, USER NUMBER: <%= userID %>.</h1>
-          <p> Also, if you want to leave, click <a href="/logout" >here.</a></p>
-          </div>
-          </div>
-          </div>
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <h1>WELLL, if you are here, you must have a cookie. CHECK YA CONSOLE, USER NUMBER: <%= userID %>.</h1>
+        <p> Also, if you want to leave, click <a href="/logout" >here.</a></p>
+      </div>
+    </div>
+  </div>
 
       <div class="container">
         <div class="section">
           <div class="row">
-            <div class="right-align">
+            <div class="center-align">
               <div class="card">
-                <span class="card-title">Hello, Dude</span>
+                <span class="card-title">Hello, <%= response[0].full_name %></span>
+                <% if (response[0].date_subscribed) { %>
+                  <p>
+                    THIS is all the shit you have subscribed to, BUD.
+                    <div><img src=<%=response[0].box_image_url%>></div>
+                    <li><%= response[0].box_name %></li>
+                    <li><a href="/"><i class="fa fa-times" aria-hidden="true" href="/"></i></a></li>
+                  </p>
+                <% } else {%>
+                  <p>
+                    THIS is all the shit you bought, BUD.
+                    <div><img src=<%=response[0].box_image_url%>></div>
+                    <li><%= response[0].box_name %></li>
+                  </p>
+                <% } %>
               </div>
             </div>
           </div>

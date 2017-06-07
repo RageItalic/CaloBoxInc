@@ -94,15 +94,40 @@ app.get("/boxes/:id", (req, res) => {
 
 app.get("/dashboard", (req, res) => {
   if (req.session.userID){
-    console.log("req.session.email", req.session.email)
-    var templateVars = {
-      userID: req.session.userID
-    }
-    res.render("customer-dash", templateVars)
+    console.log("req.session.userID", req.session.userID)
+    knex('calousers')
+      .join('caloassortments_subscribed_to', 'users_id', 'caloassortments_subscribed_to.subscriber_id')
+      .join('caloassortments', 'box_id', 'caloassortments_subscribed_to.assortment_id')
+      .select('*')
+      .where({users_id: req.session.userID})
+      .then(function(subResponse){
+        if(!subResponse[0]){
+          console.log("the response is null");
+          knex('calousers')
+          .join('caloassortments_bought', 'users_id', 'caloassortments_bought.subscriber_id')
+          .join('caloassortments', 'box_id', 'caloassortments_bought.assortment_id')
+          .select('*')
+          .where({users_id: req.session.userID})
+          .then(function(buyResponse){
+            console.log("buyResponse", buyResponse)
+            var buyTemplateVars = {
+            userID: req.session.userID,
+            response: buyResponse
+            }
+            res.render("customer-dash", buyTemplateVars)
+          })
+        } else {
+          console.log("YEH RESPONSE HAI",subResponse[0])
+          var subTemplateVars = {
+            userID: req.session.userID,
+            response: subResponse
+          }
+          res.render('customer-dash', subTemplateVars)
+        }
+      })
   }else{
     res.redirect("/")
   }
-
 })
 
 // app.get("/boxes/:id", (req, res) => {
