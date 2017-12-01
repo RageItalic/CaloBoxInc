@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+      crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <nav class="navbar is-transparent">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
+          <strong>Calobox</strong>
+        </a>
+
+        <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
+          <span class="icon" style="color: #333;">
+            <i class="fa fa-lg fa-github"></i>
+          </span>
+        </a>
+
+        <a class="navbar-item is-hidden-desktop" href="https://twitter.com/jgthms" target="_blank">
+          <span class="icon" style="color: #55acee;">
+            <i class="fa fa-lg fa-twitter"></i>
+          </span>
+        </a>
+
+        <div class="navbar-burger burger" data-target="navMenuTransparentExample">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navMenuTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link  is-active" href="/snack-boxes">
+              Snack Boxes
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
+                <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
+                  <%= dynamicNavBigBoxNames[i].big_box_name %>
+                </a>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link  is-active" href="/individual-snacks">
+              Individual Snacks
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
+                <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end" id="rightHere">
+          <% if (!userID) { %>
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a href="/login" class="tw-button button">Login</a>
+                </p>
+              </div>
+            </div>
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a href="/signup" class="tw-button button">Sign Up</a>
+                </p>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="navbar-item">
+              <p class="control">
+                <a href="/cart" class="bd-tw-button button">
+                  <span class="icon">
+                    <i class="fa fa-shopping-cart"></i>
+                  </span>
+                  <span>
+                    Cart
+                  </span>
+                </a>
+              </p>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link  is-active">
+                <%= name %>
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a class="navbar-item " href="/logout">
+                  Logout
+                </a>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title has-text-centered" style="font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: bold;">
+          Our Snacks
+        </h1>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="columns is-mobile is-centered">
+
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <a href="/individual-snacks/<%=response[0].pouch_name%>">
+                <figure class="image is-4by3">
+                  <img src="<%= response[0].pouch_image_url %>" alt="<%= response[0].pouch_name %>">
+                </figure>
+              </a>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= response[0].pouch_name %></p>
+                </div>
+              </div>
+
+              <div class="content">
+                <%= response[0].pouch_description %>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <a href="/individual-snacks/<%=response[1].pouch_name%>">
+                <figure class="image is-4by3">
+                  <img src="<%= response[1].pouch_image_url %>" alt="<%= response[1].pouch_name %>">
+                </figure>
+              </a>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= response[1].pouch_name %></p>
+                </div>
+              </div>
+
+              <div class="content">
+                <%= response[1].pouch_description %>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="columns is-mobile is-centered">
+
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <a href="/individual-snacks/<%=response[2].pouch_name%>">
+                <figure class="image is-4by3">
+                  <img src="<%= response[2].pouch_image_url %>" alt="<%= response[2].pouch_name %>">
+                </figure>
+              </a>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= response[2].pouch_name %></p>
+                </div>
+              </div>
+
+              <div class="content">
+                <%= response[2].pouch_description %>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <a href="/individual-snacks/<%=response[3].pouch_name%>">
+                <figure class="image is-4by3">
+                  <img src="<%= response[3].pouch_image_url %>" alt="<%= response[3].pouch_name %>">
+                </figure>
+              </a>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= response[3].pouch_name %></p>
+                </div>
+              </div>
+
+              <div class="content">
+                <%= response[3].pouch_description %>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="columns is-mobile is-centered">
+
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <a href="/individual-snacks/<%=response[4].pouch_name%>">
+                <figure class="image is-4by3">
+                  <img src="<%= response[4].pouch_image_url %>" alt="<%= response[4].pouch_name %>">
+                </figure>
+              </a>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= response[4].pouch_name %></p>
+                </div>
+              </div>
+
+              <div class="content">
+                <%= response[4].pouch_description %>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <a href="/individual-snacks/<%=response[5].pouch_name%>">
+                <figure class="image is-4by3">
+                  <img src="<%= response[5].pouch_image_url %>" alt="<%= response[5].pouch_name %>">
+                </figure>
+              </a>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= response[5].pouch_name %></p>
+                </div>
+              </div>
+
+              <div class="content">
+                <%= response[5].pouch_description %>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <br />
+    <br />
+
+    <section class="hero is-medium is-bold" style="background-color: #43dacc;">
+      <br />
+      <div class="content has-text-centered">
+        <h2 class="subtitle" style="font-family: 'Montserrat', sans-serif; font-size: 20px;">
+          <strong style="color: white;">KEEP IN TOUCH!</strong>
+        </h2>
+      </div>
+      <br />
+      <div class="content has-text-centered">
+        <p class="subtitle" style="font-family: 'Roboto', sans-serif; color: white;">Sign up to get updates on product releases, special offers and other news.</p>
+      </div>
+      <br />
+      <br />
+      <br />
+        <form method="" action="post">
+          <div class="field has-addons has-addons-centered">
+            <p class="control">
+              <input class="input is-medium" type="text" placeholder="Your Email">
+            </p>
+            <p class="control">
+              <a class="button is-medium is-info">
+                Subscribe
+              </a>
+            </p>
+          </div>
+        </form>
+     <br />
+     <br />
+    </section>
+
+    <section class="section" style="background-color: #001f3f;">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-2">
+            <h3 style="color: white;">Navigation</h3>
+            <br />
+            <li style="color: #43dacc;">Nutrition &amp; Preparation</li>
+            <li style="color: #43dacc;">Health &amp; Safety</li>
+            <li style="color: #43dacc;">About Us</li>
+            <li style="color: #43dacc;">Contact Us</li>
+          </div>
+          <div class="column is-2">
+            <h3 style="color: white;">Store Help</h3>
+            <br />
+            <li style="color: #43dacc;">Something Here</li>
+            <li style="color: #43dacc;">Something Else Here</li>
+          </div>
+          <div class="column is-2">
+            <h3 style="color: white;">Find Us Online</h3>
+            <br />
+            <li style="color: #43dacc;">Something Here</li>
+            <li style="color: #43dacc;">Something Else Here</li>
+          </div>
+          <div class="column is-4">
+            <h3 style="color: white;">Help Us Spread The Word About Our Awesome Products.</h3>
+            <br />
+            <a class="button is-primary" style="color: white;">Facebook</a>
+            <a class="button is-primary" style="color: white;">Twitter</a>
+            <a class="button is-primary" style="color: white;">Instagram</a>
+            <a class="button is-primary" style="color: white;">ETC</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </body>
+</html>

@@ -6,20 +6,18 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
-    <link href="/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
-    <script type="text/javascript" src="./scripts/app.js"></script>
   </head>
   <body>
+
     <nav class="navbar is-transparent">
       <div class="navbar-brand">
-        <a class="navbar-item" href="home.html">
+        <a class="navbar-item" href="/">
           <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
-          <STRONG>Calobox</STRONG>
+          <strong>Calobox</strong>
         </a>
 
         <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
@@ -109,155 +107,77 @@
             </div>
           <% } %>
         </div>
-
       </div>
     </nav>
 
-    <br />
-
     <section class="section">
       <div class="container">
-        <div class="columns">
-          <div class="column is-half">
-            <h1 class="" style="font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: bold;">A Gift To The Healthy You</h1>
-            <p style="font-family: 'Roboto', sans-serif; font-size: 32px;">Calobox provides a collection of Healthy, Tasty and Light snacks that not only satiate your hunger, but also cater to a variety of taste buds. </p>
-            <br />
-            <a class="button is-medium is-primary" href="#buyNow" style="font-family: 'Montserrat', sans-serif;">Buy Now</a>
-          </div>
-          <div class="column">
-            <img src="./540x540img.jpg">
-          </div>
-        </div>
+        <h1 class="title has-text-centered" style="font-family: 'Montserrat', sans-serif; font-size: 50px; font-weight: 100;">
+          Your Shopping Cart
+        </h1>
       </div>
     </section>
 
-    <section class="hero is-large" style="background-image: url('https://cdn.shopify.com/s/files/1/1378/8621/t/2/assets/slide-1-image.jpg?14783317441453155361')">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title has-text-centered" style="font-family: 'Montserrat', sans-serif; font-size: 40px; color: white;">
-            Making Snacking Fun &amp; Healthy
-          </h1>
-          <br />
-          <h2 class="subtitle has-text-centered" style="font-family: 'Montserrat', sans-serif; font-size: 20px; color: white;">
-            A short description.
-          </h2>
-        </div>
+    <div class="container">
+      <div class="columns is-centered is-mobile">
+        <p>Your Shopping Cart is currently empty. <a href="boxes.html">Continue Shopping.</a></p>
       </div>
-    </section>
+    </div>
+    <br />
+
+    <hr />
 
     <br />
 
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-            <img src="./309-5x308-8.jpg">
-          </div>
-          <div class="column is-half">
-            <br />
-            <br />
-            <br />
-            <br />
-            <h1 class="" style="font-family: 'Montserrat', sans-serif; font-size: 40px;">Awesome Feature One</h1>
-            <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">This will be awesome description one.</p>
-            <br />
-            <a class="is-medium is-primary" href="/" style="font-family: 'Montserrat', sans-serif;">See More</a>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="container">
+<div class="columns is-centered">
+<table class="table">
+  <thead>
+    <tr>
+      <th><abbr title="Position">Snack</abbr></th>
+      <th>Name</th>
+      <th><abbr title="Won">Quantity</abbr></th>
+      <th><abbr title="Played">Price</abbr></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><img src="./309-5x308-8.jpg"></th>
+      <td><strong>ChocoRite</strong></td>
+      <td><input class="input" type="text" value="1" style="width: 30px;"></td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th><img src="./309-5x308-8.jpg"></th>
+      <td><strong>ChocoRite</strong></td>
+      <td><input class="input" type="text" value="1" style="width: 30px;"></td>
+      <td>38</td>
+    </tr>
+<!--     <tr>
+      <th>3</th>
+      <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+      <td>38</td>
+      <td>19</td>
+    </tr>
+    <tr class="is-selected">
+      <th>4</th>
+      <td><a href="https://en.wikipedia.org/wiki/Manchester_City_F.C." title="Manchester City F.C.">Manchester City</a></td>
+      <td>38</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td><a href="https://en.wikipedia.org/wiki/Manchester_United_F.C." title="Manchester United F.C.">Manchester United</a></td>
+      <td>38</td>
+      <td>19</td>
+    </tr> -->
+  </tbody>
+</table>
+</div>
+</div>
 
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-half is-offset-1">
-            <br />
-            <br />
-            <br />
-            <br />
-            <h1 class="" style="font-family: 'Montserrat', sans-serif; font-size: 40px;">Awesome Feature Two</h1>
-            <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">This will be awesome description Two.</p>
-            <br />
-            <a class="is-medium is-primary" href="/" style="font-family: 'Montserrat', sans-serif;">See More</a>
-          </div>
-          <div class="column">
-            <img src="./309-5x308-8.jpg">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="hero is-medium" style="background-color: #dddddd;">
-      <br />
-      <div class="content has-text-centered">
-        <h2 class="subtitle" style="font-family: 'Montserrat', sans-serif; font-size: 20px;">
-          <b>Testimonials</b>
-        </h2>
-      </div>
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-half">
-              <h1 class="subtitle has-text-centered">Testimonial 1: Where some random person, who happens to be somewhat slightly important (maybe), says they like what we have.
-              </h1>
-              <br />
-              <h3 class="has-text-centered"><b>~ Person 1</b></h3>
-            </div>
-            <div class="column">
-              <h1 class="subtitle has-text-centered">Testimonial 2: Where some random person, who happens to be somewhat slightly important (maybe), says they like what we have.</h1>
-              <br />
-              <h3 class="has-text-centered"><b>~ Person 2</b></h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="buyNow">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-offset-1">
-            <img src="./309-5x308-8.jpg" id="boxImage">
-          </div>
-          <div class="column is-half">
-            <h3 class="" style="font-family: 'Montserrat', sans-serif; font-size: 36px;" id="snackName"></h3>
-            <br />
-            <div class="control">
-              <div class="select">
-                <select id="SelectValue">
-                  <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
-                    <option value="<%= dynamicNavBigBoxNames[i].big_box_name %>"><%= dynamicNavBigBoxNames[i].big_box_name %></option>
-                  <% } %>
-                </select>
-              </div>
-            </div>
-            <br />
-            <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">Price Here</p>
-            <br />
-            <div class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">Quantity</p>
-                </div>
-                <div class="level-item">
-                  <p class="control">
-                    <input class="input" type="text" value="1" style="width: 30px;">
-                  </p>
-                </div>
-                <div class="level-item">
-                  <% if (userID) { %>
-                    <a class="button is-medium is-primary" href="/snack-boxes" style="font-family: 'Montserrat', sans-serif;">View Snack</a>
-                  <% } else {%>
-                    <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a>
-                  <% } %>
-                </div>
-              </div>
-            </div>
-            <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">Calobox provides a collection of Healthy, Tasty and Light snacks that not only satiate your hunger, but also cater to a variety of taste buds. Just a good 4 lines here, cause that looks good. I cant really say much else... a big enough description looks good. Just not too big.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<br />
+<br />
 
     <section class="hero is-medium is-bold" style="background-color: #43dacc;">
       <br />
@@ -323,6 +243,7 @@
         </div>
       </div>
     </section>
+
 
   </body>
 </html>

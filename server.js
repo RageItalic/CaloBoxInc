@@ -44,89 +44,388 @@ app.use(express.static("public"));
 // Mount all resource routes
 //app.use("/api/users", usersRoutes(knex));
 
+var dynamicNavPouchNameObject = {};
+var dynamicNavBigBoxNameObject = {};
+
+function getNavPouches() {
+  knex.select('pouch_name')
+      .from('pouches')
+  .then((pouchResponse)=> {
+    //console.log('a pouch response has been received. this might actually work', pouchResponse);
+    console.log('pouch', pouchResponse)
+    dynamicNavPouchNameObject = {
+      pouchNames: pouchResponse
+    };
+    console.log('bhai yeh kya hai?', dynamicNavPouchNameObject)
+  })
+}
+
+function getNavBoxes() {
+  knex.select('big_box_name')
+      .from('big_boxes')
+  .then((bigBoxResponse)=> {
+    console.log('big box', bigBoxResponse)
+    dynamicNavBigBoxNameObject = {
+      bigBoxNames: bigBoxResponse
+    };
+    console.log('bhai tu theek toh hai na?', dynamicNavBigBoxNameObject)
+  })
+}
+
 // Home page
 app.get("/", (req, res) => {
   console.log("REQ.SESSION", req.session);
-  console.log("req.session.email", req.session.email)
-  if(req.session.email){
-    res.redirect("/dashboard");
+  if(req.session.userID){
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        userID: req.session.userID,
+        name: req.session.name,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render('home', templateVars)
+    }, 1000);
   } else {
-    res.render("home")
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        userID: null,
+        name: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("home", templateVars)
+    }, 1000);
   }
 });
 
+app.get('/cart', (req, res)=> {
+  if (req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        userID: req.session.userID,
+        name: req.session.first_name,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render('cart', templateVars);
+    }, 1000);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        userID: null,
+        name: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render('cart', templateVars);
+    }, 1000);
+  }
+})
+
+app.get('/login', (req, res)=> {
+  if(req.session.userID) {
+    res.redirect('/')
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      }
+      res.render('login', templateVars)
+    }, 1000);
+  }
+})
+
+app.post("/loggingIn", (req, res) => {
+  //new DB made. These routes should work.
+  knex('users').where({
+    email: req.body.email
+  }).select('*')
+  .then(function(response){
+    console.log("THIS IS THE password", req.body.password)
+    console.log("THIS IS THE RESPONSE also", response[0].password_hash)
+    console.log("this is the response that hopefully has the id:", response);
+    console.log("this is the also response that hopefully has the id:", response[0].users_id);
+    var passwordEntered = req.body.password;
+    var existingPassword = response[0].password_hash;
+    var passMatch = bcrypt.compareSync(passwordEntered, existingPassword);
+    if (passMatch === true){
+      //The 3 lines below are fine. No need to change them.
+      req.session.userID = response[0].users_id;
+      req.session.name = response[0].first_name;
+      req.session.email = response[0].email;
+      //session exists now
+      console.log('session with userID', req.session);
+      res.redirect('/')
+    } else {
+      //console.log("THIS IS THE ERROR", err);
+      res.send("I DONT KNOW YOU. SIGN UP FIRST SUCKA.")
+    }
+  })
+})
+
+app.get('/signup', (req, res)=> {
+  if(req.session.userID) {
+    res.redirect('/')
+  } else {
+    getNavBoxes();
+    getNavPouches();
+    setTimeout(function() {
+      var templateVars = {
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      }
+      res.render('register', templateVars)
+    }, 1000);
+  }
+})
+
+app.post("/signingUp", (req, res) => {
+  console.log(req.body);
+  if (req.body.password === req.body.confirmPassword) {
+    var hashedPassword = bcrypt.hashSync(req.body.confirmPassword, 10);
+    console.log(req.body.confirmPassword);
+    console.log(hashedPassword);
+    //need entirely new DB the routes below will not work.
+    knex('users')
+    .insert([{
+              first_name: req.body.fName,
+              last_name: req.body.lName,
+              email: req.body.email,
+              password_hash: hashedPassword,
+              phone_number: req.body.pNumber,
+              address: req.body.address,
+              zipcode: req.body.zip
+            }])
+    .then(function (resp){
+      console.log("RESPONSE BEFORE SECOND KNEX QUERY", resp)
+      knex.select('*')
+          .from('users')
+          .where({
+            email: req.body.email
+          })
+          .then(function(resp){
+            console.log("RESPONSE AFTER THE SECOND KNEX QUERY", resp)
+            //res.send("DONE")
+            //SET COOKIE HERE
+            console.log("req.session.userID before", req.session.userID)
+            //The 3 lines below are fine. No need to change them.
+            req.session.userID = resp[0].users_id;
+            req.session.name = resp[0].first_name;
+            req.session.email = resp[0].email;
+            console.log("req.session after", req.session)
+            res.redirect("/");
+          })
+    })
+  } else {
+    return res.send("PASSWORD ENTERED DOES NOT MATCH. TRY AGAIN SUCKA!");
+  }
+})
 
 //Publishable:    pk_test_zpgFMVyId6qVSFL5slAhndxM
 //Secret:         sk_test_U3Ww6tPuCCQruhOiLMtFgLBg
 
 
-app.get("/boxes", (req, res) => {
-  knex
-      .select('*')
-      .from('caloassortments')
-      .then(function(response){
-        //now that everything has been selected,
-        //send in everything through template vars
-        //and display on boxes page as cards.
-        console.log("YEH RESPONSE HAI", response);
-        console.log("image", response[0].box_image_url)
-
-        var templateVars = {response: response};
-        console.log(templateVars.boxImage);
-        res.render("boxes", templateVars);
-      })
+app.get("/individual-snacks", (req, res) => {
+  if (req.session.userID) {
+    knex.select('*')
+        .from('pouches')
+    .then(function(response){
+      //now that everything has been selected,
+      //send in everything through template vars
+      //and display on boxes page as cards.
+      console.log("YEH RESPONSE HAI", response);
+      //console.log("image", response[0].box_image_url)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          response: response,
+          name: req.session.name,
+          userID: req.session.userID,
+          email: req.session.email,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+        };
+        //console.log(templateVars.boxImage);
+        res.render("pouches", templateVars);
+      }, 1000);
+    })
+  } else {
+    knex.select('*')
+        .from('pouches')
+    .then((response)=> {
+      console.log("YEH RESPONSE HAI", response);
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          response: response,
+          name: null,
+          userID: null,
+          email: null,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+        };
+        //console.log(templateVars.boxImage);
+        res.render("pouches", templateVars);
+      }, 1000);
+    })
+  }
 })
 
 
-app.get("/boxes/:id", (req, res) => {
-  console.log("req",req.params)
-  console.log("req",req.body)
-  console.log("name",req.body.name)
-  knex.select('*').from('caloassortments').where('box_id','=', req.params.id).then(function(response){
-    console.log("YEH RESponse hai",response)
-    var templateVars = {
-      response: response
-    }
-    res.render("individual-box-page", templateVars);
-  })
-})
-
-
-app.get("/dashboard", (req, res) => {
-  if (req.session.userID){
-    console.log("req.session.userID", req.session.userID)
-    knex('calousers')
-      .join('caloassortments_subscribed_to', 'users_id', 'caloassortments_subscribed_to.subscriber_id')
-      .join('caloassortments', 'box_id', 'caloassortments_subscribed_to.assortment_id')
-      .select('*')
-      .where({users_id: req.session.userID})
-      .then(function(subResponse){
-        if(!subResponse[0]){
-          console.log("the response is null");
-          knex('calousers')
-          .join('caloassortments_bought', 'users_id', 'caloassortments_bought.subscriber_id')
-          .join('caloassortments', 'box_id', 'caloassortments_bought.assortment_id')
-          .select('*')
-          .where({users_id: req.session.userID})
-          .then(function(buyResponse){
-            console.log("buyResponse", buyResponse)
-            var buyTemplateVars = {
-            userID: req.session.userID,
-            response: buyResponse
-            }
-            res.render("customer-dash", buyTemplateVars)
-          })
-        } else {
-          console.log("YEH RESPONSE HAI",subResponse[0])
-          var subTemplateVars = {
-            userID: req.session.userID,
-            response: subResponse
-          }
-          res.render('customer-dash', subTemplateVars)
+app.get("/individual-snacks/:product_name", (req, res) => {
+  if(req.session.userID) {
+    console.log("req",req.params)
+    console.log("req",req.body)
+    console.log("name",req.body.name)
+    knex.select('*')
+        .from('pouches')
+        .where('pouch_name','=', req.params.product_name)
+    .then(function(response){
+      console.log("YEH RESponse hai",response)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          response: response,
+          userID: req.session.userID,
+          name: req.session.name,
+          email: req.session.email,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         }
-      })
-  }else{
-    res.redirect("/")
+        res.render("individual-pouch-page", templateVars);
+      }, 1000);
+    })
+  } else {
+    console.log("req",req.params)
+    knex.select('*')
+        .from('pouches')
+        .where('pouch_name','=', req.params.product_name)
+    .then(function(response){
+      console.log("YEH RESponse hai",response)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        console.log('LOOOOOOOOOK', dynamicNavPouchNameObject.pouchNames.length)
+        console.log('LOOOOOOOOOK again', dynamicNavBigBoxNameObject.bigBoxNames.length)
+        var templateVars = {
+          response: response,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames,
+          userID: null,
+          name: null,
+          email: null
+        }
+        res.render("individual-pouch-page", templateVars);
+      }, 1000);
+    })
+  }
+})
+
+app.get('/snack-boxes', (req, res)=> {
+  if(req.session.userID) {
+    knex.select('*')
+        .from('big_boxes')
+    .then((response)=> {
+      console.log("YEH RESPONSE HAI", response);
+      //console.log("image", response[0].box_image_url)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          response: response,
+          name: req.session.name,
+          userID: req.session.userID,
+          email: req.session.email,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+        };
+        //console.log(templateVars.boxImage);
+        res.render("big_boxes", templateVars);
+      }, 1000);
+    })
+  } else {
+    knex.select('*')
+        .from('big_boxes')
+    .then((response)=> {
+      console.log("YEH RESPONSE HAI", response);
+      //console.log("image", response[0].box_image_url)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          response: response,
+          name: null,
+          userID: null,
+          email: null,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+        };
+        //console.log(templateVars.boxImage);
+        res.render("big_boxes", templateVars);
+      }, 1000);
+    })
+  }
+})
+
+app.get('/snack-boxes/:product_name', (req, res)=> {
+  if (req.session.userID) {
+    knex.select('*')
+        .from('big_boxes')
+        .where('big_box_name', '=', req.params.product_name)
+    .then((response)=> {
+      console.log("YEH RESponse hai",response)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          response: response,
+          userID: req.session.userID,
+          name: req.session.name,
+          email: req.session.email,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+        }
+        res.render("individual-big-box-page", templateVars);
+      }, 1000);
+    })
+  } else {
+    knex.select('*')
+        .from('big_boxes')
+        .where('big_box_name', '=', req.params.product_name)
+    .then((response)=> {
+      console.log("YEH RESponse hai",response)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          response: response,
+          userID: null,
+          name: null,
+          email: null,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+        }
+        res.render("individual-big-box-page", templateVars);
+      }, 1000);
+    })
   }
 })
 
@@ -144,6 +443,16 @@ app.get('/logout', (req, res) => {
     }
   })
 });
+
+app.get('/deleteSubscription/:box_id', (req, res) => {
+  console.log("params", req.params);
+  knex('caloassortments_subscribed_to')
+    .where({subscriber_id: req.session.userID, assortment_id: req.params.box_id})
+    .del()
+    .then(function(){
+      res.redirect('/dashboard')
+    });
+})
 
 
 app.post("/charge", (req, res) =>{
@@ -163,66 +472,10 @@ app.post("/charge", (req, res) =>{
 })
 
 
-app.post("/sign-up", (req, res) => {
-  console.log(req.body);
-  if (req.body.name !== '' && req.body.email !== '' && req.body.Password !== '' && req.body.PasswordConfirm !== ''){
-    if (req.body.Password === req.body.PasswordConfirm) {
-      var hashedPassword = bcrypt.hashSync(req.body.PasswordConfirm, 10);
-      console.log(req.body.Password);
-      console.log(hashedPassword);
-      knex('calousers')
-      .insert([{
-                full_name: req.body.Name,
-                email: req.body.Email,
-                password_hash: hashedPassword
-              }])
-      .then(function (resp){
-        console.log("RESPONSE BEFORE SECOND KNEX QUERY", resp)
-        knex.select('users_id')
-            .from('calousers')
-            .where({email: req.body.Email})
-            .then(function(resp){
-              console.log("RESPONSE AFTER THE SECOND KNEX QUERY", resp)
-              //res.send("DONE")
-              //SET COOKIE HERE
-              console.log("req.session.userID before", req.session.userID)
-              req.session.userID = resp[0].users_id;
-              console.log("req.session.userID after", req.session.userID)
-              res.redirect("/dashboard");
-            })
-      })
-    } else {
-      return res.send("PASSWORD ENTERED DOES NOT MATCH. TRY AGAIN SUCKA!");
-    }
-  } else {
-    return res.send("Your form is empty. Try again.");
-  }
-})
 
 
-app.post("/login", (req, res) => {
-  knex('calousers').where({
-    email: req.body.loginEmail
-  }).select('*')
-  .then(function(response){
-    console.log("THIS IS THE RESPONSE", req.body.loginPass)
-    console.log("THIS IS THE RESPONSE also", response[0].password_hash)
-    console.log("this is the response that hopefully has the id:", response);
-    console.log("this is the also response that hopefully has the id:", response[0].users_id);
-    var passMatch = bcrypt.compareSync(req.body.loginPass, response[0].password_hash);
-    if (passMatch === true){
-      req.session.userID = response[0].users_id;
-      console.log('session with userID', req.session.userID);
-      // var templateVars = {
-      //   emale: req.session.email
-      // }
-      res.redirect('/dashboard'/*, templateVars*/)
-    } else {
-      //console.log("THIS IS THE ERROR", err);
-      res.send("I DONT KNOW YOU. SIGN UP FIRST SUCKA.")
-    }
-  })
-})
+
+
 
 // knex('calousers').where({email: req.body.loginEmail}).select('*').then(function(response){
 //   console.log("this is the response that hopefully has the id:", response);

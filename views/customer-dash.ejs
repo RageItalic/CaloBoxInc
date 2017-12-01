@@ -80,18 +80,26 @@
               <div class="card">
                 <span class="card-title">Hello, <%= response[0].full_name %></span>
                 <% if (response[0].date_subscribed) { %>
-                  <p>
-                    THIS is all the shit you have subscribed to, BUD.
-                    <div><img src=<%=response[0].box_image_url%>></div>
-                    <li><%= response[0].box_name %></li>
-                    <li><a href="/"><i class="fa fa-times" aria-hidden="true" href="/"></i></a></li>
-                  </p>
-                <% } else {%>
-                  <p>
-                    THIS is all the shit you bought, BUD.
-                    <div><img src=<%=response[0].box_image_url%>></div>
-                    <li><%= response[0].box_name %></li>
-                  </p>
+                  <% for (var i = 0; i < response.length; i++) { %>
+                    <div>
+                      <p>
+                        THIS is all the shit you have subscribed to, BUD.
+                        <div><img src=<%=response[i].box_image_url%>></div>
+                        <li><%= response[i].box_name %></li>
+                        <li><a href="/deleteSubscription/<%= response[i].assortment_id %>"><i class="fa fa-times" aria-hidden="true"></i></a></li>
+                      </p>
+                    </div>
+                  <% } %>
+                <% } else if (!response[0].date_subscribed){%>
+                  <% for (var j = 0; j < response.length; j++) { %>
+                    <div>
+                      <p>
+                        THIS is all the shit you bought, BUD.
+                        <div><img src=<%=response[j].box_image_url%>></div>
+                        <li><%= response[j].box_name %></li>
+                      </p>
+                    </div>
+                  <% } %>
                 <% } %>
               </div>
             </div>

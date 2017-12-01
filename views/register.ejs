@@ -88,22 +88,59 @@
     <section class="section">
       <div class="container">
         <h1 class="title">
-          Login to start buying our awesome snacks.
+          Sign up here to start buying our awesome snacks.
         </h1>
         <p class="subtitle">
-          Not signed up? Sign up <a href="/signup">here.</a>
+          Already a <strong>CaloFreak</strong>? Log in <a href="/login">here.</a>
         </p>
       </div>
     </section>
 
-    <br>
-    <br>
-
     <div class="columns is-mobile is-centered">
       <div class="column is-one-quarter-desktop is-two-thirds-mobile is-two-thirds-tablet is-narrow">
-        <form method="post" action="/loggingIn">
+        <form method="post" action="/signingUp">
           <div class="field">
-            <p class="control has-icons-left has-icons-right">
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="First Name" name="fName" required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-user"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Last Name" name="lName" required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-user"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="text" placeholder="Phone Number" name="pNumber" required minlength="10" maxlength="10">
+              <span class="icon is-small is-left">
+                <i class="fa fa-phone"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="Your address" name="address" required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-home"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control has-icons-left">
+              <input class="input" type="number" placeholder="Zipcode" name="zip" required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-home"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
               <input class="input" type="email" placeholder="Email" name="email" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-envelope"></i>
@@ -113,6 +150,14 @@
           <div class="field">
             <p class="control has-icons-left">
               <input class="input" type="password" placeholder="Password" name="password" required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="password" placeholder="Confirm Password" name="confirmPassword" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-lock"></i>
               </span>
@@ -128,9 +173,6 @@
       </div>
     </div>
 
-    <br />
-    <br />
-    <br />
     <br />
 
     <section class="section" style="background-color: #001f3f;">
@@ -167,7 +209,6 @@
         </div>
       </div>
     </section>
-
 
   </body>
 </html>

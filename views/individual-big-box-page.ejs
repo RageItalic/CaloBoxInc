@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.min.css">
+
+    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+      crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MDViM2VlYjgtYWE1OC00ZGViLWFmMzAtMWYyNjljOGE3ZWI4NjM2NDc2OTQ3MzkwOTc1ODg1"></script>
+
+    <script type="text/javascript" src="/scripts/cart.js"></script>
+  </head>
+  <body>
+    <nav class="navbar is-transparent">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
+          <strong>Calobox</strong>
+        </a>
+
+        <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
+          <span class="icon" style="color: #333;">
+            <i class="fa fa-lg fa-github"></i>
+          </span>
+        </a>
+
+        <a class="navbar-item is-hidden-desktop" href="https://twitter.com/jgthms" target="_blank">
+          <span class="icon" style="color: #55acee;">
+            <i class="fa fa-lg fa-twitter"></i>
+          </span>
+        </a>
+
+        <div class="navbar-burger burger" data-target="navMenuTransparentExample">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navMenuTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link  is-active" href="/snack-boxes">
+              Snack Boxes
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
+                <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
+                  <%= dynamicNavBigBoxNames[i].big_box_name %>
+                </a>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link  is-active" href="/individual-snacks">
+              Individual Snacks
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
+                <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end" id="rightHere">
+          <% if (!userID) { %>
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a href="/login" class="tw-button button">Login</a>
+                </p>
+              </div>
+            </div>
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a href="/signup" class="tw-button button">Sign Up</a>
+                </p>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="navbar-item">
+              <p class="control">
+                <a href="/cart" class="bd-tw-button button">
+                  <span class="icon">
+                    <i class="fa fa-shopping-cart"></i>
+                  </span>
+                  <span>
+                    Cart
+                  </span>
+                </a>
+              </p>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link  is-active">
+                <%= name %>
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a class="navbar-item " href="/logout">
+                  Logout
+                </a>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+
+
+    <section class="section">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-one-third">
+            <div class="slick-carousel">
+              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img id="bigBoxImageUrl" src="<%= response[0].big_box_image_url %>"></div>
+              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].big_box_image_url_2 %>"></div>
+            </div>
+          </div>
+          <div class="column is-one-third is-offset-2">
+            <h2 class="title" id="bigBoxName">
+              <%= response[0].big_box_name %>
+            </h2>
+            <p class="content is-medium" id="bigBoxDescription">
+              <%= response[0].big_box_description %>
+            </p>
+            <p class="content is-medium" id="bigBoxPrice">
+              Price: <%= response[0].big_box_price %>
+            </p>
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">Quantity</p>
+                </div>
+                <div class="level-item">
+                  <p class="control">
+                    <input class="input" id="bigBoxQuantity" type="number" value="1" style="width: 50px;">
+                  </p>
+                </div>
+                <div class="level-item">
+                  <!-- <a class="button is-medium is-primary" id="addBoxToCart" style="font-family: 'Montserrat', sans-serif;">Add To Cart</a> -->
+                  <% if (userID) {%>
+                    <button
+                      class="snipcart-add-item button is-medium is-primary"
+                      data-item-id="<%= response[0].big_box_id %>"
+                      data-item-name="<%= response[0].big_box_name %>"
+                      data-item-price="<%= response[0].big_box_price %>"
+                      data-item-url="localhost:8080/snack-boxes/<%= response[0].big_box_name %>">
+                          Buy <%= response[0].big_box_name %>
+                    </button>
+                  <% } else { %>
+                    <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: #001f3f;">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-2">
+            <h3 style="color: white;">Navigation</h3>
+            <br />
+            <li style="color: #43dacc;">Nutrition &amp; Preparation</li>
+            <li style="color: #43dacc;">Health &amp; Safety</li>
+            <li style="color: #43dacc;">About Us</li>
+            <li style="color: #43dacc;">Contact Us</li>
+          </div>
+          <div class="column is-2">
+            <h3 style="color: white;">Store Help</h3>
+            <br />
+            <li style="color: #43dacc;">Something Here</li>
+            <li style="color: #43dacc;">Something Else Here</li>
+          </div>
+          <div class="column is-2">
+            <h3 style="color: white;">Find Us Online</h3>
+            <br />
+            <li style="color: #43dacc;">Something Here</li>
+            <li style="color: #43dacc;">Something Else Here</li>
+          </div>
+          <div class="column is-4">
+            <h3 style="color: white;">Help Us Spread The Word About Our Awesome Products.</h3>
+            <br />
+            <a class="button is-primary" style="color: white;">Facebook</a>
+            <a class="button is-primary" style="color: white;">Twitter</a>
+            <a class="button is-primary" style="color: white;">Instagram</a>
+            <a class="button is-primary" style="color: white;">ETC</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<!--     <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+      crossorigin="anonymous"></script> -->
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+  </body>
+</html>
