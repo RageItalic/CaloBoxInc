@@ -6,20 +6,14 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.min.css">
-
-    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MDViM2VlYjgtYWE1OC00ZGViLWFmMzAtMWYyNjljOGE3ZWI4NjM2NDc2OTQ3MzkwOTc1ODg1"></script>
     <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
   <body>
+
     <nav class="navbar is-transparent">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
@@ -105,56 +99,132 @@
       </div>
     </nav>
 
-
     <section class="section">
+      <div class="container has-text-centered">
+        <h1 class="title">
+          <u>How It Works</u>
+        </h1>
+      </div>
+
+      <br />
+
       <div class="container">
         <div class="columns is-centered">
-          <div class="column is-one-third">
-            <div class="slick-carousel">
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img id="bigBoxImageUrl" src="<%= response[0].big_box_image_url %>"></div>
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].big_box_image_url_2 %>"></div>
-            </div>
+
+          <div class="column is-half has-text-centered">
+            <img src="./siteLogo.png" alt="Placeholder image">
+            <br />
+            <p class="subtitle">1. Come onto our site.</p>
           </div>
-          <div class="column is-one-third is-offset-2">
-            <h2 class="title" id="bigBoxName">
-              <%= response[0].big_box_name %>
-            </h2>
-            <p class="content is-medium" id="bigBoxDescription">
-              Description:
-              <br />
-              <%= response[0].big_box_description %>
-            </p>
-            <p class="content is-medium" id="bigBoxPrice">
-              Price:
-              <br />
-              <%= response[0].big_box_price %>
-            </p>
-            <p>
-              Interested in having this product at an event you're hosting? Contact us <a href="/contact-us">here!</a>
-            </p>
-<!--             <div class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <% if (userID) {%>
-                    <button
-                      class="snipcart-add-item button is-medium is-primary"
-                      data-item-id="<%= response[0].big_box_id %>"
-                      data-item-name="<%= response[0].big_box_name %>"
-                      data-item-price="<%= response[0].big_box_price %>"
-                      data-item-url="localhost:8080/snack-boxes/<%= response[0].big_box_name %>"
-                      data-item-image="<%= response[0].big_box_image_url %>">
-                          Buy <%= response[0].big_box_name %>
-                    </button>
-                  <% } else { %>
-                    <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a>
-                  <% } %>
-                </div>
-              </div>
-            </div> -->
+
+        </div>
+
+        <br />
+
+        <div class="columns is-centered">
+
+          <div class="column is-half has-text-centered">
+            <img src="./downArrow.png" alt="Placeholder image">
+            <!-- <br />
+            <p class="subtitle">Come onto our site.</p> -->
           </div>
+
+        </div>
+
+        <br />
+
+        <div class="columns is-centered">
+
+          <div class="column is-half has-text-centered">
+            <img src="./directionLogo.png" alt="Placeholder image">
+            <br />
+            <p class="subtitle">2. Select the pouches you like.</p>
+          </div>
+
+        </div>
+
+        <br />
+
+        <div class="columns is-centered">
+
+          <div class="column is-half has-text-centered">
+            <img src="./downArrow.png" alt="Placeholder image">
+            <!-- <br />
+            <p class="subtitle">Come onto our site.</p> -->
+          </div>
+
+        </div>
+
+        <br />
+
+        <div class="columns is-centered">
+
+          <div class="column is-half has-text-centered">
+            <img src="./buyLogo.png" alt="Placeholder image">
+            <br />
+            <p class="subtitle">3. Add them to cart and checkout.</p>
+          </div>
+
+        </div>
+
+        <br />
+
+        <div class="columns is-centered">
+
+          <div class="column is-half has-text-centered">
+            <img src="./downArrow.png" alt="Placeholder image">
+            <!-- <br />
+            <p class="subtitle">Come onto our site.</p> -->
+          </div>
+
+        </div>
+
+        <br />
+
+        <div class="columns is-centered">
+
+          <div class="column is-half has-text-centered">
+            <img src="./boxLogo.png" alt="Placeholder image">
+            <br />
+            <br />
+            <h2 class="subtitle"><strong>VOILA!! YOUR VERY OWN CALOBOX IS ON ITS WAY!!</strong></h2>
+          </div>
+
         </div>
       </div>
     </section>
+
+    <% if (!userID) { %>
+      <section class="hero is-medium is-bold" style="background-color: #43dacc;">
+        <br />
+        <div class="content has-text-centered">
+          <h2 class="subtitle" style="font-family: 'Montserrat', sans-serif; font-size: 20px;">
+            <strong style="color: white;">KEEP IN TOUCH!</strong>
+          </h2>
+        </div>
+        <br />
+        <div class="content has-text-centered">
+          <p class="subtitle" style="font-family: 'Roboto', sans-serif; color: white;">Sign up to get updates on product releases, special offers and other news.</p>
+        </div>
+        <br />
+        <br />
+        <br />
+        <form method="" action="post">
+          <div class="field has-addons has-addons-centered">
+            <p class="control">
+              <input class="input is-medium" type="text" placeholder="Your Email">
+            </p>
+            <p class="control">
+              <a class="button is-medium is-info">
+                Subscribe
+              </a>
+            </p>
+          </div>
+        </form>
+        <br />
+        <br />
+      </section>
+    <% } %>
 
     <section class="section" style="background-color: #001f3f;">
       <div class="container">
@@ -162,10 +232,10 @@
           <div class="column is-2">
             <h3 style="color: white;">Navigation</h3>
             <br />
-            <li style="color: #43dacc;"><a href="/nutrition-prep">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="/health-safety">Health &amp; Safety</a></li>
-            <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
-            <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
+            <li style="color: #43dacc;"><a href="">Nutrition &amp; Prep</a></li>
+            <li style="color: #43dacc;"><a href="">Health &amp; Safety</a></li>
+            <li style="color: #43dacc;"><a href="">About Us</a></li>
+            <li style="color: #43dacc;"><a href="">Contact Us</a></li>
           </div>
           <div class="column is-2">
             <h3 style="color: white;">Store Help</h3>
@@ -191,7 +261,6 @@
       </div>
     </section>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function () {
 

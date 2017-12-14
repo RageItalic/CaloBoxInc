@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "local": "./node_modules/.bin/nodemon --ignore public/",
     "knex": "./node_modules/.bin/knex"
   },
@@ -23,6 +23,7 @@
     "knex-logger": "^0.1.0",
     "morgan": "^1.7.0",
     "node-sass-middleware": "^0.9.8",
+    "nodemailer": "^4.4.0",
     "pg": "^6.0.2",
     "stripe": "^4.19.0"
   },

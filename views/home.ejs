@@ -8,30 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
     <link href="/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MDViM2VlYjgtYWE1OC00ZGViLWFmMzAtMWYyNjljOGE3ZWI4NjM2NDc2OTQ3MzkwOTc1ODg1"></script>
     <script type="text/javascript" src="./scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
   <body>
     <nav class="navbar is-transparent">
       <div class="navbar-brand">
-        <a class="navbar-item" href="home.html">
+        <a class="navbar-item" href="/">
           <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
           <STRONG>Calobox</STRONG>
-        </a>
-
-        <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
-          <span class="icon" style="color: #333;">
-            <i class="fa fa-lg fa-github"></i>
-          </span>
-        </a>
-
-        <a class="navbar-item is-hidden-desktop" href="https://twitter.com/jgthms" target="_blank">
-          <span class="icon" style="color: #55acee;">
-            <i class="fa fa-lg fa-twitter"></i>
-          </span>
         </a>
 
         <div class="navbar-burger burger" data-target="navMenuTransparentExample">
@@ -87,7 +79,7 @@
           <% } else { %>
             <div class="navbar-item">
               <p class="control">
-                <a href="/cart" class="bd-tw-button button">
+                <a class="bd-tw-button button snipcart-checkout">
                   <span class="icon">
                     <i class="fa fa-shopping-cart"></i>
                   </span>
@@ -122,7 +114,7 @@
             <h1 class="" style="font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: bold;">A Gift To The Healthy You</h1>
             <p style="font-family: 'Roboto', sans-serif; font-size: 32px;">Calobox provides a collection of Healthy, Tasty and Light snacks that not only satiate your hunger, but also cater to a variety of taste buds. </p>
             <br />
-            <a class="button is-medium is-primary" href="#buyNow" style="font-family: 'Montserrat', sans-serif;">Buy Now</a>
+            <a class="button is-medium is-primary" href="/snack-boxes" style="font-family: 'Montserrat', sans-serif;">Buy Now</a>
           </div>
           <div class="column">
             <img src="./540x540img.jpg">
@@ -131,7 +123,7 @@
       </div>
     </section>
 
-    <section class="hero is-large" style="background-image: url('https://cdn.shopify.com/s/files/1/1378/8621/t/2/assets/slide-1-image.jpg?14783317441453155361')">
+    <section class="hero is-large" style="background-image: url('./221.jpg'); background-size: cover;">
       <div class="hero-body">
         <div class="container">
           <h1 class="title has-text-centered" style="font-family: 'Montserrat', sans-serif; font-size: 40px; color: white;">
@@ -213,66 +205,59 @@
       </div>
     </section>
 
-    <section class="section" id="buyNow">
+    <section class="section is-hidden-mobile">
       <div class="container">
-        <div class="columns">
-          <div class="column is-offset-1">
-            <img src="./309-5x308-8.jpg" id="boxImage">
-          </div>
-          <div class="column is-half">
-            <h3 class="" style="font-family: 'Montserrat', sans-serif; font-size: 36px;" id="snackName"></h3>
-            <br />
-            <div class="control">
-              <div class="select">
-                <select id="SelectValue">
-                  <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
-                    <option value="<%= dynamicNavBigBoxNames[i].big_box_name %>"><%= dynamicNavBigBoxNames[i].big_box_name %></option>
-                  <% } %>
-                </select>
-              </div>
+        <div class="columns is-vcentered">
+          <div class="column is-half is-offset-one-quarter">
+            <div class="field is-grouped is-grouped-centered">
+              <p class="control">
+                <a class="button is-info is-medium" href="/snack-boxes">
+                  Provide our boxes at your event!
+                </a>
+              </p>
+              <p class="control">
+                <a class="button is-info is-medium" href="/individual-snacks">
+                  Buy Our Snack Pouches Now!
+                </a>
+              </p>
             </div>
-            <br />
-            <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">Price Here</p>
-            <br />
-            <div class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">Quantity</p>
-                </div>
-                <div class="level-item">
-                  <p class="control">
-                    <input class="input" type="text" value="1" style="width: 30px;">
-                  </p>
-                </div>
-                <div class="level-item">
-                  <% if (userID) { %>
-                    <a class="button is-medium is-primary" href="/snack-boxes" style="font-family: 'Montserrat', sans-serif;">View Snack</a>
-                  <% } else {%>
-                    <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a>
-                  <% } %>
-                </div>
-              </div>
-            </div>
-            <p style="font-family: 'Roboto', sans-serif; font-size: 20px;">Calobox provides a collection of Healthy, Tasty and Light snacks that not only satiate your hunger, but also cater to a variety of taste buds. Just a good 4 lines here, cause that looks good. I cant really say much else... a big enough description looks good. Just not too big.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="hero is-medium is-bold" style="background-color: #43dacc;">
-      <br />
-      <div class="content has-text-centered">
-        <h2 class="subtitle" style="font-family: 'Montserrat', sans-serif; font-size: 20px;">
-          <strong style="color: white;">KEEP IN TOUCH!</strong>
-        </h2>
+    <section class="section is-hidden-desktop is-hidden-tablet">
+      <div class="field is-grouped is-grouped-centered">
+        <p class="control">
+          <a class="button is-info is-medium" href="/snack-boxes">
+            Provide our boxes at your event!
+          </a>
+        </p>
       </div>
-      <br />
-      <div class="content has-text-centered">
-        <p class="subtitle" style="font-family: 'Roboto', sans-serif; color: white;">Sign up to get updates on product releases, special offers and other news.</p>
+      <div class="field is-grouped is-grouped-centered">
+        <p class="control">
+          <a class="button is-info is-medium" href="/individual-snacks">
+            Buy Our Snack Pouches Now!
+          </a>
+        </p>
       </div>
-      <br />
-      <br />
-      <br />
+    </section>
+
+    <% if (!userID) { %>
+      <section class="hero is-medium is-bold" style="background-color: #43dacc;">
+        <br />
+        <div class="content has-text-centered">
+          <h2 class="subtitle" style="font-family: 'Montserrat', sans-serif; font-size: 20px;">
+            <strong style="color: white;">KEEP IN TOUCH!</strong>
+          </h2>
+        </div>
+        <br />
+        <div class="content has-text-centered">
+          <p class="subtitle" style="font-family: 'Roboto', sans-serif; color: white;">Sign up to get updates on product releases, special offers and other news.</p>
+        </div>
+        <br />
+        <br />
+        <br />
         <form method="" action="post">
           <div class="field has-addons has-addons-centered">
             <p class="control">
@@ -285,9 +270,10 @@
             </p>
           </div>
         </form>
-     <br />
-     <br />
-    </section>
+        <br />
+        <br />
+      </section>
+    <% } %>
 
     <section class="section" style="background-color: #001f3f;">
       <div class="container">
@@ -295,10 +281,10 @@
           <div class="column is-2">
             <h3 style="color: white;">Navigation</h3>
             <br />
-            <li style="color: #43dacc;"><a href="">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="">Health &amp; Safety</a></li>
-            <li style="color: #43dacc;"><a href="">About Us</a></li>
-            <li style="color: #43dacc;"><a href="">Contact Us</a></li>
+            <li style="color: #43dacc;"><a href="/NutritionAndPrep">Nutrition &amp; Prep</a></li>
+            <li style="color: #43dacc;"><a href="/HealthAndSafety">Health &amp; Safety</a></li>
+            <li style="color: #43dacc;"><a href="/AboutUs">About Us</a></li>
+            <li style="color: #43dacc;"><a href="/Contact">Contact Us</a></li>
           </div>
           <div class="column is-2">
             <h3 style="color: white;">Store Help</h3>
@@ -323,6 +309,34 @@
         </div>
       </div>
     </section>
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+
+              // Get the target from the "data-target" attribute
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+
+            });
+          });
+        }
+
+      });
+    </script>
 
   </body>
 </html>

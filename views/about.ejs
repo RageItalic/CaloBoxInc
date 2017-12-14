@@ -6,18 +6,11 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.min.css">
-
-    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MDViM2VlYjgtYWE1OC00ZGViLWFmMzAtMWYyNjljOGE3ZWI4NjM2NDc2OTQ3MzkwOTc1ODg1"></script>
-    <script type="text/javascript" src="/scripts/cart.js"></script>
+    <script type="text/javascript" src="./scripts/cart.js"></script>
   </head>
   <body>
     <nav class="navbar is-transparent">
@@ -105,52 +98,116 @@
       </div>
     </nav>
 
+    <section class="hero is-medium is-primary is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            An image as the background here.
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: #eee;">
+      <div class="container">
+        <h1 class="title">
+          Making Healthy Exciting
+        </h1>
+        <p class="subtitle">
+          Our mission at Calobox is to make healthy exciting. We are constantly in the kitchen trying to come up with great tasting, affordable and healthy snacks that can satisfy all your urges.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title">
+          Ways to get our products onto your taste buds!
+        </h1>
+        <br />
+        <div class="columns is-centered">
+
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="./caloProducts2.jpg" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <strong>Store shelfs near you.</strong> More description needed. <a>Coming Soon</a>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="./caloProducts3.jpg" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <strong>Buy online right now!</strong> Receive them at your doorstep within days!
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: #eee">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <br />
+            <br />
+            <h1 class="title">
+              The Calo Difference
+            </h1>
+            <br />
+            <li class="subtitle">
+                Subtitle ~ Point 1 why we are different and good
+            </li>
+            <li class="subtitle">
+                Subtitle ~ Point 2 why we are so good and different
+            </li>
+            <li class="subtitle">
+                Subtitle ~ Point 3 why we are so good and different
+            </li>
+          </div>
+          <div class="column">
+            <img src="./caloProducts.JPG" alt="Placeholder image">
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="section">
       <div class="container">
         <div class="columns is-centered">
-          <div class="column is-one-third">
-            <div class="slick-carousel">
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img id="bigBoxImageUrl" src="<%= response[0].big_box_image_url %>"></div>
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].big_box_image_url_2 %>"></div>
-            </div>
+          <div class="column is-half">
+            <br />
+            <br />
+            <h1 class="title">
+              How Calobox works...
+            </h1>
+            <br />
+            <p class="subtitle">
+              You can shop our products right on this website! Learn how Calobox works to get started!
+            </p>
+            <br />
+            <a class="button is-info" href="/how-it-works">How Calobox works</a>
           </div>
-          <div class="column is-one-third is-offset-2">
-            <h2 class="title" id="bigBoxName">
-              <%= response[0].big_box_name %>
-            </h2>
-            <p class="content is-medium" id="bigBoxDescription">
-              Description:
-              <br />
-              <%= response[0].big_box_description %>
-            </p>
-            <p class="content is-medium" id="bigBoxPrice">
-              Price:
-              <br />
-              <%= response[0].big_box_price %>
-            </p>
-            <p>
-              Interested in having this product at an event you're hosting? Contact us <a href="/contact-us">here!</a>
-            </p>
-<!--             <div class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <% if (userID) {%>
-                    <button
-                      class="snipcart-add-item button is-medium is-primary"
-                      data-item-id="<%= response[0].big_box_id %>"
-                      data-item-name="<%= response[0].big_box_name %>"
-                      data-item-price="<%= response[0].big_box_price %>"
-                      data-item-url="localhost:8080/snack-boxes/<%= response[0].big_box_name %>"
-                      data-item-image="<%= response[0].big_box_image_url %>">
-                          Buy <%= response[0].big_box_name %>
-                    </button>
-                  <% } else { %>
-                    <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a>
-                  <% } %>
-                </div>
-              </div>
-            </div> -->
+          <div class="column">
+            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" style="width: 100%; height: 300px;">
           </div>
         </div>
       </div>
@@ -162,10 +219,10 @@
           <div class="column is-2">
             <h3 style="color: white;">Navigation</h3>
             <br />
-            <li style="color: #43dacc;"><a href="/nutrition-prep">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="/health-safety">Health &amp; Safety</a></li>
-            <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
-            <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
+            <li style="color: #43dacc;"><a href="">Nutrition &amp; Prep</a></li>
+            <li style="color: #43dacc;"><a href="">Health &amp; Safety</a></li>
+            <li style="color: #43dacc;"><a href="">About Us</a></li>
+            <li style="color: #43dacc;"><a href="">Contact Us</a></li>
           </div>
           <div class="column is-2">
             <h3 style="color: white;">Store Help</h3>
@@ -191,7 +248,6 @@
       </div>
     </section>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function () {
 

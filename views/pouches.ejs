@@ -6,10 +6,14 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MDViM2VlYjgtYWE1OC00ZGViLWFmMzAtMWYyNjljOGE3ZWI4NjM2NDc2OTQ3MzkwOTc1ODg1"></script>
+    <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
   <body>
     <nav class="navbar is-transparent">
@@ -17,18 +21,6 @@
         <a class="navbar-item" href="/">
           <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
           <strong>Calobox</strong>
-        </a>
-
-        <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
-          <span class="icon" style="color: #333;">
-            <i class="fa fa-lg fa-github"></i>
-          </span>
-        </a>
-
-        <a class="navbar-item is-hidden-desktop" href="https://twitter.com/jgthms" target="_blank">
-          <span class="icon" style="color: #55acee;">
-            <i class="fa fa-lg fa-twitter"></i>
-          </span>
         </a>
 
         <div class="navbar-burger burger" data-target="navMenuTransparentExample">
@@ -84,7 +76,7 @@
           <% } else { %>
             <div class="navbar-item">
               <p class="control">
-                <a href="/cart" class="bd-tw-button button">
+                <a class="bd-tw-button button snipcart-checkout">
                   <span class="icon">
                     <i class="fa fa-shopping-cart"></i>
                   </span>
@@ -117,10 +109,39 @@
       </div>
     </section>
 
-    <div class="container">
+    <div class="container is-hidden-desktop">
+      <% for (var i = 0; i < response.length; i++) { %>
+        <div class="columns is-mobile is-centered">
+          <div class="column is-10-mobile">
+            <div class="card">
+              <div class="card-image">
+                <a href="/snack-boxes/<%=response[i].pouch_name%>">
+                  <figure class="image is-4by3">
+                    <img src="<%= response[i].pouch_image_url %>" alt="<%= response[i].pouch_name %>">
+                  </figure>
+                </a>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4"><%= response[i].pouch_name %></p>
+                  </div>
+                </div>
+                <div class="content">
+                  <%= response[i].pouch_description %>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="container is-hidden-mobile">
       <div class="columns is-mobile is-centered">
 
-        <div class="column is-4">
+        <div class="column is-4-desktop is-8-tablet">
           <div class="card">
             <div class="card-image">
               <a href="/individual-snacks/<%=response[0].pouch_name%>">
@@ -144,7 +165,7 @@
           </div>
         </div>
 
-        <div class="column is-4">
+        <div class="column is-4-desktop is-8-tablet">
           <div class="card">
             <div class="card-image">
               <a href="/individual-snacks/<%=response[1].pouch_name%>">
@@ -172,7 +193,7 @@
 
       <div class="columns is-mobile is-centered">
 
-        <div class="column is-4">
+        <div class="column is-4-desktop is-8-tablet">
           <div class="card">
             <div class="card-image">
               <a href="/individual-snacks/<%=response[2].pouch_name%>">
@@ -196,7 +217,7 @@
           </div>
         </div>
 
-        <div class="column is-4">
+        <div class="column is-4-desktop is-8-tablet">
           <div class="card">
             <div class="card-image">
               <a href="/individual-snacks/<%=response[3].pouch_name%>">
@@ -224,7 +245,7 @@
 
       <div class="columns is-mobile is-centered">
 
-        <div class="column is-4">
+        <div class="column is-4-desktop is-8-tablet">
           <div class="card">
             <div class="card-image">
               <a href="/individual-snacks/<%=response[4].pouch_name%>">
@@ -248,7 +269,7 @@
           </div>
         </div>
 
-        <div class="column is-4">
+        <div class="column is-4-desktop is-8-tablet">
           <div class="card">
             <div class="card-image">
               <a href="/individual-snacks/<%=response[5].pouch_name%>">
@@ -279,6 +300,7 @@
     <br />
     <br />
 
+    <% if (!userID) { %>
     <section class="hero is-medium is-bold" style="background-color: #43dacc;">
       <br />
       <div class="content has-text-centered">
@@ -308,6 +330,7 @@
      <br />
      <br />
     </section>
+    <% } %>
 
     <section class="section" style="background-color: #001f3f;">
       <div class="container">
@@ -315,25 +338,25 @@
           <div class="column is-2">
             <h3 style="color: white;">Navigation</h3>
             <br />
-            <li style="color: #43dacc;">Nutrition &amp; Preparation</li>
-            <li style="color: #43dacc;">Health &amp; Safety</li>
-            <li style="color: #43dacc;">About Us</li>
-            <li style="color: #43dacc;">Contact Us</li>
+            <li style="color: #43dacc;"><a href="">Nutrition &amp; Prep</a></li>
+            <li style="color: #43dacc;"><a href="">Health &amp; Safety</a></li>
+            <li style="color: #43dacc;"><a href="">About Us</a></li>
+            <li style="color: #43dacc;"><a href="">Contact Us</a></li>
           </div>
           <div class="column is-2">
             <h3 style="color: white;">Store Help</h3>
             <br />
-            <li style="color: #43dacc;">Something Here</li>
-            <li style="color: #43dacc;">Something Else Here</li>
+            <li style="color: #43dacc;"><a href="">Something Here</a></li>
+            <li style="color: #43dacc;"><a href="">Something Else Here</a></li>
           </div>
           <div class="column is-2">
             <h3 style="color: white;">Find Us Online</h3>
             <br />
-            <li style="color: #43dacc;">Something Here</li>
-            <li style="color: #43dacc;">Something Else Here</li>
+            <li style="color: #43dacc;"><a href="">Something Here</a></li>
+            <li style="color: #43dacc;"><a href="">Something Else Here</a></li>
           </div>
           <div class="column is-4">
-            <h3 style="color: white;">Help Us Spread The Word About Our Awesome Products.</h3>
+            <h3 style="color: white;">Help Us Spread The Word</h3>
             <br />
             <a class="button is-primary" style="color: white;">Facebook</a>
             <a class="button is-primary" style="color: white;">Twitter</a>
@@ -344,5 +367,33 @@
       </div>
     </section>
 
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+
+              // Get the target from the "data-target" attribute
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+
+            });
+          });
+        }
+
+      });
+    </script>
   </body>
 </html>

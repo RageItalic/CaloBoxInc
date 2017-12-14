@@ -16,6 +16,7 @@ const knexLogger  = require('knex-logger');
 const bcrypt      = require('bcrypt');
 const stripe      = require('stripe')("sk_test_U3Ww6tPuCCQruhOiLMtFgLBg")
 const session     = require('express-session');
+const nodemailer  = require('nodemailer');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -104,32 +105,156 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get('/cart', (req, res)=> {
+// app.get('/cart', (req, res)=> {
+//   if (req.session.userID) {
+//     getNavPouches();
+//     getNavBoxes();
+//     setTimeout(function() {
+//       var templateVars = {
+//         userID: req.session.userID,
+//         name: req.session.name,
+//         email: req.session.email,
+//         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+//         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+//       };
+//       res.render('cart', templateVars);
+//     }, 1000);
+//   } else {
+//     getNavPouches();
+//     getNavBoxes();
+//     setTimeout(function() {
+//       var templateVars = {
+//         userID: null,
+//         name: null,
+//         email: null,
+//         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+//         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+//       };
+//       res.render('cart', templateVars);
+//     }, 1000);
+//   }
+// })
+
+app.get('/contact-us', (req, res)=> {
   if (req.session.userID) {
     getNavPouches();
     getNavBoxes();
     setTimeout(function() {
       var templateVars = {
+        name: req.session.name,
         userID: req.session.userID,
-        name: req.session.first_name,
         email: req.session.email,
         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
-      res.render('cart', templateVars);
+      res.render("contact", templateVars);
     }, 1000);
   } else {
     getNavPouches();
     getNavBoxes();
     setTimeout(function() {
       var templateVars = {
-        userID: null,
         name: null,
+        userID: null,
         email: null,
         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
-      res.render('cart', templateVars);
+      res.render("contact", templateVars);
+    }, 1000);
+  }
+})
+
+app.post('/contactEmail', (req, res)=> {
+  console.log('req.body', req.body)
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'parthpatelgee@gmail.com',
+      pass: process.env.NODEMAILER_PASS
+    }
+  });
+
+  let mailOptions = {
+    from: req.body.email,
+    to: 'parthpatelgee@gmail.com',
+    subject: `${req.body.pName} wants to get in touch.`,
+    text: `${req.body.pName}, ${req.body.email}, ${req.body.message}`,
+    html: `<div><h4>${req.body.pName} (${req.body.pNumber}) ~ ${req.body.email}</h4> <p>${req.body.message}</p></div>`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log("THERE IS AN ERROR",error)
+      var templateVar = {
+        message: "There has been a problem. Please try to contact us later. Or send us an email <a href='mailto:info@calobox.in'>here</a>."
+      }
+      res.send(JSON.stringify(templateVar))
+    }
+      console.log('Message %s sent: %s', info.messageId, info.response)
+      var templateVar = {
+        message: "Thank you for writing to us. We will get back to you very soon."
+      }
+      res.send(JSON.stringify(templateVar))
+  });
+})
+
+app.get('/about-us', (req, res)=> {
+  if (req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: req.session.name,
+        userID: req.session.userID,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("about", templateVars);
+    }, 1000);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("about", templateVars);
+    }, 1000);
+  }
+})
+
+app.get('/how-it-works', (req, res) => {
+  if(req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: req.session.name,
+        userID: req.session.userID,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("howItWorks", templateVars);
+    }, 1000);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("howItWorks", templateVars);
     }, 1000);
   }
 })
@@ -429,9 +554,6 @@ app.get('/snack-boxes/:product_name', (req, res)=> {
   }
 })
 
-// app.get("/boxes/:id", (req, res) => {
-//   knex('caloassortments').select('*').where('')
-// })
 
 app.get('/logout', (req, res) => {
   req.session.destroy(function(err) {
@@ -443,43 +565,6 @@ app.get('/logout', (req, res) => {
     }
   })
 });
-
-app.get('/deleteSubscription/:box_id', (req, res) => {
-  console.log("params", req.params);
-  knex('caloassortments_subscribed_to')
-    .where({subscriber_id: req.session.userID, assortment_id: req.params.box_id})
-    .del()
-    .then(function(){
-      res.redirect('/dashboard')
-    });
-})
-
-
-app.post("/charge", (req, res) =>{
-  var token = req.body.stripeToken;
-  var chargeAmount = req.body.chargeAmount;
-  var charge = stripe.charges.create({
-    amount: chargeAmount,
-    currency: 'inr',
-    source: token
-  }, function (err, charge){
-    if (err && err.type === "StripeCardError"){
-      console.log("card declined")
-    } else {
-      res.redirect("/")
-    }
-  })
-})
-
-
-
-
-
-
-
-// knex('calousers').where({email: req.body.loginEmail}).select('*').then(function(response){
-//   console.log("this is the response that hopefully has the id:", response);
-// })
 
 
 app.listen(PORT, () => {
