@@ -138,7 +138,7 @@
             <div class="level">
               <div class="level-left">
                 <div class="level-item">
-                  <% if (userID) {%>
+
                     <button
                       class="snipcart-add-item button is-medium is-primary"
                       data-item-id="<%= response[0].pouch_id %>"
@@ -148,9 +148,9 @@
                       data-item-image="<%= response[0].pouch_image_url %>">
                           Buy <%= response[0].pouch_name %>
                     </button>
-                  <% } else { %>
-                    <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a>
-                  <% } %>
+
+                    <!-- <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a> -->
+
                 </div>
               </div>
             </div>
