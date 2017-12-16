@@ -42,6 +42,8 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+
+
 // Mount all resource routes
 //app.use("/api/users", usersRoutes(knex));
 
@@ -295,11 +297,26 @@ app.post("/loggingIn", (req, res) => {
       req.session.email = response[0].email;
       //session exists now
       console.log('session with userID', req.session);
-      res.redirect('/')
+      var templateVars = {
+        status: 200,
+        message: null
+      };
+      res.send(JSON.stringify(templateVars));
     } else {
       //console.log("THIS IS THE ERROR", err);
-      res.send("I DONT KNOW YOU. SIGN UP FIRST SUCKA.")
+      var templateVars = {
+        status: 404,
+        message: 'The email or password you entered is incorrect. Try again.'
+      };
+      res.send(JSON.stringify(templateVars));
     }
+  }).catch((err) => {
+    console.log('ERROROROROR', err);
+    var templateVars = {
+      status: 404,
+      message: 'I dont know you... try <a href="/signup">signing up</a> first!'
+    };
+    res.send(JSON.stringify(templateVars));
   })
 })
 
@@ -333,8 +350,8 @@ app.post("/signingUp", (req, res) => {
               email: req.body.email,
               password_hash: hashedPassword,
               phone_number: req.body.pNumber,
-              address: req.body.address,
-              zipcode: req.body.zip
+              address: null,
+              zipcode: null
             }])
     .then(function (resp){
       console.log("RESPONSE BEFORE SECOND KNEX QUERY", resp)
@@ -343,18 +360,21 @@ app.post("/signingUp", (req, res) => {
           .where({
             email: req.body.email
           })
-          .then(function(resp){
-            console.log("RESPONSE AFTER THE SECOND KNEX QUERY", resp)
-            //res.send("DONE")
-            //SET COOKIE HERE
-            console.log("req.session.userID before", req.session.userID)
-            //The 3 lines below are fine. No need to change them.
-            req.session.userID = resp[0].users_id;
-            req.session.name = resp[0].first_name;
-            req.session.email = resp[0].email;
-            console.log("req.session after", req.session)
-            res.redirect("/");
-          })
+      .then(function(resp){
+        console.log("RESPONSE AFTER THE SECOND KNEX QUERY", resp)
+        //res.send("DONE")
+        //SET COOKIE HERE
+        console.log("req.session.userID before", req.session.userID)
+        //The 3 lines below are fine. No need to change them.
+        req.session.userID = resp[0].users_id;
+        req.session.name = resp[0].first_name;
+        req.session.email = resp[0].email;
+        console.log("req.session after", req.session)
+        res.redirect("/");
+      })
+    }).catch((err) => {
+      console.log('ERROR BUD', err)
+      console.log('mmaybe this person already exists. email does have a .unique() thing in the db. Remember to handle this error.')
     })
   } else {
     return res.send("PASSWORD ENTERED DOES NOT MATCH. TRY AGAIN SUCKA!");
@@ -566,6 +586,9 @@ app.get('/logout', (req, res) => {
   })
 });
 
+app.use((req, res) => {
+  res.send('404 error. No clue what you want. This page will be coming soon... I guess.')
+})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

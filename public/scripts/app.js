@@ -23,4 +23,22 @@ $(()=> {
     })
   })
 
+  $('#loginForm').on('submit', (e)=> {
+    e.preventDefault();
+    $.ajax({
+      url: '/loggingIn',
+      type: 'POST',
+      data: {
+        email: $('#email').val(),
+        password: $('#password').val()
+      }
+    }).done((fromServer) => {
+      if (JSON.parse(fromServer).status === 200) {
+        window.location.replace('/')
+      } else {
+        $('#errorMessageHere').append(JSON.parse(fromServer).message)
+      }
+    })
+  })
+
 })

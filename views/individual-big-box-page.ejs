@@ -110,24 +110,20 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-one-third">
-            <div class="slick-carousel">
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img id="bigBoxImageUrl" src="<%= response[0].big_box_image_url %>"></div>
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].big_box_image_url_2 %>"></div>
-            </div>
+<!--             <div class="slick-carousel">
+              <div style="width: 66%; margin-right: 10px; border-radius: 5px;"><img id="bigBoxImageUrl" src="<%= response[0].big_box_image_url %>"></div>
+              <div style="width: 66%; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].big_box_image_url_2 %>"></div>
+            </div> -->
+            <img src="" alt="Coming Soon.">
           </div>
           <div class="column is-one-third is-offset-2">
             <h2 class="title" id="bigBoxName">
               <%= response[0].big_box_name %>
             </h2>
             <p class="content is-medium" id="bigBoxDescription">
-              Description:
+              <strong>Description:</strong>
               <br />
               <%= response[0].big_box_description %>
-            </p>
-            <p class="content is-medium" id="bigBoxPrice">
-              Price:
-              <br />
-              <%= response[0].big_box_price %>
             </p>
             <p>
               Interested in having this product at an event you're hosting? Contact us <a href="/contact-us">here!</a>
@@ -162,8 +158,8 @@
           <div class="column is-2">
             <h3 style="color: white;">Navigation</h3>
             <br />
-            <li style="color: #43dacc;"><a href="/nutrition-prep">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="/health-safety">Health &amp; Safety</a></li>
+            <li style="color: #43dacc;"><a href="">Nutrition &amp; Prep</a></li>
+            <li style="color: #43dacc;"><a href="/how-it-works">How it works</a></li>
             <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
             <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
           </div>

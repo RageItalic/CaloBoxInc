@@ -10,6 +10,8 @@
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript" src="./scripts/app.js"></script>
   </head>
   <body>
 
@@ -89,10 +91,10 @@
 
     <div class="columns is-mobile is-centered">
       <div class="column is-one-quarter-desktop is-two-thirds-mobile is-two-thirds-tablet is-narrow">
-        <form method="post" action="/loggingIn">
+        <form method="post" action="/loggingIn" id="loginForm">
           <div class="field">
             <p class="control has-icons-left has-icons-right">
-              <input class="input" type="email" placeholder="Email" name="email" required>
+              <input class="input" type="email" placeholder="Email" name="email" id="email" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-envelope"></i>
               </span>
@@ -100,7 +102,7 @@
           </div>
           <div class="field">
             <p class="control has-icons-left">
-              <input class="input" type="password" placeholder="Password" name="password" required>
+              <input class="input" type="password" placeholder="Password" name="password" id="password" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-lock"></i>
               </span>
@@ -113,6 +115,7 @@
             </p>
           </div>
         </form>
+        <p class="subtitle" id="errorMessageHere"></p>
       </div>
     </div>
 
@@ -128,9 +131,9 @@
             <h3 style="color: white;">Navigation</h3>
             <br />
             <li style="color: #43dacc;"><a href="">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="">Health &amp; Safety</a></li>
-            <li style="color: #43dacc;"><a href="">About Us</a></li>
-            <li style="color: #43dacc;"><a href="">Contact Us</a></li>
+            <li style="color: #43dacc;"><a href="/how-it-works">How it works</a></li>
+            <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
+            <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
           </div>
           <div class="column is-2">
             <h3 style="color: white;">Store Help</h3>

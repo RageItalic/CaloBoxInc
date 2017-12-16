@@ -109,11 +109,11 @@
     <section class="section">
       <div class="container">
         <div class="columns is-centered">
-          <div class="column is-one-third">
+          <div class="column is-one-third" style="">
             <div class="slick-carousel">
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].pouch_image_url %>"></div>
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].pouch_image_url_2 %>"></div>
-              <div style="width: 66%; height: 300px; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].pouch_image_url_3 %>"></div>
+              <div style="width: 66%; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].pouch_image_url %>"></div>
+              <div style="width: 66%; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].pouch_image_url_2 %>"></div>
+              <div style="width: 66%; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].pouch_image_url_3 %>" style="background-size: cover;" ></div>
             </div>
           </div>
           <div class="column is-one-third is-offset-2">
@@ -121,39 +121,59 @@
               <%= response[0].pouch_name %>
             </h2>
             <p class="content is-medium">
-              Description:
-              <br />
-              <%= response[0].pouch_description %>
+              <%= response[0].tag %>
             </p>
             <p class="content is-medium">
-              What it's made of:
+              <strong>Why we created it</strong>
               <br />
-              <%= response[0].pouch_contents %>
+              <%= response[0].why_created %>
             </p>
             <p class="content is-medium">
-              Price:
+              <strong>How does it benefit me?</strong>
               <br />
-              <%= response[0].pouch_price %>
+              <%= response[0].benefits %>
             </p>
-            <div class="level">
-              <div class="level-left">
-                <div class="level-item">
+            <p class="content is-medium">
+              <strong>When should I eat it?</strong>
+              <br />
+              <%= response[0].time_to_eat %>
+            </p>
+            <p class="content is-medium">
+              <strong>Price:</strong>
+              <br />
+              <% if (response[0].pouch_price) { %>
+                <%= response[0].pouch_price %>
+              <% } else {%>
+                Coming Soon!!
+              <% } %>
+            </p>
+            <p class="content is-medium">
+              <strong>Net Weight:</strong>
+              <br />
+              <%= response[0].net_weight %> gms
+            </p>
+            <% if (response[0].pouch_price) { %>
+              <div class="level">
+                <div class="level-left">
+                  <div class="level-item">
 
-                    <button
-                      class="snipcart-add-item button is-medium is-primary"
-                      data-item-id="<%= response[0].pouch_id %>"
-                      data-item-name="<%= response[0].pouch_name %>"
-                      data-item-price="<%= response[0].pouch_price %>"
-                      data-item-url="/individual-snacks/<%= response[0].pouch_name %>"
-                      data-item-image="<%= response[0].pouch_image_url %>">
-                          Buy <%= response[0].pouch_name %>
-                    </button>
+                      <button
+                        class="snipcart-add-item button is-medium is-primary"
+                        data-item-id="<%= response[0].pouch_id %>"
+                        data-item-name="<%= response[0].pouch_name %>"
+                        data-item-price="<%= response[0].pouch_price %>"
+                        data-item-url="/individual-snacks/<%= response[0].pouch_name %>"
+                        data-item-image="<%= response[0].pouch_image_url %>"
+                        data-item-has-taxes-included="true">
+                            Buy <%= response[0].pouch_name %>
+                      </button>
 
-                    <!-- <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a> -->
+                      <!-- <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a> -->
 
+                  </div>
                 </div>
               </div>
-            </div>
+            <% } %>
           </div>
         </div>
       </div>
@@ -166,7 +186,7 @@
             <h3 style="color: white;">Navigation</h3>
             <br />
             <li style="color: #43dacc;"><a href="">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="">Health &amp; Safety</a></li>
+            <li style="color: #43dacc;"><a href="/how-it-works">How it works</a></li>
             <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
             <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
           </div>
