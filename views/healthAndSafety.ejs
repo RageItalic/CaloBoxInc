@@ -3,22 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CaloBox ~ <%= response[0].big_box_name %></title>
+    <title>CaloBox ~ Health and Safety</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.min.css">
-
-    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="./styles/finalstyles.css">
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script>
-    <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
   <body>
     <nav class="navbar is-transparent">
@@ -106,29 +99,89 @@
       </div>
     </nav>
 
+    <section class="section">
+      <div class="container has-text-centered">
+        <h1 class="title">
+          Health &amp; Safety
+        </h1>
+        <p class="subtitle">
+          It's not a short-term diet. It's a long term lifestyle change.
+        </p>
+      </div>
+    </section>
 
     <section class="section">
+      <div class="container has-text-centered">
+        <p class="subtitle">
+          Our snacks taste amazing and are good for the body. We're confident about it. Our secret? All our snacks start at a home. They're cooked by loving hands in a kitchen with an intent to provide both, a decadent taste and a ton of nutrition. That is where our products evolve from. No bigger catch, no greed, just love.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: #eee">
       <div class="container">
         <div class="columns is-centered">
-          <div class="column is-one-third">
-<!--             <div class="slick-carousel">
-              <div style="width: 66%; margin-right: 10px; border-radius: 5px;"><img id="bigBoxImageUrl" src="<%= response[0].big_box_image_url %>"></div>
-              <div style="width: 66%; margin-right: 10px; border-radius: 5px;"><img src="<%= response[0].big_box_image_url_2 %>"></div>
-            </div> -->
-            <img src="http://strmstr.com/images/coming-soon.png" alt="Coming Soon.">
+          <div class="column is-half">
+            <br />
+            <br />
+            <h1 class="title">
+              Sampling and Testing
+            </h1>
+            <br />
+            <p class="subtitle">Our team carefully monitors and examines the quality and superiority of its products by assuring wholesome taste and nutrition. Our Chef, being the expert, differentiates our products well by ensuring the quality of the ingredients used to create the snacks thereby avoiding any deficient batch of products.</p>
           </div>
-          <div class="column is-one-third is-offset-2">
-            <h2 class="title" id="bigBoxName">
-              <%= response[0].big_box_name %>
-            </h2>
-            <p class="content is-medium" id="bigBoxDescription">
-              <strong>Description:</strong>
-              <br />
-              <%= response[0].big_box_description %>
-            </p>
-            <p>
-              Interested in having this product at an event you're hosting? Contact us <a href="/contact-us">here!</a>
-            </p>
+          <div class="column">
+            <div class="columns is-centered">
+              <div class="column is-offset-2">
+                <img src="./sampling.png" alt="Placeholder image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: #fff">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="columns is-centered">
+              <div class="column is-offset-2">
+                <img src="./chefTouch.png" alt="Placeholder image">
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <br />
+            <br />
+            <h1 class="title">
+              The Calo Chef Touch
+            </h1>
+            <br />
+            <p class="subtitle">The Calo team diligently inspects, monitors and examines the quality standards of the production process, beginning with the assembling and procuring of the ingredients, to the packaging of the nutritious, premium snacks primarily crafted by our highly innovative and experienced team.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: #eee">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <br />
+            <br />
+            <h1 class="title">
+              Storage &amp; Hygiene Practices
+            </h1>
+            <br />
+            <p class="subtitle">Hygiene and quality are the cornerstones that uphold the reputation and integrity of CaloBox.  Our healthy snacks are meticulously crafted and stored in strictly monitored and controlled facilities assuring premium level of hygiene, quality and overall maintenance of its processes and products.</p>
+          </div>
+          <div class="column">
+            <div class="columns is-centered">
+              <div class="column is-offset-2">
+                <img src="./storage.png" alt="Placeholder image">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -169,7 +222,6 @@
       </div>
     </section>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function () {
 
