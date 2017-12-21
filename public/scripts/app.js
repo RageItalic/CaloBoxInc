@@ -41,4 +41,9 @@ $(()=> {
     })
   })
 
+  var vid = document.getElementById('bgvid'); //$('#bgvid');
+  vid.onended = () => {
+    $('#vidSection').css('display', 'none');
+  }
+
 })
