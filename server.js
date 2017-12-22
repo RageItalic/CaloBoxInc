@@ -261,6 +261,36 @@ app.get('/how-it-works', (req, res) => {
   }
 })
 
+app.get('/calo-freaks', (req, res) => {
+  if(req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: req.session.name,
+        userID: req.session.userID,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("comingSoon", templateVars);
+    }, 1000);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("comingSoon", templateVars);
+    }, 1000);
+  }
+})
+
 app.get('/events', (req, res)=> {
   if(req.session.userID) {
     getNavPouches();
