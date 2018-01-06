@@ -107,6 +107,105 @@
       </div>
     </nav>
 
+<!--     <nav class="level">
+      <div class="level-item has-text-centered">
+
+        <a class="link is-info">Home</a>
+
+        <div id="navMenuTransparentExample" class="navbar-menu">
+          <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link  is-active" href="/snack-boxes">
+                Snack Boxes
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
+                  <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
+                    <%= dynamicNavBigBoxNames[i].big_box_name %>
+                  </a>
+                <% } %>
+              </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link  is-active" href="/individual-snacks">
+                Individual Snacks
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
+                  <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="level-item has-text-centered">
+        <a class="link is-info">Menu</a>
+      </div>
+
+      <div class="level-item has-text-centered">
+
+        <img src="https://bulma.io/images/bulma-type.png" alt="" style="height: 30px;">
+
+        <h2><strong>CaloBox</strong></h2>
+      </div>
+      <div class="level-item has-text-centered">
+
+        <a class="link is-info">Reservations</a>
+
+        <div id="navMenuTransparentExample" class="navbar-menu">
+          <div class="navbar-end" id="rightHere">
+            <% if (!userID) { %>
+              <div class="navbar-item">
+                <div class="field is-grouped">
+                  <p class="control">
+                    <a href="/login" class="tw-button button">Login</a>
+                  </p>
+                </div>
+              </div>
+              <div class="navbar-item">
+                <div class="field is-grouped">
+                  <p class="control">
+                    <a href="/signup" class="tw-button button">Sign Up</a>
+                  </p>
+                </div>
+              </div>
+            <% } else { %>
+              <div class="navbar-item">
+                <p class="control">
+                  <a class="bd-tw-button button snipcart-checkout">
+                    <span class="icon">
+                      <i class="fa fa-shopping-cart"></i>
+                    </span>
+                    <span>
+                      Cart
+                    </span>
+                  </a>
+                </p>
+              </div>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link  is-active">
+                  <%= name %>
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                  <a class="navbar-item " href="/logout">
+                    Logout
+                  </a>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="level-item has-text-centered">
+        <a class="link is-info">Contact</a>
+      </div>
+
+    </nav> -->
+
     <section class="section">
       <div class="container">
         <div class="columns">
@@ -129,16 +228,6 @@
       </div>
     </section>
 
-<!--     <section class="hero is-large" id="famBackground" style="background-image: url('./caloFamily_omdepm.png'); background-size: cover;">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title has-text-centered" style="font-family: 'Montserrat', sans-serif; font-size: 40px; color: white;">
-            Making Snacking Fun &amp; Healthy
-          </h1>
-        </div>
-      </div>
-    </section> -->
-
     <section class="section" style="background-color: #61a60e; color: white;">
       <div class="container">
         <h2>Why eat CaloSnacks?</h2>
@@ -157,17 +246,11 @@
           </div>
           <div class="column">
             <div class="columns is-centered">
-              <div class="column is-two-quarters">
-                <h2> A Calo Diet consists of:</h2>
-                <li>Protein</li>
-                <li>Low Calories</li>
-                <li>Vitamins &amp; Minerals</li>
-                <li>High Fibre</li>
-                <li>Omega-3</li>
-                <li>Energizers</li>
+              <div class="column is-one-fifth">
+
               </div>
               <div class="column">
-                <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1513377838/Seedy_Munch_1_gnmeam.jpg">
+                <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1515215060/IMG_6553_padbp5.jpg">
               </div>
             </div>
           </div>
