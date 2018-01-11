@@ -107,36 +107,6 @@ app.get("/", (req, res) => {
   }
 });
 
-// app.get('/cart', (req, res)=> {
-//   if (req.session.userID) {
-//     getNavPouches();
-//     getNavBoxes();
-//     setTimeout(function() {
-//       var templateVars = {
-//         userID: req.session.userID,
-//         name: req.session.name,
-//         email: req.session.email,
-//         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-//         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-//       };
-//       res.render('cart', templateVars);
-//     }, 1000);
-//   } else {
-//     getNavPouches();
-//     getNavBoxes();
-//     setTimeout(function() {
-//       var templateVars = {
-//         userID: null,
-//         name: null,
-//         email: null,
-//         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-//         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-//       };
-//       res.render('cart', templateVars);
-//     }, 1000);
-//   }
-// })
-
 app.get('/contact-us', (req, res)=> {
   if (req.session.userID) {
     getNavPouches();
@@ -172,14 +142,14 @@ app.post('/contactEmail', (req, res)=> {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'parthpatelgee@gmail.com',
+      user: 'hello.calobox@gmail.com',
       pass: process.env.NODEMAILER_PASS
     }
   });
 
   let mailOptions = {
     from: req.body.email,
-    to: 'parthpatelgee@gmail.com',
+    to: 'hello@calobox.in',
     subject: `${req.body.pName} wants to get in touch.`,
     text: `${req.body.pName}, ${req.body.email}, ${req.body.message}`,
     html: `<div><h4>${req.body.pName} (${req.body.pNumber}) ~ ${req.body.email}</h4> <p>${req.body.message}</p></div>`
@@ -403,10 +373,9 @@ app.post("/loggingIn", (req, res) => {
     email: req.body.email
   }).select('*')
   .then(function(response){
-    console.log("THIS IS THE password", req.body.password)
-    console.log("THIS IS THE RESPONSE also", response[0].password_hash)
-    console.log("this is the response that hopefully has the id:", response);
-    console.log("this is the also response that hopefully has the id:", response[0].users_id);
+    // console.log("THIS IS THE RESPONSE also", response[0].password_hash)
+    // console.log("this is the response that hopefully has the id:", response);
+    // console.log("this is the also response that hopefully has the id:", response[0].users_id);
     var passwordEntered = req.body.password;
     var existingPassword = response[0].password_hash;
     var passMatch = bcrypt.compareSync(passwordEntered, existingPassword);
@@ -457,48 +426,74 @@ app.get('/signup', (req, res)=> {
 })
 
 app.post("/signingUp", (req, res) => {
-  console.log(req.body);
-  if (req.body.password === req.body.confirmPassword) {
-    var hashedPassword = bcrypt.hashSync(req.body.confirmPassword, 10);
-    console.log(req.body.confirmPassword);
-    console.log(hashedPassword);
-    //need entirely new DB the routes below will not work.
-    knex('users')
-    .insert([{
-              first_name: req.body.fName,
-              last_name: req.body.lName,
-              email: req.body.email,
-              password_hash: hashedPassword,
-              phone_number: req.body.pNumber,
-              address: null,
-              zipcode: null
-            }])
-    .then(function (resp){
-      console.log("RESPONSE BEFORE SECOND KNEX QUERY", resp)
-      knex.select('*')
-          .from('users')
-          .where({
-            email: req.body.email
-          })
-      .then(function(resp){
-        console.log("RESPONSE AFTER THE SECOND KNEX QUERY", resp)
-        //res.send("DONE")
-        //SET COOKIE HERE
-        console.log("req.session.userID before", req.session.userID)
-        //The 3 lines below are fine. No need to change them.
-        req.session.userID = resp[0].users_id;
-        req.session.name = resp[0].first_name;
-        req.session.email = resp[0].email;
-        console.log("req.session after", req.session)
-        res.redirect("/");
-      })
-    }).catch((err) => {
-      console.log('ERROR BUD', err)
-      console.log('mmaybe this person already exists. email does have a .unique() thing in the db. Remember to handle this error.')
+  var hashedPassword = bcrypt.hashSync(req.body.confirmPassword, 10);
+  // console.log(req.body.confirmPassword);
+  console.log(hashedPassword);
+  //need entirely new DB the routes below will not work.
+  knex('users')
+  .insert([{
+            first_name: req.body.fName,
+            last_name: req.body.lName,
+            email: req.body.email,
+            password_hash: hashedPassword,
+            phone_number: req.body.pNumber,
+            address: null,
+            zipcode: null
+          }])
+  .then(function(resp){
+    console.log("RESPONSE BEFORE SECOND KNEX QUERY", resp)
+    knex.select('*')
+        .from('users')
+        .where({
+          email: req.body.email
+        })
+    .then(function(resp){
+
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'hello.calobox@gmail.com',
+          pass: process.env.NODEMAILER_PASS
+        }
+      });
+
+      let mailOptions = {
+        from: 'Calobox',
+        to: req.body.email,
+        subject: `Welcome to Calobox!`,
+        html: { path: 'emailTemplates/welcome.html' }
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log("THERE IS AN ERROR", error)
+        }
+          console.log('Message %s sent: %s', info.messageId, info.response)
+      });
+
+      //res.send("DONE")
+      //SET COOKIE HERE
+      console.log("req.session.userID before", req.session.userID)
+      //The 3 lines below are fine. No need to change them.
+      req.session.userID = resp[0].users_id;
+      req.session.name = resp[0].first_name;
+      req.session.email = resp[0].email;
+      console.log("req.session after", req.session)
+      var templateVars = {
+        status: 200,
+        message: null
+      };
+      res.send(JSON.stringify(templateVars));
     })
-  } else {
-    return res.send("PASSWORD ENTERED DOES NOT MATCH. TRY AGAIN SUCKA!");
-  }
+  }).catch((err) => {
+    console.log('ERROR BUD', err)
+    console.log('mmaybe this person already exists. email does have a .unique() thing in the db. Remember to handle this error.')
+    var templateVars = {
+      status: 404,
+      message: 'I already know you... try <a href="/login">logging in</a> here!'
+    };
+    res.send(JSON.stringify(templateVars));
+  })
 })
 
 //Publishable:    pk_test_zpgFMVyId6qVSFL5slAhndxM
@@ -513,8 +508,6 @@ app.get("/individual-snacks", (req, res) => {
       //now that everything has been selected,
       //send in everything through template vars
       //and display on boxes page as cards.
-      console.log("YEH RESPONSE HAI", response);
-      //console.log("image", response[0].box_image_url)
       getNavPouches();
       getNavBoxes();
       setTimeout(function() {

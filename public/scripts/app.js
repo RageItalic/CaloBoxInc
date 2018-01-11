@@ -41,9 +41,29 @@ $(()=> {
     })
   })
 
-  var vid = document.getElementById('bgvid'); //$('#bgvid');
-  vid.onended = () => {
-    $('#vidSection').css('display', 'none');
-  }
-
+  $('#signupForm').on('submit', (e)=> {
+    e.preventDefault();
+    if($('#password').val() === $('#confirmPassword').val()) {
+      $.ajax({
+        url: '/signingUp',
+        type: 'POST',
+        data: {
+          fName: $('#fName').val(),
+          lName: $('#lName').val(),
+          pNumber: $('#pNumber').val(),
+          email: $('#email').val(),
+          password: $('#password').val(),
+          confirmPassword: $('#confirmPassword').val()
+        }
+      }).done((fromServer) => {
+        if (JSON.parse(fromServer).status === 200) {
+          window.location.replace('/')
+        } else {
+          $('#errorMessageHere').append(JSON.parse(fromServer).message)
+        }
+      })
+    } else {
+      $('#errorMessageHere').append("The passwords you entered do not match... try again.")
+    }
+  })
 })
