@@ -34,6 +34,14 @@
     drift.load('uiwc7v9cv4fx');
     </script>
     <!-- End of Async Drift Code -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=158721184756315';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
@@ -467,10 +475,15 @@
           <div class="column is-4">
             <h3 style="color: white;">Find Us Online</h3>
             <br />
-            <a class="button is-primary" style="color: white;" href="https://www.facebook.com/CALOBOX/">Facebook</a>
-            <a class="button is-primary" style="color: white;" href="https://twitter.com/calobox">Twitter</a>
-            <a class="button is-primary" style="color: white;" href="https://www.instagram.com/calobox/">Instagram</a>
-            <a class="button is-primary" style="color: white;">ETC</a>
+            <a href="https://www.facebook.com/CALOBOX/">
+              <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
+            </a>
+            <a href="https://twitter.com/calobox">
+              <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/calobox/">
+              <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       </div>
