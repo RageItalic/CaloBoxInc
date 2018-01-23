@@ -87,23 +87,12 @@ $(document).ready(()=> {
       url: 'http://ship.styledgeshop.com/api/create/package.php',
       type: 'GET'
     }).done(json => {
-      alert(`AJAX WORKED, ${json}`)
       console.log("JSON HAS BEEN RETURNED, ", json)
     })
   });
 
   $('.snipcart-add-item').on('click', ()=> {
     alert('Please ensure that you have Rs. 450 worth of items in your cart before continuing to checkout.')
-    $.ajax({
-      url: '/testRequest',
-      type: 'POST',
-      data: {
-        message: 'Test NOW NOW NOW!'
-      }
-    }).done(json => {
-      alert("AJAX WORKED")
-      console.log("JSON HAS BEEN RETURNED, ", json)
-    })
   })
 
   $('.snipcart-checkout').on('click', ()=> {
