@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Bulma!</title>
+
+    <% include ./partials/_seo %>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     <script
@@ -13,102 +16,7 @@
   </head>
   <body>
 
-    <nav class="navbar is-transparent">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
-          <strong>Calobox</strong>
-        </a>
-
-        <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
-          <span class="icon" style="color: #333;">
-            <i class="fa fa-lg fa-github"></i>
-          </span>
-        </a>
-
-        <a class="navbar-item is-hidden-desktop" href="https://twitter.com/jgthms" target="_blank">
-          <span class="icon" style="color: #55acee;">
-            <i class="fa fa-lg fa-twitter"></i>
-          </span>
-        </a>
-
-        <div class="navbar-burger burger" data-target="navMenuTransparentExample">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <div id="navMenuTransparentExample" class="navbar-menu">
-        <div class="navbar-start">
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/snack-boxes">
-              Snack Boxes
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
-                <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
-                  <%= dynamicNavBigBoxNames[i].big_box_name %>
-                </a>
-              <% } %>
-            </div>
-          </div>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/individual-snacks">
-              Individual Snacks
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
-                <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
-              <% } %>
-            </div>
-          </div>
-        </div>
-
-        <div class="navbar-end" id="rightHere">
-          <% if (!userID) { %>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/login" class="tw-button button">Login</a>
-                </p>
-              </div>
-            </div>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/signup" class="tw-button button">Sign Up</a>
-                </p>
-              </div>
-            </div>
-          <% } else { %>
-            <div class="navbar-item">
-              <p class="control">
-                <a class="bd-tw-button button snipcart-checkout">
-                  <span class="icon">
-                    <i class="fa fa-shopping-cart"></i>
-                  </span>
-                  <span>
-                    Cart
-                  </span>
-                </a>
-              </p>
-            </div>
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active">
-                <%= name %>
-              </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item " href="/logout">
-                  Logout
-                </a>
-              </div>
-            </div>
-          <% } %>
-        </div>
-      </div>
-    </nav>
+    <% include ./partials/_navbar %>
 
     <section class="section">
       <div class="container">

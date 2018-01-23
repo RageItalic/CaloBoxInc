@@ -8,7 +8,7 @@ const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
-
+const axios       = require('axios');
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
@@ -51,13 +51,14 @@ var dynamicNavPouchNameObject = {};
 var dynamicNavBigBoxNameObject = {};
 
 function getNavPouches() {
-  knex.select('pouch_name')
+  knex.select('pouch_name', 'quick_desc')
       .from('pouches')
   .then((pouchResponse)=> {
     //console.log('a pouch response has been received. this might actually work', pouchResponse);
-    console.log('pouch', pouchResponse)
+    console.log('pouch IS RIGHT HERE ', pouchResponse)
     dynamicNavPouchNameObject = {
-      pouchNames: pouchResponse
+      pouchNames: pouchResponse//.pouch_name,
+      //pouchDesc: pouchResponse.quick_desc
     };
     console.log('bhai yeh kya hai?', dynamicNavPouchNameObject)
   })
@@ -133,6 +134,36 @@ app.get('/contact-us', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("contact", templateVars);
+    }, 1000);
+  }
+})
+
+app.get('/calo-club', (req, res) => {
+  if (req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: req.session.name,
+        userID: req.session.userID,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("calo_club", templateVars);
+    }, 1000);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("calo_club", templateVars);
     }, 1000);
   }
 })
@@ -243,7 +274,7 @@ app.get('/calo-freaks', (req, res) => {
         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
-      res.render("comingSoon", templateVars);
+      res.render("caloFreaks", templateVars);
     }, 1000);
   } else {
     getNavPouches();
@@ -256,7 +287,7 @@ app.get('/calo-freaks', (req, res) => {
         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
-      res.render("comingSoon", templateVars);
+      res.render("caloFreaks", templateVars);
     }, 1000);
   }
 })
@@ -351,6 +382,80 @@ app.get('/health-safety', (req, res) => {
   }
 })
 
+app.get('/calo-recipes', (req, res) => {
+  if(req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: req.session.name,
+        userID: req.session.userID,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("caloRecipes", templateVars);
+    }, 1000);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("caloRecipes", templateVars);
+    }, 1000);
+  }
+})
+
+// const https = require('http');
+
+app.post('/testRequest', (req, res) => {
+
+  // https.get('http://ship.styledgeshop.com/api/create/package.php', (resp) => {
+  //   let data = '';
+
+  //   // A chunk of data has been recieved.
+  //   resp.on('data', (chunk) => {
+  //     data += chunk;
+  //   });
+
+  //   // The whole response has been received. Print out the result.
+  //   resp.on('end', () => {
+  //     console.log("YOU SHOULD SEE THIS RIGHT NOW, ", JSON.parse(data));
+  //     res.send(JSON.parse(data))
+  //   });
+
+  // }).on("error", (err) => {
+  //   console.log("Error: " + err.message);
+  // });
+
+// axios.post('http://ship.styledgeshop.com/api/create/package.php?user=demo&password=demo123&order_no=123&consignee=Parth%20Patel&city=mumbai&state=maharashtra&...')
+
+// axios.post('http://ship.styledgeshop.com/api/create/package.php', {
+//   user: 'demo',
+//   password: 'demo123',
+//   order_no: '123',
+//   consignee: 'Parth Patel',
+//   city: 'Mumbai',
+//   state: 'Maharashtra',
+//   ...
+// })
+
+  axios.get('http://ship.styledgeshop.com/api/create/package.php')
+    .then(response => {
+      console.log("response is here, ", response.data)
+      res.send(response.data)
+    }).catch(err => {
+      console.log("error error error, ", err)
+    })
+
+})
+
 app.get('/login', (req, res)=> {
   if(req.session.userID) {
     res.redirect('/')
@@ -359,6 +464,9 @@ app.get('/login', (req, res)=> {
     getNavBoxes();
     setTimeout(function() {
       var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       }
@@ -417,6 +525,9 @@ app.get('/signup', (req, res)=> {
     getNavPouches();
     setTimeout(function() {
       var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
         dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       }
@@ -584,12 +695,12 @@ app.get("/individual-snacks/:product_name", (req, res) => {
         console.log('LOOOOOOOOOK', dynamicNavPouchNameObject.pouchNames.length)
         console.log('LOOOOOOOOOK again', dynamicNavBigBoxNameObject.bigBoxNames.length)
         var templateVars = {
-          response: response,
-          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames,
           userID: null,
           name: null,
-          email: null
+          email: null,
+          response: response,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         }
         res.render("individual-pouch-page", templateVars);
       }, 1000);

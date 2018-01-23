@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CaloBox ~ <%= response[0].pouch_name %></title>
+
+    <% include ./partials/_seo %>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
@@ -12,6 +15,11 @@
 
     <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="./styles/finalstyles.css">
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
     <!-- Start of Async Drift Code -->
     <script>
     !function() {
@@ -41,97 +49,157 @@
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script>
+    <!-- LIVE KEY DOWN BELOW -->
+    <!-- <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script> -->
+
+    <!-- TEST KEY DOWN BELOW -->
+    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MDViM2VlYjgtYWE1OC00ZGViLWFmMzAtMWYyNjljOGE3ZWI4NjM2NDc2OTQ3MzkwOTc1ODg1"></script>
     <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
-  <body>
-    <nav class="navbar is-transparent">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
-          <strong>Calobox</strong>
-        </a>
+  <body style="background-image: url('../brick-wall.png');">
 
-        <div class="navbar-burger burger" data-target="navMenuTransparentExample">
-          <span></span>
-          <span></span>
-          <span></span>
+    <% include ./partials/_navbar %>
+
+    <section class="section" style="background-image: url('<%= response[0].pouch_image_url %>'); background-size: cover; background-repeat: no-repeat; font-family: 'Montserrat', sans-serif;">
+
+      <div class="container is-hidden-mobile">
+        <div class="columns is-centered is-mobile">
+          <div class="column is-6-desktop is-offset-6-desktop is-12-mobile">
+
+          <div class="box">
+            <h2 class="title">
+              <%= response[0].pouch_name %>
+            </h2>
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <p class="content is-medium">
+                    <b><%= response[0].quick_desc %></b>
+                  </p>
+                </div>
+              </div>
+              <div class="level-right">
+                <div class="level-item">
+                  <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1516684664/Vegan_tm5lu0.png" style="width: 40px;">
+                  <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1516684673/tasty_ggkmya.png" style="width: 55px;">
+                </div>
+              </div>
+            </div>
+
+            <p class="content is-medium">
+              <%= response[0].tag %>
+            </p>
+            <p class="content is-medium">
+              <strong>Price:</strong>
+              <br />
+              <% if (response[0].pouch_price) { %>
+                Rs. <%= response[0].pouch_price %>
+              <% } else {%>
+                Coming Soon!!
+              <% } %>
+            </p>
+            <p class="content is-medium">
+              <strong>Net Weight:</strong>
+              <br />
+              <%= response[0].net_weight %> gms
+            </p>
+            <% if (response[0].pouch_price) { %>
+              <div class="level">
+                <div class="level-left">
+                  <div class="level-item">
+
+                      <button
+                        class="snipcart-add-item button is-medium is-primary"
+                        data-item-id="<%= response[0].pouch_id %>"
+                        data-item-name="<%= response[0].pouch_name %>"
+                        data-item-price="<%= response[0].pouch_price %>"
+                        data-item-url="/individual-snacks/<%= response[0].pouch_name %>"
+                        data-item-image="<%= response[0].pouch_image_url %>"
+                        data-item-has-taxes-included="true">
+                            Add <%= response[0].pouch_name %> to Cart
+                      </button>
+
+                      <!-- <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a> -->
+
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          </div>
+
+          </div>
         </div>
       </div>
 
-      <div id="navMenuTransparentExample" class="navbar-menu">
-        <div class="navbar-start">
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/snack-boxes">
-              Snack Boxes
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
-                <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
-                  <%= dynamicNavBigBoxNames[i].big_box_name %>
-                </a>
-              <% } %>
+      <div class="container is-hidden-desktop">
+        <div class="columns is-centered is-mobile">
+          <div class="column is-6-desktop is-offset-6-desktop is-12-mobile">
+
+          <div class="box" style="background-color: rgba(255,255,255,0.5);">
+            <h2 class="title">
+              <%= response[0].pouch_name %>
+            </h2>
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <p class="content is-medium">
+                    <b><%= response[0].quick_desc %></b>
+                  </p>
+                </div>
+              </div>
+              <div class="level-right">
+                <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1516684664/Vegan_tm5lu0.png" style="width: 40px;">
+                <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1516684673/tasty_ggkmya.png" style="width: 55px;">
+              </div>
             </div>
+
+            <p class="content is-medium">
+              <%= response[0].tag %>
+            </p>
+            <p class="content is-medium">
+              <strong>Price:</strong>
+              <br />
+              <% if (response[0].pouch_price) { %>
+                Rs. <%= response[0].pouch_price %>
+              <% } else {%>
+                Coming Soon!!
+              <% } %>
+            </p>
+            <p class="content is-medium">
+              <strong>Net Weight:</strong>
+              <br />
+              <%= response[0].net_weight %> gms
+            </p>
+            <% if (response[0].pouch_price) { %>
+              <div class="level">
+                <div class="level-left">
+                  <div class="level-item">
+
+                      <button
+                        class="snipcart-add-item button is-medium is-primary"
+                        data-item-id="<%= response[0].pouch_id %>"
+                        data-item-name="<%= response[0].pouch_name %>"
+                        data-item-price="<%= response[0].pouch_price %>"
+                        data-item-url="/individual-snacks/<%= response[0].pouch_name %>"
+                        data-item-image="<%= response[0].pouch_image_url %>"
+                        data-item-has-taxes-included="true">
+                            Add <%= response[0].pouch_name %> to Cart
+                      </button>
+
+                      <!-- <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a> -->
+
+                  </div>
+                </div>
+              </div>
+            <% } %>
           </div>
 
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/individual-snacks">
-              Individual Snacks
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
-                <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
-              <% } %>
-            </div>
           </div>
-        </div>
-
-        <div class="navbar-end" id="rightHere">
-          <% if (!userID) { %>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/login" class="tw-button button">Login</a>
-                </p>
-              </div>
-            </div>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/signup" class="tw-button button">Sign Up</a>
-                </p>
-              </div>
-            </div>
-          <% } else { %>
-            <div class="navbar-item">
-              <p class="control">
-                <a class="bd-tw-button button snipcart-checkout">
-                  <span class="icon">
-                    <i class="fa fa-shopping-cart"></i>
-                  </span>
-                  <span>
-                    Cart
-                  </span>
-                </a>
-              </p>
-            </div>
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active">
-                <%= name %>
-              </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item " href="/logout">
-                  Logout
-                </a>
-              </div>
-            </div>
-          <% } %>
         </div>
       </div>
-    </nav>
+    </section>
 
-
-    <section class="section">
+<!--     <section class="section">
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-one-third" style="">
@@ -146,22 +214,10 @@
               <%= response[0].pouch_name %>
             </h2>
             <p class="content is-medium">
+              <b><%= response[0].quick_desc %></b>
+            </p>
+            <p class="content is-medium">
               <%= response[0].tag %>
-            </p>
-            <p class="content is-medium">
-              <strong>Why we created it</strong>
-              <br />
-              <%= response[0].why_created %>
-            </p>
-            <p class="content is-medium">
-              <strong>How does it benefit me?</strong>
-              <br />
-              <%= response[0].benefits %>
-            </p>
-            <p class="content is-medium">
-              <strong>When should I eat it?</strong>
-              <br />
-              <%= response[0].time_to_eat %>
             </p>
             <p class="content is-medium">
               <strong>Price:</strong>
@@ -191,88 +247,106 @@
                         data-item-image="<%= response[0].pouch_image_url %>"
                         data-item-has-taxes-included="true">
                             Buy <%= response[0].pouch_name %>
-                      </button>
+                      </button> -->
 
                       <!-- <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a> -->
 
-                  </div>
+                  <!-- </div>
                 </div>
               </div>
             <% } %>
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="section" style="background-color: #001f3f;">
+
+    <section class="section">
       <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-2">
-            <h3 style="color: white;">Navigation</h3>
-            <br />
-            <!-- <li style="color: #43dacc;"><a href="/events">Events</a></li> -->
-            <li style="color: #43dacc;"><a href="/nutrition-prep">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="/health-safety">Health &amp; Safety</a></li>
-            <li style="color: #43dacc;"><a href="/how-it-works">How it works</a></li>
-            <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
-          </div>
-          <div class="column is-2">
-            <h3 style="color: white;">Company</h3>
-            <br />
-            <li style="color: #43dacc;"><a href="/calo-freaks">Our Team</a></li>
-            <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
-          </div>
-          <div class="column is-2">
-            <h3 style="color: white;">Calo Recipes</h3>
-            <br />
-            <li style="color: #43dacc;"><a href="#">Coming Soon!</a></li>
-          </div>
-          <div class="column is-4">
-            <h3 style="color: white;">Find Us Online</h3>
-            <br />
-            <a href="https://www.facebook.com/CALOBOX/">
-              <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
-            </a>
-            <a href="https://twitter.com/calobox">
-              <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.instagram.com/calobox/">
-              <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
-            </a>
+        <div class="columns">
+          <div class="column is-12">
+            <div class="tabs is-centered">
+              <ul>
+                <li id="all-tab" class="is-active">
+                  <a onClick="switchToCreated()">
+                    <p style="font-size: 20px;"><strong>Why we created it</strong></p>
+                  </a>
+                </li>
+                <li id="adaptivedesign-tab">
+                  <a onClick="switchToBenefits()">
+                    <p style="font-size: 20px;"><strong>How does it benefit me?</strong></p>
+                  </a>
+                </li>
+                <li id="jquery-tab">
+                  <a onClick="switchToTimeToEat()">
+                    <p style="font-size: 20px;"><strong>When should I eat it?</strong></p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="container">
+              <div id="all-tab-content">
+                <p class="subtitle" style="text-align:center;">
+                  <%= response[0].why_created %>
+                </p>
+              </div>
+              <div class="hidden" id="adaptivedesign-tab-content">
+                <p class="subtitle" style="text-align:center;">
+                  <%= response[0].benefits %>
+                </p>
+              </div>
+              <div class="hidden" id="jquery-tab-content">
+                <p class="subtitle" style="text-align:center;">
+                  <%= response[0].time_to_eat %>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function () {
 
-        // Get all "navbar-burger" elements
-        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    <% include ./partials/_footer %>
 
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
+    <script>
+      function switchToCreated() {
+        removeActive();
+        hideAll();
+        $("#all-tab").addClass("is-active");
+        $("#all-tab-content").removeClass("hidden");
+      }
 
-          // Add a click event on each of them
-          $navbarBurgers.forEach(function ($el) {
-            $el.addEventListener('click', function () {
+      function switchToBenefits() {
+        removeActive();
+        hideAll();
+        $("#adaptivedesign-tab").addClass("is-active");
+        $("#adaptivedesign-tab-content").removeClass("hidden");
+      }
 
-              // Get the target from the "data-target" attribute
-              var target = $el.dataset.target;
-              var $target = document.getElementById(target);
+      function switchToTimeToEat() {
+        removeActive();
+        hideAll();
+        $("#jquery-tab").addClass("is-active");
+        $("#jquery-tab-content").removeClass("hidden");
+      }
 
-              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-              $el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
+      function removeActive() {
+        $("li").each(function() {
+          $(this).removeClass("is-active");
+        });
+      }
 
-            });
-          });
-        }
-
-      });
-    </script>
+      function hideAll(){
+        $("#all-tab-content").addClass("hidden");
+        $("#adaptivedesign-tab-content").addClass("hidden");
+        $("#jquery-tab-content").addClass("hidden");
+        $("#ajax-tab-content").addClass("hidden");
+        $("#angularjs-tab-content").addClass("hidden");
+      }
+  </script>
 
   </body>
 </html>

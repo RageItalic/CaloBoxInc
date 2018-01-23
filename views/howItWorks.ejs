@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CaloBox ~ How It Works</title>
+
+    <% include ./partials/_seo %>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
@@ -38,92 +41,9 @@
       crossorigin="anonymous"></script>
     <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
-  <body>
+  <body style="background-image: url('../brick-wall.png');">
 
-    <nav class="navbar is-transparent">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
-          <strong>Calobox</strong>
-        </a>
-
-        <div class="navbar-burger burger" data-target="navMenuTransparentExample">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <div id="navMenuTransparentExample" class="navbar-menu">
-        <div class="navbar-start">
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/snack-boxes">
-              Snack Boxes
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
-                <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
-                  <%= dynamicNavBigBoxNames[i].big_box_name %>
-                </a>
-              <% } %>
-            </div>
-          </div>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/individual-snacks">
-              Individual Snacks
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
-                <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
-              <% } %>
-            </div>
-          </div>
-        </div>
-
-        <div class="navbar-end" id="rightHere">
-          <% if (!userID) { %>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/login" class="tw-button button">Login</a>
-                </p>
-              </div>
-            </div>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/signup" class="tw-button button">Sign Up</a>
-                </p>
-              </div>
-            </div>
-          <% } else { %>
-            <div class="navbar-item">
-              <p class="control">
-                <a class="bd-tw-button button snipcart-checkout">
-                  <span class="icon">
-                    <i class="fa fa-shopping-cart"></i>
-                  </span>
-                  <span>
-                    Cart
-                  </span>
-                </a>
-              </p>
-            </div>
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active">
-                <%= name %>
-              </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item " href="/logout">
-                  Logout
-                </a>
-              </div>
-            </div>
-          <% } %>
-        </div>
-      </div>
-    </nav>
+    <% include ./partials/_navbar %>
 
     <section class="section">
       <div class="container has-text-centered">
@@ -252,73 +172,7 @@
       </section>
     <% } %> -->
 
-    <section class="section" style="background-color: #001f3f;">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-2">
-            <h3 style="color: white;">Navigation</h3>
-            <br />
-            <!-- <li style="color: #43dacc;"><a href="/events">Events</a></li> -->
-            <li style="color: #43dacc;"><a href="/nutrition-prep">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="/health-safety">Health &amp; Safety</a></li>
-            <li style="color: #43dacc;"><a href="/how-it-works">How it works</a></li>
-            <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
-          </div>
-          <div class="column is-2">
-            <h3 style="color: white;">Company</h3>
-            <br />
-            <li style="color: #43dacc;"><a href="/calo-freaks">Our Team</a></li>
-            <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
-          </div>
-          <div class="column is-2">
-            <h3 style="color: white;">Calo Recipes</h3>
-            <br />
-            <li style="color: #43dacc;"><a href="#">Coming Soon!</a></li>
-          </div>
-          <div class="column is-4">
-            <h3 style="color: white;">Find Us Online</h3>
-            <br />
-            <a href="https://www.facebook.com/CALOBOX/">
-              <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
-            </a>
-            <a href="https://twitter.com/calobox">
-              <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.instagram.com/calobox/">
-              <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function () {
-
-        // Get all "navbar-burger" elements
-        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-
-          // Add a click event on each of them
-          $navbarBurgers.forEach(function ($el) {
-            $el.addEventListener('click', function () {
-
-              // Get the target from the "data-target" attribute
-              var target = $el.dataset.target;
-              var $target = document.getElementById(target);
-
-              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-              $el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-
-            });
-          });
-        }
-
-      });
-    </script>
+    <% include ./partials/_footer %>
 
   </body>
 </html>

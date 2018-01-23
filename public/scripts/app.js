@@ -1,5 +1,5 @@
 $(()=> {
-  console.log('HELLLLO FATHER.')
+  console.log('Welcome to Calobox!');
 
   $('#mailForm').on('submit', (e)=> {
     e.preventDefault();

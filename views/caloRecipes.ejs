@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CaloBox ~ Calo Recipes</title>
+
+  <% include ./partials/_seo %>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+  <link rel="stylesheet" type="text/css" href="./styles/finalstyles.css">
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+  <!-- Start of Async Drift Code -->
+  <script>
+  !function() {
+    var t;
+    if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,
+    t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
+    t.factory = function(e) {
+      return function() {
+        var n;
+        return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+      };
+    }, t.methods.forEach(function(e) {
+      t[e] = t.factory(e);
+    }), t.load = function(t) {
+      var e, n, o, i;
+      e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"),
+      o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js",
+      n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+    });
+  }();
+  drift.SNIPPET_VERSION = '0.3.1';
+  drift.load('uiwc7v9cv4fx');
+  </script>
+  <!-- End of Async Drift Code -->
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./scripts/cart.js"></script>
+</head>
+<body>
+  <% include ./partials/_navbar %>
+
+  <section class="section" id="mainSection" style="background-image: url('./placeholder1.jpg')">
+    <div class="container">
+      <div class="columns is-centered is-mobile">
+        <div class="column is-6-desktop is-offset-6-desktop is-12-mobile">
+
+          <div class="tabs is-centered" style="background: transparent; border-radius: 5px;">
+            <ul>
+              <li id="all-tab" class="is-active">
+                <a onClick="switchToRecipe1()">
+                  <p style="font-size: 20px;"><strong>Recipe 1</strong></p>
+                </a>
+              </li>
+              <li id="adaptivedesign-tab">
+                <a onClick="switchToRecipe2()">
+                  <p style="font-size: 20px;"><strong>Recipe 2</strong></p>
+                </a>
+              </li>
+              <li id="jquery-tab">
+                <a onClick="switchToRecipe3()">
+                  <p style="font-size: 20px;"><strong>Recipe 3</strong></p>
+                </a>
+              </li>
+              <li id="recipe-4-tab">
+                <a onClick="switchToRecipe4()">
+                  <p style="font-size: 20px;"><strong>Recipe 4</strong></p>
+                </a>
+              </li>
+              <li id="recipe-5-tab">
+                <a onClick="switchToRecipe5()">
+                  <p style="font-size: 20px;"><strong>Recipe 5</strong></p>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        <!-- </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-4"> -->
+
+          <div class="box" style="height: 368px; background-color: rgba(255,255,255,0.5); overflow-y: scroll; border-radius: 5px;">
+            <div id="all-tab-content">
+              <p class="subtitle is-3" style="text-align:center;">
+                <b>Calo Upma</b>
+              </p>
+              <p class="subtitle is-5" style="text-align:center;">
+                <b>With CaloBox Seedy Munch, Tomattinos &amp; Minty Masti</b>
+              </p>
+              <p style="font-size: 15px; text-align: left; margin-left: 7px;">
+                No added Sugar
+              </p>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Ingredients:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>1 Cup Rava/semolina/sooji (any type of rava)</li>
+                <li>1 Onion</li>
+                <li>1 Green Chilly</li>
+                <li>1 piece of Ginger (finely chopped)</li>
+                <li>2 Cups Water</li>
+                <li>3/4 tsp Ghee or any healthy alternative</li>
+              </ul>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>For Seasoning:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>2 Tbsp CaloBox Minty Masti</li>
+                <li>1 Tbsp CaloBox Tomattinos</li>
+                <li>1/2 Tbsp CaloBox Seedy Munch</li>
+              </ul>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Directions:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>
+                  1. Dry roast rava until it is hot to touch. If you have got ready made roasted rava, you can skip this step.
+                </li>
+                <li>
+                  2. Chop onions, ginger and green chillies finely.
+                </li>
+                <li>
+                  3. Heat 3 tsp of oil, add mustard seeds, when it splutters, add urad dal, red chillies and curry leaves.
+                </li>
+                <li>
+                  4. When dal turns golden brown, add chopped onions, green chillies and ginger.
+                </li>
+                <li>
+                  5. Saute until onions turn transparent.
+                </li>
+                <li>
+                  6. Then add 2 cups of water, ghee and salt needed. Taste the water and check for salt.(if it is a bit salty, then it will become perfect after adding rava).
+                </li>
+                <li>
+                  7. When the water starts boiling, reduce the flame to low, add rava gradually with one hand and keep stirring with your other hand.
+                </li>
+                <li>
+                  8. Once the rava absorbs all the water, cover and cook on low flame for 6-7 minutes. Do not forget to stir in between.
+                </li>
+              </ul>
+            </div>
+
+            <div class="hidden" id="adaptivedesign-tab-content">
+              <p class="subtitle is-3" style="text-align:center;">
+                <b>Calo Breakfast Parfait</b>
+              </p>
+              <p class="subtitle is-5" style="text-align:center;">
+                <b>With CaloBox BerryLicious Mix, ChocoRite &amp; ClassicRite</b>
+              </p>
+              <p style="font-size: 15px; text-align: left; margin-left: 7px;">
+                Vegan, No added sugar
+              </p>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Ingredients:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>2 Cups Greek Yoghurt</li>
+                <li>1/2 Cup Chia seeds</li>
+                <li>1 Cup Pomegranate seeds</li>
+                <li>1 Kiwi, sliced</li>
+                <li>2 Bananas, sliced</li>
+                <li>1 Cup CaloBox ChocoRite Granola</li>
+                <li>1/3 CaloBox BerryLicious Mix</li>
+                <li>1 Cup CaloBox ClassicRite Granola</li>
+              </ul>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Directions:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>1. Spoon yogurt into individual bowls</li>
+                <li>2. Stir in Chia seeds and Honey</li>
+                <li>3. Layer fruit, and add CaloBox Granola, and CaloBox BerryLicious Mix as desired.</li>
+              </ul>
+            </div>
+
+            <div class="hidden" id="jquery-tab-content">
+              <p class="subtitle is-3" style="text-align:center;">
+                <b>Calo Watermelon Salad</b>
+              </p>
+              <p class="subtitle is-5" style="text-align:center;">
+                <b>With CaloBox Seedy Munch and BerryLicious Mix</b>
+              </p>
+              <p style="font-size: 15px; text-align: left; margin-left: 7px;">
+                Gluten Free, No Added Sugar
+              </p>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Ingredients:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>1 small Watermelon</li>
+                <li>4-6 oz Mozzarella cheese</li>
+                <li>A couple handfuls of Spinach</li>
+                <li>3 Tbsp Basil pesto</li>
+                <li>1/4 cup CaloBox Seedy Munch</li>
+                <li>Lemony Basil Pesto</li>
+                <li>3 heaping cups fresh Basil</li>
+                <li>1/2 cup freshly grated Parmesan cheese</li>
+                <li>1/2 cup Pine nuts, toasted</li>
+                <li>1 tsp. fresh Lemon zest</li>
+                <li>2-3 Tbsp. fresh Lemon juice</li>
+                <li>2 Garlic cloves</li>
+                <li>1/4 cup olive oil</li>
+                <li>Salt and pepper to taste</li>
+                <li>1/4 cup CaloBox BerryLicious Mix</li>
+              </ul>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Directions:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>
+                  1. Place the pine nuts in a shallow skillet over medium heat; tossing/stirring frequently.
+                </li>
+                <li>
+                  2. Toast until the nuts are fragrant and slightly brown; careful, this can happen quickly.
+                </li>
+                <li>
+                  3. Allow the pine nuts to cool.
+                </li>
+                <li>
+                  4. Freshly grate the Parmesan cheese using a food processor or hand grater.
+                </li>
+                <li>
+                  5. Place the basil, grated cheese, cooled pine nuts, lemon zest, lemon juice, and garlic cloves into a food processor.
+                </li>
+                <li>
+                  6. Process all of the ingredients together for about 15 seconds.
+                </li>
+                <li>
+                  7. With the mixer running slowly pour in the olive oil.
+                </li>
+                <li>
+                  8. Add salt and pepper to taste.
+                </li>
+                <li>
+                  9. Process again to mix.
+                </li>
+                <li>
+                  10. If the pesto is too thick you can add more olive oil.
+                </li>
+                <li>
+                  11. Store in the refrigerator in a sealed container.
+                </li>
+                <li>
+                  12. You can also place the pesto in an ice cube tray; fill each cube with pesto; freeze; once frozen place them into a freezer safe plastic bag.
+                </li>
+                <li>
+                  13. Scoop the watermelon out with a melon baller, or round scoop to create a small ball of watermelon.
+                </li>
+                <li>
+                  14. Place a couple handfuls of spinach onto a large platter or bowl, and top it with the balls of watermelon.
+                </li>
+                <li>
+                  15. Cut the mozzarella cheese into small cubes, and sprinkle over the watermelon.
+                </li>
+                <li>
+                  16. Mix together the basil pesto with two tablespoons of olive oil, until it is easy to drizzle; add more olive oil if needed.
+                </li>
+                <li>
+                  17. Drizzle the basil pesto over the watermelon and mozzarella.
+                </li>
+                <li>
+                  18. Top with watermelon seeds; add as many as you like!
+                </li>
+                <li>
+                  19. Add a drizzle of olive oil if desired.
+                </li>
+              </ul>
+            </div>
+
+            <div class="hidden" id="recipe-4-tab-content">
+              <p class="subtitle is-3" style="text-align:center;">
+                <b>Calo Strawberry Milkshake</b>
+              </p>
+              <p class="subtitle is-5" style="text-align:center;">
+                <b>with CaloBox Energy Bites</b>
+              </p>
+              <p style="font-size: 15px; text-align: left; margin-left: 7px;">
+                No Added Sugar
+              </p>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Ingredients:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>1 cup of frozen Strawberries</li>
+                <li>3/4 cup of CaloBox Energy Bites</li>
+                <li>2 cups of any Milk of your choice</li>
+              </ul>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Directions:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>1. Add all to your blender and enjoy.</li>
+                <li>2. Adjust the liquid consistency to your liking.</li>
+              </ul>
+            </div>
+
+            <div class="hidden" id="recipe-5-tab-content">
+              <p class="subtitle is-3" style="text-align:center;">
+                <b>Calo Peach Mango Smoothie</b>
+              </p>
+              <p class="subtitle is-5" style="text-align:center;">
+                <b>With CaloBox BerryLicious Mix</b>
+              </p>
+              <p style="font-size: 15px; text-align: left; margin-left: 7px;">
+                Vegan, No Added Sugar
+              </p>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Ingredients:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>3 Peaches</li>
+                <li>1 cup of frozen Mangos</li>
+                <li>1 Banana</li>
+                <li>1 cup of Non-Dairy Milk</li>
+                <li>1 oz. of CaloBox BerryLicious Mix</li>
+              </ul>
+              <br />
+              <p style="font-size: 25px; text-align: left; margin-left: 7px;">
+                <b>Directions:</b>
+              </p>
+              <ul style="text-align: left; margin-left: 7px;">
+                <li>1. Throw it all in a blender and let it rip. Enjoy!</li>
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <% include ./partials/_footer %>
+
+  <script>
+    function switchToRecipe1() {
+      removeActive();
+      hideAll();
+      $("#all-tab").addClass("is-active");
+      $("#all-tab-content").removeClass("hidden");
+      $('#mainSection').css("background-image", "url('./placeholder1.jpg')");
+      $('#mainSection').css('background-size', 'cover');
+      $('#mainSection').css('background-repeat', 'no-repeat');
+    }
+
+    function switchToRecipe2() {
+      removeActive();
+      hideAll();
+      $("#adaptivedesign-tab").addClass("is-active");
+      $("#adaptivedesign-tab-content").removeClass("hidden");
+      $('#mainSection').css("background-image", "url('./placeholder2.jpg')");
+      $('#mainSection').css('background-size', 'cover');
+      $('#mainSection').css('background-repeat', 'no-repeat');
+    }
+
+    function switchToRecipe3() {
+      removeActive();
+      hideAll();
+      $("#jquery-tab").addClass("is-active");
+      $("#jquery-tab-content").removeClass("hidden");
+      $('#mainSection').css("background-image", "url('./placeholder3.jpg')");
+      $('#mainSection').css('background-size', 'cover');
+      $('#mainSection').css('background-repeat', 'no-repeat');
+    }
+
+    function switchToRecipe4() {
+      removeActive();
+      hideAll();
+      $("#recipe-4-tab").addClass("is-active");
+      $("#recipe-4-tab-content").removeClass("hidden");
+      $('#mainSection').css("background-image", "url('./placeholder1.jpg')");
+      $('#mainSection').css('background-size', 'cover');
+      $('#mainSection').css('background-repeat', 'no-repeat');
+    }
+
+    function switchToRecipe5() {
+      removeActive();
+      hideAll();
+      $("#recipe-5-tab").addClass("is-active");
+      $("#recipe-5-tab-content").removeClass("hidden");
+      $('#mainSection').css("background-image", "url('./placeholder2.jpg')");
+      $('#mainSection').css('background-size', 'cover');
+      $('#mainSection').css('background-repeat', 'no-repeat');
+    }
+
+    function removeActive() {
+      $("li").each(function() {
+        $(this).removeClass("is-active");
+      });
+    }
+
+    function hideAll(){
+      $("#all-tab-content").addClass("hidden");
+      $("#adaptivedesign-tab-content").addClass("hidden");
+      $("#jquery-tab-content").addClass("hidden");
+      $("#recipe-4-tab-content").addClass("hidden");
+      $("#recipe-5-tab-content").addClass("hidden");
+    }
+  </script>
+
+</body>
+</html>

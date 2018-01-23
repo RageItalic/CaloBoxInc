@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CaloFreaks ~ Our Team</title>
+
+    <% include ./partials/_seo %>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
+    <link href="/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./styles/finalstyles.css">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <!-- Start of Async Drift Code -->
+    <script>
+    !function() {
+      var t;
+      if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,
+      t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
+      t.factory = function(e) {
+        return function() {
+          var n;
+          return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+        };
+      }, t.methods.forEach(function(e) {
+        t[e] = t.factory(e);
+      }), t.load = function(t) {
+        var e, n, o, i;
+        e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"),
+        o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js",
+        n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+      });
+    }();
+    drift.SNIPPET_VERSION = '0.3.1';
+    drift.load('uiwc7v9cv4fx');
+    </script>
+    <!-- End of Async Drift Code -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+      crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script>
+    <script type="text/javascript" src="./scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/cart.js"></script>
+  </head>
+  <body>
+
+    <% include ./partials/_navbar %>
+
+      <section class="section">
+        <div class="container has-text-centered" style="font-family: 'Montserrat', sans-serif;">
+          <h1>CaloFreaks</h1>
+          <p class="subtitle">The people behind the healthy revolution</p>
+        </div>
+        <br />
+        <div class="container" style="font-family: 'Montserrat', sans-serif;">
+          <div class="columns">
+            <div class="column">
+              <p style="font-size:25px;"><strong>Yash Bhatia</strong></p>
+              <br />
+              <p style="font-size: 22px;">
+                The cofounder and Chief Executive Officer, aka Calo Product Freak. A proud Sanawarian, he is currently a sophomore pursuing Bachelors of Science in Business administration with a dual concentration in Finance and Supply Chain at Northeastern University in Boston, MA. Although he has had some prior experience in the financial industry, CaloBox is his first official healthy snack business venture.
+              </p>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <p style="font-size:25px;"><strong>Siddhant Buddhdev</strong></p>
+              <br />
+              <p style="font-size: 22px;">
+                The cofounder and Chief Financial Officer, aka Calo Financial Freak. A proud Navrachana alumni, he is currently a sophomore pursuing Bachelors of at Northeastern University in Boston, MA. Although he has had some prior experience in starting up, CaloBox is his first official business venture.
+              </p>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <p style="font-size:25px;"><strong>Vedant Gupta</strong></p>
+              <br />
+              <p style="font-size: 22px;">
+                The Chief Marketing Officer, aka Calo Creative Freak. A proud UWC East graduate, he is currently a sophomore pursuing Bachelors of Science in Business Administration with a concentration on Entrepreneurship at Chapman University in Orange County, California. Although he has done many internships in the entertainment industry, CaloBox is his first business venture.
+              </p>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <p style="font-size:25px;"><strong>Vedant Agarwal</strong></p>
+              <br />
+              <p style="font-size: 22px;">
+                The Chief Retail Officer, aka Calo Hero. Currently in pursuit of a
+                business degree from Boston’s prestigious Questrom school of business, he&#39;s also done a
+                couple of internships in the hospitality industry.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <% include ./partials/_footer %>
+
+  </body>
+</html>

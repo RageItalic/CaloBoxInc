@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CaloBox ~ Events</title>
+
+    <% include ./partials/_seo %>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
@@ -37,132 +40,74 @@
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
   </head>
-  <body>
-    <nav class="navbar is-transparent">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
-          <strong>Calobox</strong>
-        </a>
+  <body style="background-image: url('../brick-wall.png');">
 
-        <div class="navbar-burger burger" data-target="navMenuTransparentExample">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <div id="navMenuTransparentExample" class="navbar-menu">
-        <div class="navbar-start">
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/snack-boxes">
-              Snack Boxes
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
-                <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
-                  <%= dynamicNavBigBoxNames[i].big_box_name %>
-                </a>
-              <% } %>
-            </div>
-          </div>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/individual-snacks">
-              Individual Snacks
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
-                <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
-              <% } %>
-            </div>
-          </div>
-        </div>
-
-        <div class="navbar-end" id="rightHere">
-          <% if (!userID) { %>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/login" class="tw-button button">Login</a>
-                </p>
-              </div>
-            </div>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/signup" class="tw-button button">Sign Up</a>
-                </p>
-              </div>
-            </div>
-          <% } else { %>
-            <div class="navbar-item">
-              <p class="control">
-                <a class="bd-tw-button button snipcart-checkout">
-                  <span class="icon">
-                    <i class="fa fa-shopping-cart"></i>
-                  </span>
-                  <span>
-                    Cart
-                  </span>
-                </a>
-              </p>
-            </div>
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active">
-                <%= name %>
-              </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item " href="/logout">
-                  Logout
-                </a>
-              </div>
-            </div>
-          <% } %>
-        </div>
-      </div>
-    </nav>
+    <% include ./partials/_navbar %>
 
     <section class="section">
       <div class="container has-text-centered">
-        <h1 class="title">
+        <h2>
           Events
-        </h1>
+        </h2>
         <p class="subtitle">
           Our products are the perfect choice of snacks for multiple events.
         </p>
       </div>
     </section>
 
-    <section class="section" style="background-color: #eee">
-      <div class="container">
+    <section class="section">
+      <div class="container has-text-centered">
+        <h2>Weddings</h2>
+        <br />
         <div class="columns is-centered">
-          <div class="column is-half">
-            <br />
-            <br />
-            <h1 class="title">
-              Weddings
-            </h1>
-            <br />
-            <p class="subtitle"></p>
-            <li class="subtitle">
-                Subtitle ~ Point 1 why we are different and good
-            </li>
-            <li class="subtitle">
-                Subtitle ~ Point 2 why we are so good and different
-            </li>
-            <li class="subtitle">
-                Subtitle ~ Point 3 why we are so good and different
-            </li>
-          </div>
           <div class="column">
-            <img src="./caloProducts.JPG" alt="Placeholder image">
+            <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Screen_Shot_2017-09-01_at_12.08.06_AM_2048x2048.png">
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column">
+            <h3 class="title is-4">We provide for your special occasion...</h3>
+            <br />
+            <p class="subtitle is-4">
+              Weddings are an important part of everyone's lives. The rituals, beliefs and preparations in an Indian Wedding are a sight to behold. Weddings are also a lot of work, especially for the people organising them.
+            </p>
+            <p class="subtitle is-4">
+              CaloBox, with its aromatic and appetising products, provides you with healthy yet delicious snacks which would allow you to constantly keep yourself energised throughout the wedding preparations. Dance all you want! Our snacks will keep you energised throughout the day!
+            </p>
+            <br />
+            <p class="subtitle is-4"><b>We want to help your wedding stand out. Talk to us through the little blue box on the right!</b></p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="background-color: #fff">
+    <section class="section">
+      <div class="container has-text-centered">
+        <h2>Corporate Gifting</h2>
+        <br />
+        <div class="columns is-centered">
+          <div class="column">
+            <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/ben-white-170529.jpg?">
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column">
+            <h3 class="title is-4">Reward your employees and thank your clients/bosses with something they are sure to love!</h3>
+            <br />
+            <p class="subtitle is-4">
+              Gifting in a corporate environment can at times be really tricky and challenging. You prefer to gift something that is appropriate for the occasion, thoughtful, and personalized. This is where personalised healthy snack boxes come in. It makes a suitable gift that any of your colleagues or clients will love receiving as it adds more value to their healthy wellbeing.
+            </p>
+            <p class="subtitle is-4">
+              Our Corporate Big Boxes for festive seasons and celebrations have a combination of 4 small boxes. The price of one big corporate box would range anywhere between Rs. 350 to Rs. 530 depending on the combination of products that you choose. These boxes are completely customizable and we work with you to provide you exactly what you want. We do offer discounts on sizeable orders!
+            </p>
+            <br />
+            <p class="subtitle is-4"><b>Contact us through the little blue box on the right!</b></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section class="section">
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-half">
@@ -187,75 +132,9 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="section" style="background-color: #001f3f;">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-2">
-            <h3 style="color: white;">Navigation</h3>
-            <br />
-            <!-- <li style="color: #43dacc;"><a href="/events">Events</a></li> -->
-            <li style="color: #43dacc;"><a href="/nutrition-prep">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="/health-safety">Health &amp; Safety</a></li>
-            <li style="color: #43dacc;"><a href="/how-it-works">How it works</a></li>
-            <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
-          </div>
-          <div class="column is-2">
-            <h3 style="color: white;">Company</h3>
-            <br />
-            <li style="color: #43dacc;"><a href="/calo-freaks">Our Team</a></li>
-            <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
-          </div>
-          <div class="column is-2">
-            <h3 style="color: white;">Calo Recipes</h3>
-            <br />
-            <li style="color: #43dacc;"><a href="#">Coming Soon!</a></li>
-          </div>
-          <div class="column is-4">
-            <h3 style="color: white;">Find Us Online</h3>
-            <br />
-            <a href="https://www.facebook.com/CALOBOX/">
-              <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
-            </a>
-            <a href="https://twitter.com/calobox">
-              <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.instagram.com/calobox/">
-              <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function () {
-
-        // Get all "navbar-burger" elements
-        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-
-          // Add a click event on each of them
-          $navbarBurgers.forEach(function ($el) {
-            $el.addEventListener('click', function () {
-
-              // Get the target from the "data-target" attribute
-              var target = $el.dataset.target;
-              var $target = document.getElementById(target);
-
-              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-              $el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-
-            });
-          });
-        }
-
-      });
-    </script>
+    <% include ./partials/_footer %>
 
   </body>
 </html>

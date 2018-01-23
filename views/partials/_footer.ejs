@@ -1,0 +1,59 @@
+    <section class="section" style="background-color: #61a60e; background-image: url('../brick-wall.png');">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-2 is-offset-2">
+            <p class="subtitle" style="color: white;"><b>Navigation</b></p>
+            <!-- <li style="color: #43dacc;"><a href="/events">Events</a></li> -->
+            <li style="color: #43dacc;"><a href="/nutrition-prep" style="color: #fff;">Nutrition &amp; Prep</a></li>
+            <li style="color: #43dacc;"><a style="color: #fff; cursor: pointer;" href="/health-safety">Health &amp; Safety</a></li>
+            <li style="color: #43dacc;"><a style="color: #fff; cursor: pointer;" href="/how-it-works">How it works</a></li>
+            <li style="color: #43dacc;"><a style="color: #fff; cursor: pointer;" href="/contact-us">Contact Us</a></li>
+          </div>
+          <div class="column is-2">
+            <p class="subtitle" style="color: white;"><b>Company</b></p>
+            <li style="color: #43dacc;"><a style="color: #fff; cursor: pointer;" href="/calo-freaks">Our Team</a></li>
+            <li style="color: #43dacc;"><a style="color: #fff; cursor: pointer;" href="/about-us">About Us</a></li>
+          </div>
+          <div class="column is-4">
+            <p class="subtitle" style="color: white;"><b>Find Us Online</b></p>
+            <a target="_blank" style="color: #3b5998; cursor: pointer;" href="https://www.facebook.com/CALOBOX/">
+              <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
+            </a>
+            <a target="_blank" style="color: #0084b4; cursor: pointer;" href="https://twitter.com/calobox">
+              <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
+            </a>
+            <a target="_blank" style="color: #9b6954; cursor: pointer;" href="https://www.instagram.com/calobox/">
+              <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+
+              // Get the target from the "data-target" attribute
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+
+            });
+          });
+        }
+
+      });
+    </script>

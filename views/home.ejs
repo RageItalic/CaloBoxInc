@@ -4,12 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CaloBox ~ Home</title>
+
+    <% include ./partials/_seo %>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Roboto" rel="stylesheet">
     <link href="/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="./styles/finalstyles.css">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
     <!-- Start of Async Drift Code -->
     <script>
     !function() {
@@ -34,14 +38,14 @@
     drift.load('uiwc7v9cv4fx');
     </script>
     <!-- End of Async Drift Code -->
-    <div id="fb-root"></div>
+    <!-- <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=158721184756315';
       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    }(document, 'script', 'facebook-jssdk'));</script> -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
@@ -51,237 +55,45 @@
     <script type="text/javascript" src="./scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
-  <body>
+  <body style="background-image: url('../brick-wall.png');">
 
-    <nav class="navbar">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
-          <STRONG>Calobox</STRONG>
-        </a>
+    <% include ./partials/_navbar %>
 
-        <div class="navbar-burger burger" data-target="navMenuTransparentExample">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <div id="navMenuTransparentExample" class="navbar-menu">
-        <div class="navbar-start">
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/snack-boxes">
-              Snack Boxes
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
-                <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
-                  <%= dynamicNavBigBoxNames[i].big_box_name %>
-                </a>
-              <% } %>
-            </div>
-          </div>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/individual-snacks">
-              Individual Snacks
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
-                <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
-              <% } %>
-            </div>
-          </div>
-        </div>
-
-        <div class="navbar-end" id="rightHere">
-          <% if (!userID) { %>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/login" class="tw-button button">Login</a>
-                </p>
-              </div>
-            </div>
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a href="/signup" class="tw-button button">Sign Up</a>
-                </p>
-              </div>
-            </div>
-          <% } else { %>
-            <div class="navbar-item">
-              <p class="control">
-                <a class="bd-tw-button button snipcart-checkout">
-                  <span class="icon">
-                    <i class="fa fa-shopping-cart"></i>
-                  </span>
-                  <span>
-                    Cart
-                  </span>
-                </a>
-              </p>
-            </div>
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active">
-                <%= name %>
-              </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item " href="/logout">
-                  Logout
-                </a>
-              </div>
-            </div>
-          <% } %>
-        </div>
-
-      </div>
-    </nav>
-
-<!--     <nav class="level">
-      <div class="level-item has-text-centered">
-
-        <a class="link is-info">Home</a>
-
-        <div id="navMenuTransparentExample" class="navbar-menu">
-          <div class="navbar-start">
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active" href="/snack-boxes">
-                Snack Boxes
-              </a>
-              <div class="navbar-dropdown is-boxed">
-                <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
-                  <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
-                    <%= dynamicNavBigBoxNames[i].big_box_name %>
-                  </a>
-                <% } %>
-              </div>
-            </div>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active" href="/individual-snacks">
-                Individual Snacks
-              </a>
-              <div class="navbar-dropdown is-boxed">
-                <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
-                  <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %></a>
-                <% } %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="level-item has-text-centered">
-        <a class="link is-info">Menu</a>
-      </div>
-
-      <div class="level-item has-text-centered">
-
-        <img src="https://bulma.io/images/bulma-type.png" alt="" style="height: 30px;">
-
-        <h2><strong>CaloBox</strong></h2>
-      </div>
-      <div class="level-item has-text-centered">
-
-        <a class="link is-info">Reservations</a>
-
-        <div id="navMenuTransparentExample" class="navbar-menu">
-          <div class="navbar-end" id="rightHere">
-            <% if (!userID) { %>
-              <div class="navbar-item">
-                <div class="field is-grouped">
-                  <p class="control">
-                    <a href="/login" class="tw-button button">Login</a>
-                  </p>
-                </div>
-              </div>
-              <div class="navbar-item">
-                <div class="field is-grouped">
-                  <p class="control">
-                    <a href="/signup" class="tw-button button">Sign Up</a>
-                  </p>
-                </div>
-              </div>
-            <% } else { %>
-              <div class="navbar-item">
-                <p class="control">
-                  <a class="bd-tw-button button snipcart-checkout">
-                    <span class="icon">
-                      <i class="fa fa-shopping-cart"></i>
-                    </span>
-                    <span>
-                      Cart
-                    </span>
-                  </a>
-                </p>
-              </div>
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link  is-active">
-                  <%= name %>
-                </a>
-                <div class="navbar-dropdown is-boxed">
-                  <a class="navbar-item " href="/logout">
-                    Logout
-                  </a>
-                </div>
-              </div>
-            <% } %>
-          </div>
-        </div>
-      </div>
-
-      <div class="level-item has-text-centered">
-        <a class="link is-info">Contact</a>
-      </div>
-
-    </nav> -->
-
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-half">
-            <h1 class="" style="font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: bold;">A Gift To The Healthy You</h1>
-            <p style="font-family: 'Roboto', sans-serif; font-size: 32px;">Calobox provides a collection of Healthy, Tasty and Light snacks that not only satiate your hunger, but also cater to a variety of taste buds. </p>
-            <br />
-            <a class="button is-medium is-primary" href="/snack-boxes" style="font-family: 'Montserrat', sans-serif;">Buy Now</a>
-          </div>
-          <div class="column is-hidden-mobile">
-              <iframe width="500" height="300" src="https://res.cloudinary.com/dg7wliucz/video/upload/v1513828583/CaloboxMain_skj5q6.mp4?rel=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-          </div>
+    <section class="hero is-large" style="background-image: url('https://res.cloudinary.com/dg7wliucz/image/upload/v1515988651/logo/IMG_6373.jpg'); background-size: cover;">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="" style="font-family: 'Montserrat', sans-serif; font-size: 46px; font-weight: bold; color: white;">A Gift To The Healthy You</h1>
+          <h2 class="subtitle is-4">
+            Discover our line of junk free snacks!
+          </h2>
+          <a class="button is-medium is-primary" href="/individual-snacks" style="font-family: 'Montserrat', sans-serif;">Buy Now</a>
         </div>
       </div>
     </section>
 
     <section class="section" style="background-color: #61a60e; color: white; background-image: url('./brick-wall.png');">
       <div class="container">
-        <h2 style="font-family: 'Montserrat', sans-serif; font-size: 30px; font-weight: bold;">Why eat Calo Snacks?</h2>
         <div class="columns is-centered">
           <div class="column is-half">
-            <div class="level">
-              <div class="level-left">
-                <div class="level-item"><img src="./gluten-free.png" style="height: 80px;"></div>
-                <div class="level-item"><img src="./jain-food-logo.png" style="height: 80px;"></div>
-                <div class="level-item"><img src="./No-added-sugar.png" style="height: 80px;"></div>
-                <div class="level-item"><img src="./superfood.png" style="height: 80px;"></div>
-                <div class="level-item"><img src="./tasty.png" style="height: 80px;"></div>
-              </div>
-            </div>
-            <p id="smaller-text" style="font-size: 28px;">Here at Calo we have sourced out snacks that contain extremely pure and authentic ingredients to help you beinge freely. They are not only healthy and light but also cater to a variety of taste buds from sweet to savoury and spicy. We at Calo aim to make snacking fun &amp; healthy, and our wide range of products makes sure you're never bored.</p>
+            <img src="./pouch-contents.png">
           </div>
-          <div class="column">
-            <div class="columns is-centered">
-              <div class="column is-one-fifth">
-                <p>A calo diet provides:</p>
-                  <li>Protein</li>
-                  <li>Omega 3</li>
-                  <li>Energisers</li>
-                  <li>Vitamins and Minerals</li>
-              </div>
-              <div class="column">
-                <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1515792190/logo/Screen_Shot_2018-01-12_at_4.22.37_PM.png">
-              </div>
+          <div class="column has-text-centered">
+            <h2 style="font-family: 'Great Vibes', cursive; font-size: 30px; font-weight: bold;">The Calo Promise</h2>
+            <div class="box" style="background-color: #d0021b; background-image: url('./brick-wall.png'); color: white;">
+              <p class="subtitle is-4"><strong>From the best Sources...</strong></p>
+              <p style="font-family: 'Roboto', sans-serif; font-size: 22px;">Here at Calo we have sourced out snacks that contain extremely pure and authentic ingredients to help you beinge freely.</p>
+            </div>
+            <div class="box" style="background-color: #D35E28; background-image: url('./brick-wall.png'); color: white;">
+              <p class="subtitle is-4"><strong>Incredible to taste...</strong></p>
+              <p style="font-family: 'Roboto', sans-serif; font-size: 22px;">They are not only healthy and light but also cater to a variety of taste buds from sweet to savoury and spicy.</p>
+            </div>
+            <div class="box" style="background-color: #038E4B; background-image: url('./brick-wall.png'); color: white;">
+              <p class="subtitle is-4"><strong>True to our aim...</strong></p>
+              <p style="font-family: 'Roboto', sans-serif; font-size: 22px;">We at Calo aim to make snacking fun &amp; healthy, and our wide range of products makes sure you're never bored.</p>
+            </div>
+            <div class="box" style="background-color: #724B43; background-image: url('./brick-wall.png'); color: white;">
+              <p class="subtitle is-4"><strong>Providing all you need and more...</strong></p>
+              <p style="font-family: 'Roboto', sans-serif; font-size: 22px;">A calo diet provides Protein, Omega 3, Energizers, Vitamins, Minerals and Fibres, plus an incredible taste and low calories</p>
             </div>
           </div>
         </div>
@@ -326,7 +138,7 @@
             <div class="card">
               <div class="card-image">
                 <figure class="image is-4by3">
-                  <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1515786629/logo/caloProducts.jpg" alt="Placeholder image">
+                  <img src="https://res.cloudinary.com/dg7wliucz/image/upload/v1515995218/IMG_5788_pnzssf.jpg" alt="Placeholder image">
                 </figure>
               </div>
               <div class="card-content">
@@ -453,73 +265,7 @@
       </section>
     <% } %> -->
 
-    <section class="section" style="background-color: #001f3f;">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-2">
-            <h3 style="color: white;">Navigation</h3>
-            <br />
-            <!-- <li style="color: #43dacc;"><a href="/events">Events</a></li> -->
-            <li style="color: #43dacc;"><a href="/nutrition-prep">Nutrition &amp; Prep</a></li>
-            <li style="color: #43dacc;"><a href="/health-safety">Health &amp; Safety</a></li>
-            <li style="color: #43dacc;"><a href="/how-it-works">How it works</a></li>
-            <li style="color: #43dacc;"><a href="/contact-us">Contact Us</a></li>
-          </div>
-          <div class="column is-2">
-            <h3 style="color: white;">Company</h3>
-            <br />
-            <li style="color: #43dacc;"><a href="/calo-freaks">Our Team</a></li>
-            <li style="color: #43dacc;"><a href="/about-us">About Us</a></li>
-          </div>
-          <div class="column is-2">
-            <h3 style="color: white;">Calo Recipes</h3>
-            <br />
-            <li style="color: #43dacc;"><a href="#">Coming Soon!</a></li>
-          </div>
-          <div class="column is-4">
-            <h3 style="color: white;">Find Us Online</h3>
-            <br />
-            <a href="https://www.facebook.com/CALOBOX/">
-              <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
-            </a>
-            <a href="https://twitter.com/calobox">
-              <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.instagram.com/calobox/">
-              <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function () {
-
-        // Get all "navbar-burger" elements
-        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-
-          // Add a click event on each of them
-          $navbarBurgers.forEach(function ($el) {
-            $el.addEventListener('click', function () {
-
-              // Get the target from the "data-target" attribute
-              var target = $el.dataset.target;
-              var $target = document.getElementById(target);
-
-              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-              $el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-
-            });
-          });
-        }
-
-      });
-    </script>
+    <% include ./partials/_footer %>
 
   </body>
 </html>

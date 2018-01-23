@@ -1,0 +1,97 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <!-- <img src="https://cdn.shopify.com/s/files/1/2023/6647/files/Logo.png" alt="Bulma: a modern CSS framework based on Flexbox"> -->
+      <STRONG>Calobox</STRONG>
+    </a>
+
+    <div class="navbar-burger burger" data-target="navMenuTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navMenuTransparentExample" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link  is-active" href="/snack-boxes">
+          Snack Boxes
+        </a>
+        <div class="navbar-dropdown is-boxed">
+          <% for (var i = 0; i < dynamicNavBigBoxNames.length; i++) { %>
+            <a class="navbar-item " href="/snack-boxes/<%= dynamicNavBigBoxNames[i].big_box_name %>">
+              <%= dynamicNavBigBoxNames[i].big_box_name %>
+            </a>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link  is-active" href="/individual-snacks">
+          Our Munchies
+        </a>
+        <div class="navbar-dropdown is-boxed">
+          <% for (var i = 0; i < dynamicNavPouchNames.length; i++) { %>
+            <a href="/individual-snacks/<%= dynamicNavPouchNames[i].pouch_name %>" class="navbar-item"><%= dynamicNavPouchNames[i].pouch_name %> ~ <% if (dynamicNavPouchNames[i].quick_desc) { %><%= dynamicNavPouchNames[i].quick_desc %><% } else {%> Coming Soon! <% } %></a>
+          <% } %>
+        </div>
+      </div>
+
+      <a class="navbar-item" href="/how-it-works">
+        How It Works
+      </a>
+
+      <a class="navbar-item" href="/calo-recipes">
+        Calo Recipes
+      </a>
+
+      <a class="navbar-item" href="/calo-club">
+        Calo Club
+      </a>
+    </div>
+
+    <div class="navbar-end" id="rightHere">
+      <% if (!userID) { %>
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="/login" class="tw-button button">Login</a>
+            </p>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="/signup" class="tw-button button">Sign Up</a>
+            </p>
+          </div>
+        </div>
+      <% } else { %>
+        <div class="navbar-item">
+          <p class="control">
+            <a class="bd-tw-button button snipcart-checkout">
+              <span class="icon">
+                <i class="fa fa-shopping-cart"></i>
+              </span>
+              <span>
+                Cart
+              </span>
+            </a>
+          </p>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link  is-active">
+            <%= name %>
+          </a>
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item " href="/logout">
+              Logout
+            </a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+  </div>
+</nav>
