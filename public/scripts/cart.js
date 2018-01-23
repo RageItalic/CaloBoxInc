@@ -70,8 +70,6 @@ $(document).ready(()=> {
 
   // })
 
-  console.log("KEM CHO")
-
   // $('.slick-carousel').slick({
   //   dots: true,
   //   infinite: true,
