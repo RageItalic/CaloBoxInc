@@ -80,10 +80,12 @@ $(document).ready(()=> {
 
   Snipcart.subscribe('order.completed', function (data) {
     console.log(data);
-    alert("DOING AJAX NEXT")
     $.ajax({
-      url: 'http://ship.styledgeshop.com/api/create/package.php',
-      type: 'GET'
+      url: '/testRequest',
+      type: 'POST',
+      data: {
+        orderInfo: data
+      }
     }).done(json => {
       console.log("JSON HAS BEEN RETURNED, ", json)
     })

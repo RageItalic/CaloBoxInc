@@ -17,6 +17,12 @@ const bcrypt      = require('bcrypt');
 const stripe      = require('stripe')("sk_test_U3Ww6tPuCCQruhOiLMtFgLBg")
 const session     = require('express-session');
 const nodemailer  = require('nodemailer');
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'http://localhost:8080',
+  credentials: true
+}));
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
