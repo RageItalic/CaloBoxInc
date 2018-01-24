@@ -436,23 +436,38 @@ app.post('/testRequest', (req, res) => {
 
 // axios.post('http://ship.styledgeshop.com/api/create/package.php?user=demo&password=demo123&order_no=123&consignee=Parth%20Patel&city=mumbai&state=maharashtra&...')
 
-// axios.post('http://ship.styledgeshop.com/api/create/package.php', {
-//   user: 'demo',
-//   password: 'demo123',
-//   order_no: '123',
-//   consignee: 'Parth Patel',
-//   city: 'Mumbai',
-//   state: 'Maharashtra',
-//   ...
-// })
+axios.post('http://ship.styledgeshop.com/api/create/package.php', {
+  user: 'demo',
+  password: 'demo123',
+  order_no: '123',
+  consignee: 'Kamlesh Kumar',
+  city: 'Mumbai',
+  state: 'Maharashtra',
+  address: '123 Fake Society',
+  address2: 'Not-real road',
+  pincode: '390007',
+  phone: '9825044445',
+  weight: 450,
+  mode: 'prepaid',
+  emailc: 'kamkemail@gmail.com',
+  amount: 450,
+  product: 'Chocolate, Vanilla'
+})
+.then(function (response) {
+  console.log("I have just received a response back, ", response.data);
+  res.send(response.data)
+})
+.catch(function (error) {
+  console.log("I have just received a ERROR back, ",error);
+});
 
-  axios.get('http://ship.styledgeshop.com/api/create/package.php')
-    .then(response => {
-      console.log("response is here, ", response.data)
-      res.send(response.data)
-    }).catch(err => {
-      console.log("error error error, ", err)
-    })
+  // axios.get('http://ship.styledgeshop.com/api/create/package.php')
+  //   .then(response => {
+  //     console.log("response is here, ", response.data)
+  //     res.send(response.data)
+  //   }).catch(err => {
+  //     console.log("error error error, ", err)
+  //   })
 
 })
 
