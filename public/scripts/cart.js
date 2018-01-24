@@ -78,7 +78,7 @@ $(document).ready(()=> {
   //   adaptiveHeight: true
   // });
 
-  Snipcart.subscribe('cart.opened', function (data) {
+  Snipcart.subscribe('order.completed', function (data) {
     console.log(data);
     alert("DOING AJAX NEXT")
     $.ajax({
