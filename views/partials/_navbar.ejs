@@ -52,6 +52,18 @@
     </div>
 
     <div class="navbar-end" id="rightHere">
+      <div class="navbar-item">
+        <p class="control">
+          <a class="bd-tw-button button snipcart-checkout">
+            <span class="icon">
+              <i class="fa fa-shopping-cart"></i>
+            </span>
+            <span>
+              Cart
+            </span>
+          </a>
+        </p>
+      </div>
       <% if (!userID) { %>
         <div class="navbar-item">
           <div class="field is-grouped">
@@ -66,18 +78,6 @@
               <a href="/signup" class="tw-button button">Sign Up</a>
             </p>
           </div>
-        </div>
-        <div class="navbar-item">
-          <p class="control">
-            <a class="bd-tw-button button snipcart-checkout">
-              <span class="icon">
-                <i class="fa fa-shopping-cart"></i>
-              </span>
-              <span>
-                Cart
-              </span>
-            </a>
-          </p>
         </div>
       <% } else { %>
         <div class="navbar-item has-dropdown is-hoverable">
