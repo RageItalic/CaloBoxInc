@@ -18,7 +18,6 @@ const stripe      = require('stripe')("sk_test_U3Ww6tPuCCQruhOiLMtFgLBg")
 const session     = require('express-session');
 const nodemailer  = require('nodemailer');
 const cors        = require('cors');
-const async       = require('async');
 
 app.use(cors({
   origin: 'http://localhost:8080',

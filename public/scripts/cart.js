@@ -78,6 +78,29 @@ $(document).ready(()=> {
   //   adaptiveHeight: true
   // });
 
+
+
+  Snipcart.subscribe('cart.ready', function (data) {
+    var count = Snipcart.api.items.count();
+    console.log("initial load count right here, ", count)
+    $('#itemCount').empty();
+    $('#itemCount').append(`${count} Items`);
+  });
+
+  Snipcart.subscribe('item.added', function (data) {
+    var count = Snipcart.api.items.count();
+    console.log("Item added, count right here, ", count)
+    $('#itemCount').empty();
+    $('#itemCount').append(`${count} Items`);
+  })
+
+  Snipcart.subscribe('item.removed', function (data) {
+    var count = Snipcart.api.items.count();
+    console.log("Item removed, count right here, ", count)
+    $('#itemCount').empty();
+    $('#itemCount').append(`${count} Items`);
+  })
+
   Snipcart.subscribe('order.completed', function (data) {
     console.log(data);
     $.ajax({
@@ -92,11 +115,11 @@ $(document).ready(()=> {
   });
 
   $('.snipcart-add-item').on('click', ()=> {
-    alert('Please ensure that you have Rs. 450 worth of items in your cart before continuing to checkout.')
+    console.log("cart clicked");
   })
 
   $('.snipcart-checkout').on('click', ()=> {
-    alert('Please ensure that you have Rs. 450 worth of items in your cart before continuing to checkout.')
+    console.log("cart clicked");
   })
 
 
