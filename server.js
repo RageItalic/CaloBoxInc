@@ -17,7 +17,8 @@ const bcrypt      = require('bcrypt');
 const stripe      = require('stripe')("sk_test_U3Ww6tPuCCQruhOiLMtFgLBg")
 const session     = require('express-session');
 const nodemailer  = require('nodemailer');
-const cors = require('cors');
+const cors        = require('cors');
+const async       = require('async');
 
 app.use(cors({
   origin: 'http://localhost:8080',
@@ -82,6 +83,7 @@ function getNavBoxes() {
   })
 }
 
+
 // Home page
 app.get("/", (req, res) => {
   console.log("REQ.SESSION", req.session);
@@ -97,7 +99,7 @@ app.get("/", (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render('home', templateVars)
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -110,7 +112,7 @@ app.get("/", (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("home", templateVars)
-    }, 1000);
+    }, 500);
   }
 });
 
@@ -127,7 +129,7 @@ app.get('/contact-us', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("contact", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -140,7 +142,7 @@ app.get('/contact-us', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("contact", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -157,7 +159,7 @@ app.get('/calo-club', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("calo_club", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -170,7 +172,7 @@ app.get('/calo-club', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("calo_club", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -221,7 +223,7 @@ app.get('/about-us', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("about", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -234,7 +236,7 @@ app.get('/about-us', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("about", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -251,7 +253,7 @@ app.get('/how-it-works', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("howItWorks", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -264,7 +266,7 @@ app.get('/how-it-works', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("howItWorks", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -281,7 +283,7 @@ app.get('/calo-freaks', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("caloFreaks", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -294,7 +296,7 @@ app.get('/calo-freaks', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("caloFreaks", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -311,7 +313,7 @@ app.get('/events', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("events", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -324,7 +326,7 @@ app.get('/events', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("events", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -341,7 +343,7 @@ app.get('/nutrition-prep', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("nutritionAndPrep", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -354,7 +356,7 @@ app.get('/nutrition-prep', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("nutritionAndPrep", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -371,7 +373,7 @@ app.get('/health-safety', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("healthAndSafety", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -384,7 +386,7 @@ app.get('/health-safety', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("healthAndSafety", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -401,7 +403,7 @@ app.get('/calo-recipes', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("caloRecipes", templateVars);
-    }, 1000);
+    }, 500);
   } else {
     getNavPouches();
     getNavBoxes();
@@ -414,7 +416,7 @@ app.get('/calo-recipes', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("caloRecipes", templateVars);
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -492,7 +494,7 @@ app.get('/login', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       }
       res.render('login', templateVars)
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -553,7 +555,7 @@ app.get('/signup', (req, res)=> {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       }
       res.render('register', templateVars)
-    }, 1000);
+    }, 500);
   }
 })
 
@@ -653,7 +655,7 @@ app.get("/individual-snacks", (req, res) => {
         };
         //console.log(templateVars.boxImage);
         res.render("pouches", templateVars);
-      }, 1000);
+      }, 500);
     })
   } else {
     knex.select('*')
@@ -673,7 +675,7 @@ app.get("/individual-snacks", (req, res) => {
         };
         //console.log(templateVars.boxImage);
         res.render("pouches", templateVars);
-      }, 1000);
+      }, 500);
     })
   }
 })
@@ -701,7 +703,7 @@ app.get("/individual-snacks/:product_name", (req, res) => {
           dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         }
         res.render("individual-pouch-page", templateVars);
-      }, 1000);
+      }, 500);
     })
   } else {
     console.log("req",req.params)
@@ -724,7 +726,7 @@ app.get("/individual-snacks/:product_name", (req, res) => {
           dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         }
         res.render("individual-pouch-page", templateVars);
-      }, 1000);
+      }, 500);
     })
   }
 })
@@ -749,7 +751,7 @@ app.get('/snack-boxes', (req, res)=> {
         };
         //console.log(templateVars.boxImage);
         res.render("big_boxes", templateVars);
-      }, 1000);
+      }, 500);
     })
   } else {
     knex.select('*')
@@ -770,7 +772,7 @@ app.get('/snack-boxes', (req, res)=> {
         };
         //console.log(templateVars.boxImage);
         res.render("big_boxes", templateVars);
-      }, 1000);
+      }, 500);
     })
   }
 })
@@ -794,7 +796,7 @@ app.get('/snack-boxes/:product_name', (req, res)=> {
           dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         }
         res.render("individual-big-box-page", templateVars);
-      }, 1000);
+      }, 500);
     })
   } else {
     knex.select('*')
@@ -814,7 +816,7 @@ app.get('/snack-boxes/:product_name', (req, res)=> {
           dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         }
         res.render("individual-big-box-page", templateVars);
-      }, 1000);
+      }, 500);
     })
   }
 })
