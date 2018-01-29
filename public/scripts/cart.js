@@ -80,25 +80,35 @@ $(document).ready(()=> {
 
 
 
-  Snipcart.subscribe('cart.ready', function (data) {
-    var count = Snipcart.api.items.count();
-    console.log("initial load count right here, ", count)
-    $('#itemCount').empty();
-    $('#itemCount').append(`${count} Items`);
-  });
+  // Snipcart.subscribe('cart.ready', function (data) {
+  //   var count = Snipcart.api.items.count();
+  //   console.log("initial load count right here, ", count)
+  //   $('#itemCount').empty();
+  //   $('#itemCount').append(`${count} Items`);
+  // });
 
-  Snipcart.subscribe('item.added', function (data) {
-    var count = Snipcart.api.items.count();
-    console.log("Item added, count right here, ", count)
-    $('#itemCount').empty();
-    $('#itemCount').append(`${count} Items`);
-  })
+  // Snipcart.subscribe('item.added', function (data) {
+  //   var count = Snipcart.api.items.count();
+  //   console.log("Item added, count right here, ", count)
+  //   $('#itemCount').empty();
+  //   $('#itemCount').append(`${count} Items`);
+  // })
 
-  Snipcart.subscribe('item.removed', function (data) {
-    var count = Snipcart.api.items.count();
-    console.log("Item removed, count right here, ", count)
-    $('#itemCount').empty();
-    $('#itemCount').append(`${count} Items`);
+  // Snipcart.subscribe('item.removed', function (data) {
+  //   var count = Snipcart.api.items.count();
+  //   console.log("Item removed, count right here, ", count)
+  //   $('#itemCount').empty();
+  //   $('#itemCount').append(`${count} Items`);
+  // })
+
+  console.log("Cart working.")
+
+  Snipcart.subscribe('cart.opened', function (data) {
+    var button = $("#cart-content-text-0").html();
+    $(button).appendTo($("#snipcart-actions"));
+
+    var footerInfo = $("#cart-content-text-1").html();
+    $(footerInfo).insertBefore($("#snipcart-footer"));
   })
 
   Snipcart.subscribe('order.completed', function (data) {
