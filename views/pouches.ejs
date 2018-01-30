@@ -75,21 +75,26 @@
                     <p class="subtitle is-6"><% if (dynamicNavPouchNames[i].quick_desc) { %><%= dynamicNavPouchNames[i].quick_desc %><% } else {%> Coming Soon! <% } %></p>
 
                     <div class="level is-mobile">
-                    <div class="level-left">
-                      <div class="level-item">
-                        <button
-                          class="snipcart-add-item button is-medium is-primary"
-                          data-item-id="<%= response[i].pouch_id %>"
-                          data-item-name="<%= response[i].pouch_name %>"
-                          data-item-price="<%= response[i].pouch_price %>"
-                          data-item-url="/individual-snacks/<%= response[i].pouch_name %>"
-                          data-item-image="<%= response[i].pouch_image_url %>"
-                          data-item-has-taxes-included="false">
-                              Add <%= response[i].pouch_name %> to Cart
-                        </button>
+                      <div class="level-left">
+                        <div class="level-item">
+                          <button
+                            class="snipcart-add-item button is-medium is-primary"
+                            data-item-id="<%= response[i].pouch_id %>"
+                            data-item-name="<%= response[i].pouch_name %>"
+                            data-item-price="<%= response[i].pouch_price %>"
+                            data-item-url="/individual-snacks/<%= response[i].pouch_name %>"
+                            data-item-image="<%= response[i].pouch_image_url %>"
+                            data-item-has-taxes-included="false">
+                                Add to Cart
+                          </button>
+                        </div>
+                      </div>
+                      <div class="level-right">
+                        <div class="level-item">
+                          <b>Rs. <%= response[i].pouch_price %></b>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
                   </div>
                 </div>
@@ -130,8 +135,13 @@
                           data-item-url="/individual-snacks/<%= response[0].pouch_name %>"
                           data-item-image="<%= response[0].pouch_image_url %>"
                           data-item-has-taxes-included="false">
-                              Add <%= response[0].pouch_name %> to Cart
+                              Add to Cart
                         </button>
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <b>Rs. <%= response[0].pouch_price %></b>
                       </div>
                     </div>
                   </div>
@@ -169,8 +179,13 @@
                           data-item-url="/individual-snacks/<%= response[1].pouch_name %>"
                           data-item-image="<%= response[1].pouch_image_url %>"
                           data-item-has-taxes-included="false">
-                              Add <%= response[1].pouch_name %> to Cart
+                              Add to Cart
                         </button>
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <b>Rs. <%= response[1].pouch_price %></b>
                       </div>
                     </div>
                   </div>
@@ -214,8 +229,13 @@
                           data-item-url="/individual-snacks/<%= response[2].pouch_name %>"
                           data-item-image="<%= response[2].pouch_image_url %>"
                           data-item-has-taxes-included="false">
-                              Add <%= response[2].pouch_name %> to Cart
+                              Add to Cart
                         </button>
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <b>Rs. <%= response[2].pouch_price %></b>
                       </div>
                     </div>
                   </div>
@@ -246,14 +266,19 @@
                       <div class="level-item">
                         <button
                           class="snipcart-add-item button is-medium is-primary"
-                          data-item-id="<%= response[5].pouch_id %>"
-                          data-item-name="<%= response[5].pouch_name %>"
-                          data-item-price="<%= response[5].pouch_price %>"
-                          data-item-url="/individual-snacks/<%= response[5].pouch_name %>"
-                          data-item-image="<%= response[5].pouch_image_url %>"
+                          data-item-id="<%= response[3].pouch_id %>"
+                          data-item-name="<%= response[3].pouch_name %>"
+                          data-item-price="<%= response[3].pouch_price %>"
+                          data-item-url="/individual-snacks/<%= response[3].pouch_name %>"
+                          data-item-image="<%= response[3].pouch_image_url %>"
                           data-item-has-taxes-included="false">
-                              Add <%= response[5].pouch_name %> to Cart
+                              Add to Cart
                         </button>
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <b>Rs. <%= response[3].pouch_price %></b>
                       </div>
                     </div>
                   </div>
@@ -297,8 +322,13 @@
                           data-item-url="/individual-snacks/<%= response[4].pouch_name %>"
                           data-item-image="<%= response[4].pouch_image_url %>"
                           data-item-has-taxes-included="false">
-                              Add <%= response[4].pouch_name %> to Cart
+                              Add to Cart
                         </button>
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <b>Rs. <%= response[4].pouch_price %></b>
                       </div>
                     </div>
                   </div>
@@ -335,8 +365,13 @@
                           data-item-url="/individual-snacks/<%= response[5].pouch_name %>"
                           data-item-image="<%= response[5].pouch_image_url %>"
                           data-item-has-taxes-included="false">
-                              Add <%= response[5].pouch_name %> to Cart
+                              Add to Cart
                         </button>
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <b>Rs. <%= response[5].pouch_price %></b>
                       </div>
                     </div>
                   </div>

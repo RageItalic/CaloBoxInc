@@ -102,13 +102,14 @@ $(document).ready(()=> {
   // })
 
   console.log("Cart working.")
-  let footerInfo;
+
+  Snipcart.api.configure('show_cart_automatically', false);
 
   Snipcart.subscribe('cart.opened', function (data) {
     var button = $("#cart-content-text-0").html();
     $(button).appendTo($("#snipcart-actions"));
 
-    footerInfo = $("#cart-content-text-1").html();
+    var footerInfo = $("#cart-content-text-1").html();
     $(footerInfo).insertBefore($("#snipcart-footer"));
   })
 
