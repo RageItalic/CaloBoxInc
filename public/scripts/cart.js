@@ -102,14 +102,19 @@ $(document).ready(()=> {
   // })
 
   console.log("Cart working.")
+  let footerInfo;
 
   Snipcart.subscribe('cart.opened', function (data) {
     var button = $("#cart-content-text-0").html();
     $(button).appendTo($("#snipcart-actions"));
 
-    var footerInfo = $("#cart-content-text-1").html();
+    footerInfo = $("#cart-content-text-1").html();
     $(footerInfo).insertBefore($("#snipcart-footer"));
   })
+
+  Snipcart.subscribe('cart.closed', function() {
+    $(".custom-snipcart-footer-text").empty();
+  });
 
   Snipcart.subscribe('order.completed', function (data) {
     console.log(data);
