@@ -83,10 +83,6 @@ function getNavBoxes() {
   })
 }
 
-app.post('/randomPost', (req, res) => {
-  console.log("LOOK HERE PLEASE, ", req.body);
-})
-
 app.post("/webhookTest", (req, res) => {
   console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
   // console.log('request =' + JSON.stringify(req.body))
@@ -111,7 +107,7 @@ app.post("/webhookTest", (req, res) => {
     shippingRate = {
       "rates": [
         {
-          "cost": 00,
+          "cost": 0,
           "description": "Free shipping!"
         }
       ]
