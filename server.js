@@ -83,6 +83,11 @@ function getNavBoxes() {
 }
 
 
+app.post("/webhookTest", (req, res) => {
+  console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
+  console.log("You sure got it right!")
+})
+
 // Home page
 app.get("/", (req, res) => {
   console.log("REQ.SESSION", req.session);
