@@ -87,9 +87,10 @@ app.post("/webhookTest", (req, res) => {
   console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
   console.log("You sure got it right!")
   console.log("Look at the request, ", req)
-  res.send('Loud and Clear!')
+  let shippingRate =  req.body.content;
+  res.send(shippingRate)
   //var total = req.body.content.finalGrandTotal;
-  let shippingRate;
+
   // if(total < 500) {
   //   shippingRate = {
   //     "rates": [
