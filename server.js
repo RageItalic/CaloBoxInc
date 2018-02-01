@@ -82,13 +82,17 @@ function getNavBoxes() {
   })
 }
 
+app.post('/randomPost', (req, res) => {
+  console.log("LOOK HERE PLEASE, ", req.body);
+})
 
 app.post("/webhookTest", (req, res) => {
   console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
+  console.log('request =' + JSON.stringify(req.body))
   console.log("You sure got it right!")
-  console.log("Look at the request, ", req)
-  let shippingRate =  req.body.content;
-  res.send(shippingRate)
+  // console.log("Look at the request, ", req)
+  // let shippingRate =  req.body.hello;
+  // res.send(JSON.stringify(shippingRate))
   //var total = req.body.content.finalGrandTotal;
 
   // if(total < 500) {
