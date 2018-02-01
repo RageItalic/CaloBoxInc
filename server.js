@@ -89,25 +89,37 @@ app.post('/randomPost', (req, res) => {
 
 app.post("/webhookTest", (req, res) => {
   console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
-  console.log('request =' + JSON.stringify(req.body))
+  // console.log('request =' + JSON.stringify(req.body))
   console.log("You sure got it right!")
   // console.log("Look at the request, ", req)
-  // let shippingRate =  req.body.hello;
+  let shippingRate;
   // res.send(JSON.stringify(shippingRate))
-  //var total = req.body.content.finalGrandTotal;
+  var total = req.body.content.finalGrandTotal;
 
-  // if(total < 500) {
-  //   shippingRate = {
-  //     "rates": [
-  //       {
-  //         "cost": 70,
-  //         "description": "Rs. 70 standard shipping"
-  //       }
-  //     ]
-  //   };
-  //   res.status(200);
-  //   res.send(JSON.stringify(shippingRate));
-  // }
+  if(total < 500) {
+    shippingRate = {
+      "rates": [
+        {
+          "cost": 70,
+          "description": "Rs. 70 standard shipping"
+        }
+      ]
+    };
+    res.status(200);
+    res.send(JSON.stringify(shippingRate));
+  } else if (total > 500){
+    shippingRate = {
+      "rates": [
+        {
+          "cost": 00,
+          "description": "Free shipping!"
+        }
+      ]
+    };
+    res.status(200);
+    res.send(JSON.stringify(shippingRate));
+  }
+
 })
 
 // Home page
