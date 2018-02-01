@@ -124,11 +124,8 @@ app.post('/testRequest', (req, res) => {
 
 app.post("/webhookTest", (req, res) => {
   console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
-  // console.log('request =' + JSON.stringify(req.body))
   console.log("You sure got it right!")
-  // console.log("Look at the request, ", req)
   let shippingRate;
-  // res.send(JSON.stringify(shippingRate))
   var total = req.body.content.finalGrandTotal;
 
   if(total < 500) {
@@ -141,7 +138,7 @@ app.post("/webhookTest", (req, res) => {
       ]
     };
     res.status(200);
-    res.send(JSON.stringify(shippingRate));
+    res.send(shippingRate);
   } else if (total > 500){
     shippingRate = {
       "rates": [
@@ -152,7 +149,7 @@ app.post("/webhookTest", (req, res) => {
       ]
     };
     res.status(200);
-    res.send(JSON.stringify(shippingRate));
+    res.send(shippingRate);
   }
 
 })
