@@ -86,20 +86,22 @@ function getNavBoxes() {
 app.post("/webhookTest", (req, res) => {
   console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
   console.log("You sure got it right!")
-  var total = req.body.content.finalGrandTotal;
+  console.log("Look at the request, ", req)
+  res.send('Loud and Clear!')
+  //var total = req.body.content.finalGrandTotal;
   let shippingRate;
-  if(total < 500) {
-    shippingRate = {
-      "rates": [
-        {
-          "cost": 70,
-          "description": "Rs. 70 standard shipping"
-        }
-      ]
-    };
-    res.status(200);
-    res.send(JSON.stringify(shippingRate));
-  }
+  // if(total < 500) {
+  //   shippingRate = {
+  //     "rates": [
+  //       {
+  //         "cost": 70,
+  //         "description": "Rs. 70 standard shipping"
+  //       }
+  //     ]
+  //   };
+  //   res.status(200);
+  //   res.send(JSON.stringify(shippingRate));
+  // }
 })
 
 // Home page
