@@ -86,7 +86,16 @@ function getNavBoxes() {
 app.post('/testRequest', (req, res) => {
   console.log('ORDER ON THE BACKEND, ', req.body.orderInfo)
   var order = req.body.orderInfo;
-  //emailc: order.email,
+  let productDescArray = [];
+  order.items.map(item => {
+    console.log("item name: ", item.name)
+    console.log('item quantity: ', item.quantity)
+    const itemString = `${item.quantity} --> ${item.name}`;
+    console.log("ITEM STRING: ", itemString)
+    productDescArray.push(itemString)
+  })
+  console.log("PRODUCT DESC ARRAY: ", productDescArray.toString())
+
   //order_no: order.invoiceNumber,
   //consignee: order.shippingAddress.fullName,
   //city: order.shippingAddress.city,
@@ -95,7 +104,11 @@ app.post('/testRequest', (req, res) => {
   //address2: order.shippingAddress.address2,
   //Pincode: order.shippingAddress.postalCode,
   //phone: order.shippingAddress.phone,
-  //weight:
+  //weight: order.totalWeight,
+  //mode: 'COD',
+  //emailc: order.email,
+  //amount: order.total,
+  //product:
 
   // request.post({
   //   url:'http://ship.styledgeshop.com/api/create/package.php',
@@ -146,7 +159,7 @@ app.post("/webhookTest", (req, res) => {
     };
     res.status(200);
     res.send(shippingRate);
-  } else if (total > 500){
+  } else if (total >= 500){
     shippingRate = {
       "rates": [
         {
