@@ -20,7 +20,7 @@ $(document).ready(()=> {
     console.log(data);
     console.log("ajaxing");
     $.ajax({
-      url: '/testRequest',
+      url: '/postToStyledge',
       type: 'POST',
       data: {
         orderInfo: data

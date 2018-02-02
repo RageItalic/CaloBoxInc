@@ -83,7 +83,7 @@ function getNavBoxes() {
   })
 }
 
-app.post('/testRequest', (req, res) => {
+app.post('/postToStyledge', (req, res) => {
   console.log('ORDER ON THE BACKEND, ', req.body.orderInfo)
   var order = req.body.orderInfo;
   let productDescArray = [];
@@ -95,6 +95,7 @@ app.post('/testRequest', (req, res) => {
     productDescArray.push(itemString)
   })
   console.log("PRODUCT DESC ARRAY: ", productDescArray.toString())
+  var productDescString = productDescArray.toString();
 
   //order_no: order.invoiceNumber,
   //consignee: order.shippingAddress.fullName,
@@ -108,37 +109,36 @@ app.post('/testRequest', (req, res) => {
   //mode: 'COD',
   //emailc: order.email,
   //amount: order.total,
-  //product:
+  //product: productDescString
 
-  // request.post({
-  //   url:'http://ship.styledgeshop.com/api/create/package.php',
-  //   form: {
-  //     user: 'calofoods',
-  //     password: 'styledge123',
-  //     order_no: '123',
-  //     consignee: 'Kamlesh Kumar',
-  //     city: 'Mumbai',
-  //     state: 'Maharashtra',
-  //     address: '123 Fake Society',
-  //     address2: 'Not-real road',
-  //     Pincode: '390007',
-  //     phone: '9825044445',
-  //     weight: 450,
-  //     mode: 'COD',
-  //     emailc: 'kamkemail@gmail.com',
-  //     amount: 126,
-  //     product: '1 Chocolate, 3 Vanilla'
-  //   }
-  // },
-  //   function(err,httpResponse,body){
-  //   if (err) {
-  //     console.log("REQUEST ERROR", err);
-  //   } else if (body) {
-  //     console.log("REQUEST BODY, ", body);
-  //   }
+  request.post({
+    url:'http://ship.styledgeshop.com/api/create/package.php',
+    form: {
+      user: 'calofoods',
+      password: 'styledge123',
+      order_no: order.invoiceNumber,
+      consignee: order.shippingAddress.fullName,
+      city: order.shippingAddress.city,
+      state: order.shippingAddress.provice,
+      address: order.shippingAddress.address1,
+      address2: order.shippingAddress.address2,
+      Pincode: order.shippingAddress.postalCode,
+      phone: order.shippingAddress.phone,
+      weight: order.totalWeight,
+      mode: 'COD',
+      emailc: order.email,
+      amount: order.total,
+      product: productDescString
+    }
+  },
+    function(err,httpResponse,body){
+    if (err) {
+      console.log("REQUEST ERROR", err);
+    } else if (body) {
+      console.log("REQUEST BODY, ", body);
+    }
     //console.log("REQUEST HTTP RESPONSE, ", httpResponse);
-
-  //})
+  })
 
 })
 
