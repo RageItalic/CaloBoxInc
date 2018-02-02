@@ -18,6 +18,7 @@ const stripe      = require('stripe')("sk_test_U3Ww6tPuCCQruhOiLMtFgLBg")
 const session     = require('express-session');
 const nodemailer  = require('nodemailer');
 const cors        = require('cors');
+const request     = require('request');
 
 app.use(cors({
   origin: 'http://localhost:8080',
@@ -40,7 +41,7 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -64,10 +65,9 @@ function getNavPouches() {
     //console.log('a pouch response has been received. this might actually work', pouchResponse);
     console.log('pouch IS RIGHT HERE ', pouchResponse)
     dynamicNavPouchNameObject = {
-      pouchNames: pouchResponse//.pouch_name,
-      //pouchDesc: pouchResponse.quick_desc
+      pouchNames: pouchResponse
     };
-    console.log('bhai yeh kya hai?', dynamicNavPouchNameObject)
+    console.log(dynamicNavPouchNameObject)
   })
 }
 
@@ -79,46 +79,53 @@ function getNavBoxes() {
     dynamicNavBigBoxNameObject = {
       bigBoxNames: bigBoxResponse
     };
-    console.log('bhai tu theek toh hai na?', dynamicNavBigBoxNameObject)
+    console.log(dynamicNavBigBoxNameObject)
   })
 }
 
 app.post('/testRequest', (req, res) => {
+  console.log('ORDER ON THE BACKEND, ', req.body.orderInfo)
+  var order = req.body.orderInfo;
+  //emailc: order.email,
+  //order_no: order.invoiceNumber,
+  //consignee: order.shippingAddress.fullName,
+  //city: order.shippingAddress.city,
+  //state: order.shippingAddress.provice,
+  //address: order.shippingAddress.address1,
+  //address2: order.shippingAddress.address2,
+  //Pincode: order.shippingAddress.postalCode,
+  //phone: order.shippingAddress.phone,
+  //weight:
 
-  // axios.post('http://ship.styledgeshop.com/api/create/package.php?user=demo&password=demo123&order_no=123&consignee=Parth%20Patel&city=mumbai&state=maharashtra&...')
+  // request.post({
+  //   url:'http://ship.styledgeshop.com/api/create/package.php',
+  //   form: {
+  //     user: 'calofoods',
+  //     password: 'styledge123',
+  //     order_no: '123',
+  //     consignee: 'Kamlesh Kumar',
+  //     city: 'Mumbai',
+  //     state: 'Maharashtra',
+  //     address: '123 Fake Society',
+  //     address2: 'Not-real road',
+  //     Pincode: '390007',
+  //     phone: '9825044445',
+  //     weight: 450,
+  //     mode: 'COD',
+  //     emailc: 'kamkemail@gmail.com',
+  //     amount: 126,
+  //     product: '1 Chocolate, 3 Vanilla'
+  //   }
+  // },
+  //   function(err,httpResponse,body){
+  //   if (err) {
+  //     console.log("REQUEST ERROR", err);
+  //   } else if (body) {
+  //     console.log("REQUEST BODY, ", body);
+  //   }
+    //console.log("REQUEST HTTP RESPONSE, ", httpResponse);
 
-  axios.post('http://ship.styledgeshop.com/api/create/package.php', {
-    user: 'demo',
-    password: 'demo123',
-    order_no: '123',
-    consignee: 'Kamlesh Kumar',
-    city: 'Mumbai',
-    state: 'Maharashtra',
-    address: '123 Fake Society',
-    address2: 'Not-real road',
-    pincode: '390007',
-    phone: '9825044445',
-    weight: 450,
-    mode: 'prepaid',
-    emailc: 'kamkemail@gmail.com',
-    amount: 450,
-    product: 'Chocolate, Vanilla'
-  })
-  .then(function (response) {
-    console.log("I have just received a response back, ", response.data);
-    res.send(response.data)
-  })
-  .catch(function (error) {
-    console.log("I have just received a ERROR back, ",error);
-  });
-
-  // axios.get('http://ship.styledgeshop.com/api/create/package.php')
-  //   .then(response => {
-  //     console.log("response is here, ", response.data)
-  //     res.send(response.data)
-  //   }).catch(err => {
-  //     console.log("error error error, ", err)
-  //   })
+  //})
 
 })
 

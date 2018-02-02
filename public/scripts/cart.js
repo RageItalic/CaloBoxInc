@@ -18,6 +18,7 @@ $(document).ready(()=> {
 
   Snipcart.subscribe('order.completed', function (data) {
     console.log(data);
+    console.log("ajaxing");
     $.ajax({
       url: '/testRequest',
       type: 'POST',
@@ -31,10 +32,12 @@ $(document).ready(()=> {
 
   $('.snipcart-add-item').on('click', ()=> {
     console.log("cart clicked");
+    console.log("item added!!!");
   })
 
   $('.snipcart-checkout').on('click', ()=> {
     console.log("cart clicked");
+    console.log("checkout clicked");
   })
 
 })

@@ -43,10 +43,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
     <!-- Live Key -->
-    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script>
+    <!-- <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script> -->
 
     <!-- Test Key -->
-    <!-- <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MDViM2VlYjgtYWE1OC00ZGViLWFmMzAtMWYyNjljOGE3ZWI4NjM2NDc2OTQ3MzkwOTc1ODg1"></script> -->
+    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MDViM2VlYjgtYWE1OC00ZGViLWFmMzAtMWYyNjljOGE3ZWI4NjM2NDc2OTQ3MzkwOTc1ODg1"></script>
 
     <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
@@ -88,6 +88,7 @@
                             data-item-id="<%= response[i].pouch_id %>"
                             data-item-name="<%= response[i].pouch_name %>"
                             data-item-price="<%= response[i].pouch_price %>"
+                            data-item-weight="<%= response[i].net_weight %>"
                             data-item-url="/individual-snacks/<%= response[i].pouch_name %>"
                             data-item-image="<%= response[i].pouch_image_url %>"
                             data-item-has-taxes-included="false">
@@ -138,6 +139,7 @@
                           data-item-id="<%= response[0].pouch_id %>"
                           data-item-name="<%= response[0].pouch_name %>"
                           data-item-price="<%= response[0].pouch_price %>"
+                          data-item-weight="<%= response[0].net_weight %>"
                           data-item-url="/individual-snacks/<%= response[0].pouch_name %>"
                           data-item-image="<%= response[0].pouch_image_url %>"
                           data-item-has-taxes-included="false">
@@ -182,6 +184,7 @@
                           data-item-id="<%= response[1].pouch_id %>"
                           data-item-name="<%= response[1].pouch_name %>"
                           data-item-price="<%= response[1].pouch_price %>"
+                          data-item-weight="<%= response[1].net_weight %>"
                           data-item-url="/individual-snacks/<%= response[1].pouch_name %>"
                           data-item-image="<%= response[1].pouch_image_url %>"
                           data-item-has-taxes-included="false">
@@ -232,6 +235,7 @@
                           data-item-id="<%= response[2].pouch_id %>"
                           data-item-name="<%= response[2].pouch_name %>"
                           data-item-price="<%= response[2].pouch_price %>"
+                          data-item-weight="<%= response[2].net_weight %>"
                           data-item-url="/individual-snacks/<%= response[2].pouch_name %>"
                           data-item-image="<%= response[2].pouch_image_url %>"
                           data-item-has-taxes-included="false">
@@ -275,6 +279,7 @@
                           data-item-id="<%= response[3].pouch_id %>"
                           data-item-name="<%= response[3].pouch_name %>"
                           data-item-price="<%= response[3].pouch_price %>"
+                          data-item-weight="<%= response[3].net_weight %>"
                           data-item-url="/individual-snacks/<%= response[3].pouch_name %>"
                           data-item-image="<%= response[3].pouch_image_url %>"
                           data-item-has-taxes-included="false">
@@ -325,6 +330,7 @@
                           data-item-id="<%= response[4].pouch_id %>"
                           data-item-name="<%= response[4].pouch_name %>"
                           data-item-price="<%= response[4].pouch_price %>"
+                          data-item-weight="<%= response[4].net_weight %>"
                           data-item-url="/individual-snacks/<%= response[4].pouch_name %>"
                           data-item-image="<%= response[4].pouch_image_url %>"
                           data-item-has-taxes-included="false">
@@ -368,6 +374,7 @@
                           data-item-id="<%= response[5].pouch_id %>"
                           data-item-name="<%= response[5].pouch_name %>"
                           data-item-price="<%= response[5].pouch_price %>"
+                          data-item-weight="<%= response[5].net_weight %>"
                           data-item-url="/individual-snacks/<%= response[5].pouch_name %>"
                           data-item-image="<%= response[5].pouch_image_url %>"
                           data-item-has-taxes-included="false">
