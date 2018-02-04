@@ -25,8 +25,8 @@ $(document).ready(()=> {
       data: {
         orderInfo: data
       }
-    }).done(json => {
-      console.log("JSON HAS BEEN RETURNED, ", json)
+    }).done(status => {
+      console.log("Shipping company notified!", JSON.parse(status))
     })
   });
 

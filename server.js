@@ -132,12 +132,22 @@ app.post('/postToStyledge', (req, res) => {
     }
   },
     function(err,httpResponse,body){
-    if (err) {
-      console.log("REQUEST ERROR", err);
-    } else if (body) {
-      console.log("REQUEST BODY, ", body);
-    }
-    //console.log("REQUEST HTTP RESPONSE, ", httpResponse);
+      var status = {};
+      if (err) {
+        console.log("REQUEST ERROR", err);
+        status = {
+          code: 401,
+          message: "Post request not successful."
+        }
+        res.send(JSON.stringify(status))
+      } else if (body) {
+        status = {
+          code: 200,
+          message: "Post request made successfully."
+        };
+        console.log("REQUEST BODY, ", body);
+        res.send(JSON.stringify(status))
+      }
   })
 
 })
