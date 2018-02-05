@@ -86,11 +86,22 @@
     <section class="section">
       <div class="container has-text-centered">
         <h2 class="title"><%= response[0].big_box_name %></h2>
-        <div class="columns is-centered">
+      </div>
+    </section>
+
+    <img id="bigBoxImageUrl" src="<%= response[0].big_box_image_url %>">
+
+    <section class="section">
+      <div class="container has-text-centered">
+        <!-- <div class="columns is-centered">
           <div class="column">
             <img id="bigBoxImageUrl" src="<%= response[0].big_box_image_url %>">
           </div>
-        </div>
+        </div> -->
+        <p style="font-size: 20px;"><%= response[0].big_box_description %></p>
+        <br />
+        <p style="font-size: 20px;"><b>Price: Rs.<%= response[0].big_box_price %></b></p>
+        <br />
         <p>
           Interested in having this product at an event you're hosting? Contact us <a href="/contact-us">here!</a> Or through the little blue box on the right!
         </p>
