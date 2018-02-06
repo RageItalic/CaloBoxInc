@@ -563,7 +563,8 @@ app.post("/loggingIn", (req, res) => {
         status: 200,
         message: null
       };
-      res.send(JSON.stringify(templateVars));
+      // res.send(JSON.stringify(templateVars));
+      res.redirect('/');
     } else {
       //console.log("THIS IS THE ERROR", err);
       var templateVars = {
@@ -571,6 +572,7 @@ app.post("/loggingIn", (req, res) => {
         message: 'The email or password you entered is incorrect. Try again.'
       };
       res.send(JSON.stringify(templateVars));
+
     }
   }).catch((err) => {
     console.log('ERROROROROR', err);
@@ -659,7 +661,8 @@ app.post("/signingUp", (req, res) => {
         status: 200,
         message: null
       };
-      res.send(JSON.stringify(templateVars));
+      // res.send(JSON.stringify(templateVars));
+      res.redirect('/');
     })
   }).catch((err) => {
     console.log('ERROR BUD', err)
