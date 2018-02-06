@@ -16,19 +16,19 @@ $(document).ready(()=> {
     $(".custom-snipcart-footer-text").empty();
   });
 
-  // Snipcart.subscribe('order.completed', function (data) {
-  //   console.log(data);
-  //   console.log("ajaxing");
-  //   $.ajax({
-  //     url: '/postToStyledge',
-  //     type: 'POST',
-  //     data: {
-  //       orderInfo: data
-  //     }
-  //   }).done(status => {
-  //     console.log("Shipping company notified!", JSON.parse(status))
-  //   })
-  // });
+  Snipcart.subscribe('order.completed', function (data) {
+    console.log(data);
+    console.log("ajaxing");
+    $.ajax({
+      url: '/postToStyledge',
+      type: 'POST',
+      data: {
+        orderInfo: data
+      }
+    }).done(status => {
+      console.log("Shipping company notified!", JSON.parse(status))
+    })
+  });
 
   $('.snipcart-add-item').on('click', ()=> {
     console.log("cart clicked");
