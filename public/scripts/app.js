@@ -1,6 +1,8 @@
 $(()=> {
   console.log('Welcome to Calobox!');
 
+  $('.my-slider').unslider({ autoplay: true, delay: 7000 });
+
   $('#mailForm').on('submit', (e)=> {
     e.preventDefault();
     $.ajax({

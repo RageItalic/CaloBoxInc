@@ -13,6 +13,15 @@
     <link href="/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="./styles/finalstyles.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/css/unslider.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/css/unslider-dots.css">
+
+    <!-- <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.css"> -->
+
+
+
     <!-- Start of Async Drift Code -->
     <script>
     !function() {
@@ -45,6 +54,10 @@
     <!-- Live Key -->
     <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script>
 
+    <!-- <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/js/unslider-min.js"></script>
+
     <script type="text/javascript" src="./scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
@@ -52,22 +65,52 @@
 
     <% include ./partials/_navbar %>
 
-    <section class="hero is-large" style="background-image: url('https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG_6373.jpg'); background-size: cover;">
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="" style="font-family: 'Montserrat', sans-serif; font-size: 46px; font-weight: bold; color: white;">Discover our line of #JunkFree snacks!</h1>
-          <h2 class="subtitle is-4" style="font-family: 'Montserrat', sans-serif; color: white; font-size: 36px;">
-            <b>Join the </b> <b style="color: green;">#CaloIndia</b> <b>Revolution! It's time to be the </b><b style="color: green;">#CaloYou!</b>
-          </h2>
-          <br />
-          <br />
-          <a class="button is-medium is-primary" href="/individual-snacks" style="font-family: 'Montserrat', sans-serif;">Shop Now</a>
-          <br />
-          <p class="subtitle is-4" style="font-family: 'Montserrat', sans-serif; color: white; font-size: 30px;"><b>Free shipping on orders over Rs. 500!</b></p>
-          <p class="subtitle is-4" style="font-family: 'Montserrat', sans-serif; color: white; font-size: 30px;"><b>Use code HELLOCALO at checkout for 10% off!</b></p>
-        </div>
-      </div>
-    </section>
+    <div class="my-slider">
+      <ul>
+        <li style="background-image: url(https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG_6373.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh;">
+          <section class="section">
+            <div class="container has-text-centered">
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <h1 class="" style="font-family: 'Montserrat', sans-serif; font-size: 46px; font-weight: bold; color: white;">Discover our line of <b style="color: green;">#JunkFree</b> snacks!</h1>
+              <br />
+              <br />
+              <a class="button is-medium is-primary" href="/individual-snacks" style="font-family: 'Montserrat', sans-serif;">Shop Now</a>
+              <br />
+              <br />
+              <br />
+              <p class="subtitle is-4" style="font-family: 'Montserrat', sans-serif; color: white; font-size: 30px;"><b>Free shipping on orders over Rs. 500!</b></p>
+            </div>
+          </section>
+        </li>
+        <li style="background-image: url('https://s3.us-east-2.amazonaws.com/caloimagesandvideos/Optimized-IMG_6382.jpg'); background-size: cover; background-repeat: no-repeat; height: 100vh;">
+          <section class="section">
+            <div class="container has-text-centered">
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <h2 class="subtitle is-4" style="font-family: 'Montserrat', sans-serif; color: white; font-size: 36px;">
+                <b>Join the </b> <b style="color: green;">#CaloIndia</b> <b>Revolution! It's time to be the </b><b style="color: green;">#CaloYou!</b>
+              </h2>
+              <br />
+              <br />
+              <a class="button is-medium is-primary" href="/individual-snacks" style="font-family: 'Montserrat', sans-serif;">Shop Now</a>
+              <br />
+              <br />
+              <p class="subtitle is-4" style="font-family: 'Montserrat', sans-serif; color: white; font-size: 30px;"><b>Use code HELLOCALO at checkout for 10% off!</b></p>
+            </div>
+          </section>
+        </li>
+      </ul>
+    </div>
+
 
     <br />
 
@@ -301,6 +344,7 @@
 
 
     <% include ./partials/_footer %>
+
 
   </body>
 </html>
