@@ -36,7 +36,7 @@ $(()=> {
       }
     }).done((fromServer) => {
       if (JSON.parse(fromServer).status === 200) {
-        window.location.replace('/')
+        window.location.replace('https://www.calobox.in/')
       } else {
         $('#errorMessageHere').append(JSON.parse(fromServer).message)
       }
