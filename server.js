@@ -156,7 +156,7 @@ app.post("/webhookTest", (req, res) => {
   console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
   console.log("You sure got it right!")
   let shippingRate;
-  var total = req.body.content.finalGrandTotal;
+  var total = req.body.content.summary.subtotal;
 
   if(total < 500) {
     shippingRate = {
@@ -366,6 +366,36 @@ app.get('/how-it-works', (req, res) => {
         dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
       };
       res.render("howItWorks", templateVars);
+    }, 500);
+  }
+})
+
+app.get('/faq', (req, res) => {
+  if(req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: req.session.name,
+        userID: req.session.userID,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("faq", templateVars);
+    }, 500);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("faq", templateVars);
     }, 500);
   }
 })

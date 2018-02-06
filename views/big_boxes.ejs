@@ -69,7 +69,7 @@
                 <a href="/snack-boxes/<%=response[i].big_box_name%>">
                   <figure class="image is-4by3">
                     <img src="<%= response[i].big_box_image_url %>" alt="<%= response[i].big_box_name %>">
-                    <!-- <img src="http://strmstr.com/images/coming-soon.png" alt="Coming Soon."> -->
+
                   </figure>
                 </a>
               </div>
@@ -84,6 +84,30 @@
                   <%= response[i].big_box_description %>
                   <br>
                 </div>
+
+                <div class="level is-mobile">
+                  <div class="level-left">
+                    <div class="level-item">
+                      <button
+                        class="snipcart-add-item button is-medium is-primary"
+                        data-item-id="<%= response[i].big_box_id %>"
+                        data-item-name="<%= response[i].big_box_name %>"
+                        data-item-price="<%= response[i].big_box_price %>"
+                        data-item-weight="<%= response[i].net_weight %>"
+                        data-item-url="/individual-snacks/<%= response[i].big_box_name %>"
+                        data-item-image="<%= response[i].big_box_image_url %>"
+                        data-item-has-taxes-included="false">
+                            Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <b>Rs. <%= response[i].big_box_price %> (<%= response[i].net_weight %> gms)</b>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -101,7 +125,6 @@
               <a href="/snack-boxes/<%=response[0].big_box_name%>">
                 <figure class="image is-3by3">
                   <img src="<%= response[0].big_box_image_url %>" alt="<%= response[0].big_box_name %>">
-                  <!-- <img src="http://strmstr.com/images/coming-soon.png" alt="Coming Soon."> -->
                 </figure>
               </a>
             </div>
@@ -116,6 +139,30 @@
                 <%= response[0].big_box_description %>
                 <br>
               </div>
+
+              <div class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <button
+                      class="snipcart-add-item button is-medium is-primary"
+                      data-item-id="<%= response[0].big_box_id %>"
+                      data-item-name="<%= response[0].big_box_name %>"
+                      data-item-price="<%= response[0].big_box_price %>"
+                      data-item-weight="<%= response[0].net_weight %>"
+                      data-item-url="/individual-snacks/<%= response[0].big_box_name %>"
+                      data-item-image="<%= response[0].big_box_image_url %>"
+                      data-item-has-taxes-included="false">
+                          Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <div class="level-item">
+                    <b>Rs. <%= response[0].big_box_price %> (<%= response[0].net_weight %> gms)</b>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -126,7 +173,7 @@
               <a href="/snack-boxes/<%=response[1].big_box_name%>">
                 <figure class="image is-3by3">
                   <img src="<%= response[1].big_box_image_url %>" alt="<%= response[1].big_box_name %>">
-                  <!-- <img src="http://strmstr.com/images/coming-soon.png" alt="Coming Soon."> -->
+
                 </figure>
               </a>
             </div>
@@ -141,6 +188,30 @@
                 <%= response[1].big_box_description %>
                 <br>
               </div>
+
+              <div class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <button
+                      class="snipcart-add-item button is-medium is-primary"
+                      data-item-id="<%= response[1].big_box_id %>"
+                      data-item-name="<%= response[1].big_box_name %>"
+                      data-item-price="<%= response[1].big_box_price %>"
+                      data-item-weight="<%= response[1].net_weight %>"
+                      data-item-url="/individual-snacks/<%= response[1].big_box_name %>"
+                      data-item-image="<%= response[1].big_box_image_url %>"
+                      data-item-has-taxes-included="false">
+                          Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <div class="level-item">
+                    <b>Rs. <%= response[1].big_box_price %> (<%= response[1].net_weight %> gms)</b>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -155,7 +226,7 @@
               <a href="/snack-boxes/<%=response[2].big_box_name%>">
                 <figure class="image is-3by3">
                   <img src="<%= response[2].big_box_image_url %>" alt="<%= response[2].big_box_name %>">
-                  <!-- <img src="http://strmstr.com/images/coming-soon.png" alt="Coming Soon."> -->
+
                 </figure>
               </a>
             </div>
@@ -170,6 +241,30 @@
                 <%= response[2].big_box_description %>
                 <br>
               </div>
+
+              <div class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <button
+                      class="snipcart-add-item button is-medium is-primary"
+                      data-item-id="<%= response[2].big_box_id %>"
+                      data-item-name="<%= response[2].big_box_name %>"
+                      data-item-price="<%= response[2].big_box_price %>"
+                      data-item-weight="<%= response[2].net_weight %>"
+                      data-item-url="/individual-snacks/<%= response[2].big_box_name %>"
+                      data-item-image="<%= response[2].big_box_image_url %>"
+                      data-item-has-taxes-included="false">
+                          Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <div class="level-item">
+                    <b>Rs. <%= response[2].big_box_price %> (<%= response[2].net_weight %> gms)</b>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -180,7 +275,7 @@
               <a href="/snack-boxes/<%=response[3].big_box_name%>">
                 <figure class="image is-3by3">
                   <img src="<%= response[3].big_box_image_url %>" alt="<%= response[3].big_box_name %>">
-                  <!-- <img src="http://strmstr.com/images/coming-soon.png" alt="Coming Soon."> -->
+
                 </figure>
               </a>
             </div>
@@ -195,6 +290,30 @@
                 <%= response[3].big_box_description %>
                 <br>
               </div>
+
+              <div class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <button
+                      class="snipcart-add-item button is-medium is-primary"
+                      data-item-id="<%= response[3].big_box_id %>"
+                      data-item-name="<%= response[3].big_box_name %>"
+                      data-item-price="<%= response[3].big_box_price %>"
+                      data-item-weight="<%= response[3].net_weight %>"
+                      data-item-url="/individual-snacks/<%= response[3].big_box_name %>"
+                      data-item-image="<%= response[3].big_box_image_url %>"
+                      data-item-has-taxes-included="false">
+                          Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <div class="level-item">
+                    <b>Rs. <%= response[3].big_box_price %> (<%= response[3].net_weight %> gms)</b>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

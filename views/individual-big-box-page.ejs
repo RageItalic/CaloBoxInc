@@ -44,7 +44,10 @@
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
       crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+    <!-- Live Key -->
     <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script>
+
     <script type="text/javascript" src="/scripts/cart.js"></script>
   </head>
   <body style="background-image: url('../brick-wall.png');">
@@ -100,7 +103,24 @@
         </div> -->
         <p style="font-size: 20px;"><%= response[0].big_box_description %></p>
         <br />
+        <p style="font-size: 20px;"><b>Net Weight: <%= response[0].net_weight %> gms</b></p>
+        <br />
         <p style="font-size: 20px;"><b>Price: Rs.<%= response[0].big_box_price %></b></p>
+        <br />
+
+        <button
+          class="snipcart-add-item button is-medium is-primary"
+          data-item-id="<%= response[0].big_box_id %>"
+          data-item-name="<%= response[0].big_box_name %>"
+          data-item-price="<%= response[0].big_box_price %>"
+          data-item-weight="<%= response[0].net_weight %>"
+          data-item-url="/individual-snacks/<%= response[0].big_box_name %>"
+          data-item-image="<%= response[0].big_box_image_url %>"
+          data-item-has-taxes-included="false">
+              Add <%= response[0].big_box_name %> to Cart
+        </button>
+
+        <br />
         <br />
         <p>
           Interested in having this product at an event you're hosting? Contact us <a href="/contact-us">here!</a> Or through the little blue box on the right!
