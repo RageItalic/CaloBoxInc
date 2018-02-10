@@ -97,20 +97,6 @@ app.post('/postToStyledge', (req, res) => {
   console.log("PRODUCT DESC ARRAY: ", productDescArray.toString())
   var productDescString = productDescArray.toString();
 
-  //order_no: order.invoiceNumber,
-  //consignee: order.shippingAddress.fullName,
-  //city: order.shippingAddress.city,
-  //state: order.shippingAddress.provice,
-  //address: order.shippingAddress.address1,
-  //address2: order.shippingAddress.address2,
-  //Pincode: order.shippingAddress.postalCode,
-  //phone: order.shippingAddress.phone,
-  //weight: order.totalWeight,
-  //mode: 'COD',
-  //emailc: order.email,
-  //amount: order.total,
-  //product: productDescString
-
   request.post({
     url:'http://ship.styledgeshop.com/api/create/package.php',
     form: {
@@ -188,31 +174,43 @@ app.post("/webhookTest", (req, res) => {
 app.get("/", (req, res) => {
   console.log("REQ.SESSION", req.session);
   if(req.session.userID){
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        userID: req.session.userID,
-        name: req.session.name,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render('home', templateVars)
-    }, 500);
+    knex.select('*')
+        .from('pouches')
+    .then(function(response){
+      console.log("response, ", response)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          userID: req.session.userID,
+          name: req.session.name,
+          email: req.session.email,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames,
+          response: response
+        };
+        res.render('home', templateVars)
+      }, 500);
+    })
   } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        userID: null,
-        name: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("home", templateVars)
-    }, 500);
+    knex.select('*')
+        .from('pouches')
+    .then(function(response){
+      console.log("RESPONSE, ", response)
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          userID: null,
+          name: null,
+          email: null,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames,
+          response: response
+        };
+        res.render("home", templateVars)
+      }, 500);
+    })
   }
 });
 

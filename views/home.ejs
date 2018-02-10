@@ -243,79 +243,39 @@
       </div>
     </section>
 
-    <section class="section is-hidden-mobile">
-      <div class="container">
-        <div class="columns is-vcentered">
-          <div class="column is-half is-offset-one-quarter">
-            <div class="field is-grouped is-grouped-centered">
-              <p class="control">
-                <a class="button is-info is-medium" href="/snack-boxes">
-                  Provide our boxes at your event!
-                </a>
-              </p>
-              <p class="control">
-                <a class="button is-info is-medium" href="/individual-snacks">
-                  Buy Our Snack Pouches Now!
-                </a>
-              </p>
-            </div>
+    <section class="section has-text-centered">
+      <h2 class="title">#EatLiteLiveRite</h2>
+      <div class="tile is-ancestor" style="overflow: hidden; overflow-x: scroll;">
+        <% for (var i = 0; i < response.length; i++) { %>
+          <div class="tile is-parent">
+            <article class="tile is-child box" style="width:329px;">
+              <p class="title" style="font-family: 'Montserrat', sans-serif"><%= response[i].pouch_name %></p>
+              <figure class="image is-4by3">
+                <img src="<%= response[i].pouch_image_url_2 %>">
+              </figure>
+              <br />
+              <p class="subtitle"><%= response[i].quick_desc %></p>
+              <b>Rs. <%= response[i].pouch_price %> (<%= response[i].net_weight %> gms)</b>
+              <button
+                class="snipcart-add-item button is-medium is-primary"
+                data-item-id="<%= response[i].pouch_id %>"
+                data-item-name="<%= response[i].pouch_name %>"
+                data-item-price="<%= response[i].pouch_price %>"
+                data-item-weight="<%= response[i].net_weight %>"
+                data-item-url="/individual-snacks/<%= response[i].pouch_name %>"
+                data-item-image="<%= response[i].pouch_image_url %>"
+                data-item-has-taxes-included="false">
+                    Add to Cart
+              </button>
+            </article>
           </div>
-        </div>
+        <% } %>
       </div>
     </section>
-
-    <section class="section is-hidden-desktop is-hidden-tablet">
-      <div class="field is-grouped is-grouped-centered">
-        <p class="control">
-          <a class="button is-info is-medium" href="/snack-boxes">
-            Provide our boxes at your event!
-          </a>
-        </p>
-      </div>
-      <div class="field is-grouped is-grouped-centered">
-        <p class="control">
-          <a class="button is-info is-medium" href="/individual-snacks">
-            Buy our snack pouches Now!
-          </a>
-        </p>
-      </div>
-    </section>
-
-
-<!--     <% if (!userID) { %>
-      <section class="hero is-medium is-bold" style="background-color: #43dacc;">
-        <br />
-        <div class="content has-text-centered">
-          <h2 class="subtitle" style="font-family: 'Montserrat', sans-serif; font-size: 20px;">
-            <strong style="color: white;">KEEP IN TOUCH!</strong>
-          </h2>
-        </div>
-        <br />
-        <div class="content has-text-centered">
-          <p class="subtitle" style="font-family: 'Roboto', sans-serif; color: white;">Sign up to get updates on product releases, special offers and other news.</p>
-        </div>
-        <br />
-        <br />
-        <br />
-        <form method="" action="post">
-          <div class="field has-addons has-addons-centered">
-            <p class="control">
-              <input class="input is-medium" type="text" placeholder="Your Email">
-            </p>
-            <p class="control">
-              <a class="button is-medium is-info">
-                Subscribe
-              </a>
-            </p>
-          </div>
-        </form>
-        <br />
-        <br />
-      </section>
-    <% } %> -->
 
     <section class="section">
-      <div class="container">
+      <div class="container has-text-centered">
+        <h2 class="title">#LivingRite on Instagram</h2>
         <div class="columns is-centered">
           <div class="column">
             <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BeQTcI3Hw-G/" data-instgrm-version="8" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/BeQTcI3Hw-G/" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by CALOBOX (@calobox)</a> on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2018-01-22T14:15:47+00:00">Jan 22, 2018 at 6:15am PST</time></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
