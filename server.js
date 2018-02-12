@@ -182,8 +182,13 @@ app.post('/webhooks/taxHook', (req, res) => {
   var total = req.body.content.total;
 
   tax = 0.12 * total;
+  var taxes = [{
+      "name": "Tax1",
+      "amount": tax,
+      "numberForInvoice": "TAX-001"
+    }]
   res.status(200);
-  res.send(tax);
+  res.send(taxes);
 })
 
 // Home page
