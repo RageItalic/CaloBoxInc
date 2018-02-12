@@ -178,6 +178,12 @@ app.post("/webhooks/shipping", (req, res) => {
 
 app.post('/webhooks/taxHook', (req, res) => {
   console.log("THIS IS THE TAX HOOK, ", req.body.content)
+  let tax;
+  var total = req.body.content.total;
+
+  tax = 0.12 * total;
+  res.status(200);
+  res.send(tax);
 })
 
 // Home page
