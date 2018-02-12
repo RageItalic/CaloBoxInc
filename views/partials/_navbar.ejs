@@ -14,6 +14,24 @@
 
   <div id="navMenuTransparentExample" class="navbar-menu">
     <div class="navbar-start">
+      <% if (!userID) { %>
+        <a href="/login" class="navbar-item">Login</a>
+        <a href="/signup" class="navbar-item">Sign Up</a>
+      <% } else { %>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link  is-active">
+            <%= name %>
+          </a>
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item " href="/logout">
+              Logout
+            </a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="navbar-end" id="rightHere">
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link  is-active" href="/snack-boxes">
           Snack Boxes
@@ -49,9 +67,11 @@
       <a class="navbar-item" href="/calo-club">
         Calo Club
       </a>
-    </div>
 
-    <div class="navbar-end" id="rightHere">
+      <a class="navbar-item" href="/about-us">
+        About Us
+      </a>
+
       <div class="navbar-item">
         <p class="control">
           <a class="bd-tw-button button snipcart-checkout snipcart-summary">
@@ -62,34 +82,6 @@
           </a>
         </p>
       </div>
-      <% if (!userID) { %>
-        <div class="navbar-item">
-          <div class="field is-grouped">
-            <p class="control">
-              <a href="/login" class="tw-button button">Login</a>
-            </p>
-          </div>
-        </div>
-        <div class="navbar-item">
-          <div class="field is-grouped">
-            <p class="control">
-              <a href="/signup" class="tw-button button">Sign Up</a>
-            </p>
-          </div>
-        </div>
-      <% } else { %>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link  is-active">
-            <%= name %>
-          </a>
-          <div class="navbar-dropdown is-boxed">
-            <a class="navbar-item " href="/logout">
-              Logout
-            </a>
-          </div>
-        </div>
-      <% } %>
     </div>
-
   </div>
 </nav>
