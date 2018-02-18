@@ -88,6 +88,34 @@ function getNavBoxes() {
   })
 }
 
+app.get('/email/sendEmailTo/:email', (req, res) => {
+  console.log("PARAMAMAMS, ", req.params.email)
+
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'hello.calobox@gmail.com',
+      pass: process.env.NODEMAILER_PASS
+    }
+  });
+
+  let mailOptions = {
+    from: 'Calobox',
+    to: req.params.email,
+    subject: `Welcome to Calo Club!`,
+    html: { path: 'emailTemplates/caloClub1.html' }
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log("THERE IS AN ERROR", error)
+      res.send("There has been an error, maybe you used the wrong email? Not sure.")
+    }
+      console.log('Message %s sent: %s', info.messageId, info.response)
+      res.send("Email sent. Now LEAVE ME ALONE.")
+  });
+})
+
 app.post('/postToStyledge', (req, res) => {
   console.log('ORDER ON THE BACKEND, ', req.body.orderInfo)
   var order = req.body.orderInfo;
@@ -175,21 +203,6 @@ app.post("/webhooks/shipping", (req, res) => {
 
 })
 
-
-app.post('/webhooks/taxHook', (req, res) => {
-  console.log("THIS IS THE TAX HOOK, ", req.body.content)
-  let tax;
-  var total = req.body.content.total;
-
-  tax = 0.12 * total;
-  var taxes = [{
-      "name": "Tax1",
-      "amount": tax,
-      "numberForInvoice": "TAX-001"
-    }]
-  res.status(200);
-  res.send(taxes);
-})
 
 // Home page
 app.get("/", (req, res) => {
@@ -297,6 +310,7 @@ app.get('/calo-club', (req, res) => {
 
 app.post('/contactEmail', (req, res)=> {
   console.log('req.body', req.body)
+
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -676,7 +690,8 @@ app.post("/signingUp", (req, res) => {
         })
     .then(function(resp){
 
-      let transporter = nodemailer.createTransport({
+      //email one
+      let transporter1 = nodemailer.createTransport({
         service: 'gmail',
         auth: {
           user: 'hello.calobox@gmail.com',
@@ -684,14 +699,38 @@ app.post("/signingUp", (req, res) => {
         }
       });
 
-      let mailOptions = {
+      let mailOptions1 = {
         from: 'Calobox',
         to: req.body.email,
         subject: `Welcome to Calobox!`,
         html: { path: 'emailTemplates/welcome.html' }
       };
 
-      transporter.sendMail(mailOptions, (error, info) => {
+      transporter1.sendMail(mailOptions1, (error, info) => {
+        if (error) {
+          console.log("THERE IS AN ERROR", error)
+        }
+          console.log('Message %s sent: %s', info.messageId, info.response)
+      });
+
+
+      //email two
+      let transporter2 = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'hello.calobox@gmail.com',
+          pass: process.env.NODEMAILER_PASS
+        }
+      });
+
+      let mailOptions2 = {
+        from: 'Calobox',
+        to: req.body.email,
+        subject: `Welcome to Calo Club!`,
+        html: { path: 'emailTemplates/caloClub1.html' }
+      };
+
+      transporter2.sendMail(mailOptions2, (error, info) => {
         if (error) {
           console.log("THERE IS AN ERROR", error)
         }
