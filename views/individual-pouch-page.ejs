@@ -201,7 +201,6 @@
                 <div class="level-left">
                   <div class="level-item">
 
-
                     <button
                         class="snipcart-add-item button is-medium is-primary"
                         data-item-id="<%= response[0].pouch_id %>"
@@ -213,8 +212,6 @@
                         data-item-has-taxes-included="false">
                             Add <%= response[0].pouch_name %> to Cart
                       </button>
-
-                      <!-- <a class="button is-medium is-primary" href="/login" style="font-family: 'Montserrat', sans-serif;">Login First</a> -->
 
                   </div>
                 </div>
@@ -248,6 +245,11 @@
                     <p style="font-size: 20px;"><strong>When should I eat it?</strong></p>
                   </a>
                 </li>
+                <li id="nutrition-tab">
+                  <a onClick="switchToNutritionInfo()">
+                    <p style="font-size: 20px;"><strong>Nutrition Info</strong></p>
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -265,6 +267,18 @@
               <div class="hidden" id="jquery-tab-content">
                 <p class="subtitle" style="text-align:center;">
                   <%= response[0].time_to_eat %>
+                </p>
+              </div>
+              <div class="hidden" id="nutrition-tab-content">
+                <p class="subtitle" style="text-align:center;">
+                  <% if (response[0].nutrition_info_image_1) { %>
+                    <img src="<%= response[0].nutrition_info_image_1 %>">
+                    <% if (response[0].nutrition_info_image_2) { %>
+                      <img src="<%= response[0].nutrition_info_image_2 %>">
+                    <% } %>
+                  <% } else { %>
+                    Coming Soon!
+                  <% } %>
                 </p>
               </div>
             </div>
@@ -299,6 +313,13 @@
         $("#jquery-tab-content").removeClass("hidden");
       }
 
+      function switchToNutritionInfo() {
+        removeActive();
+        hideAll();
+        $("#nutrition-tab").addClass("is-active");
+        $("#nutrition-tab-content").removeClass("hidden");
+      }
+
       function removeActive() {
         $("li").each(function() {
           $(this).removeClass("is-active");
@@ -323,6 +344,7 @@
         $("#all-tab-content").addClass("hidden");
         $("#adaptivedesign-tab-content").addClass("hidden");
         $("#jquery-tab-content").addClass("hidden");
+        $("#nutrition-tab-content").addClass("hidden");
         $("#ajax-tab-content").addClass("hidden");
         $("#angularjs-tab-content").addClass("hidden");
       }
