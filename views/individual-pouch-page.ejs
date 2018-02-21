@@ -19,6 +19,18 @@
       .hidden {
         display: none;
       }
+      .transition {
+        -webkit-transform: scale(1.6);
+        -moz-transform: scale(1.6);
+        -o-transform: scale(1.6);
+        transform: scale(2);
+      }
+      #content {
+        -webkit-transition: all .4s ease-in-out;
+        -moz-transition: all .4s ease-in-out;
+        -o-transition: all .4s ease-in-out;
+        -ms-transition: all .4s ease-in-out;
+      }
     </style>
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css">
@@ -54,6 +66,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.20/jquery.zoom.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/zoomooz/1.1.6/jquery.zoomooz.js"></script> -->
 
     <!-- LIVE KEY DOWN BELOW -->
     <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="YzNjOWE1ZjktM2FjZi00ZjNjLWEwZWQtMTRkODUxYmI2NTlkNjM2NDc2OTQ3MzkwOTc1ODg1"></script>
@@ -269,23 +284,23 @@
                   <%= response[0].time_to_eat %>
                 </p>
               </div>
-              <!-- <div class="hidden" id="nutrition-tab-content">
-                <p class="subtitle" style="text-align:center;">
+              <div class="hidden" id="nutrition-tab-content">
+                <p class="subtitle" style="text-align:center;" id="nutriImage">
                   <% if (response[0].nutrition_info_image_1) { %>
-                    <img src="<%= response[0].nutrition_info_image_1 %>">
+                    <img id="img1" src="<%= response[0].nutrition_info_image_1 %>">
                     <% if (response[0].nutrition_info_image_2) { %>
-                      <img src="<%= response[0].nutrition_info_image_2 %>">
+                      <img id="img2" src="<%= response[0].nutrition_info_image_2 %>">
                     <% } %>
                   <% } else { %>
                     Coming Soon!
                   <% } %>
                 </p>
-              </div> -->
-              <div class="hidden" id="nutrition-tab-content">
+              </div>
+              <!-- <div class="hidden" id="nutrition-tab-content">
                 <p class="subtitle" style="text-align:center;">
                   Coming Soon!
                 </p>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
