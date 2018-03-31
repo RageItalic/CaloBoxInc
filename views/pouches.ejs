@@ -400,6 +400,50 @@
           </div>
         </div>
 
+        <div class="column is-4-desktop is-8-tablet">
+          <div class="card">
+            <div class="card-image">
+              <a href="/individual-snacks/<%=response[6].pouch_name%>">
+                <figure class="image is-4by3">
+                  <img src="<%= response[6].pouch_image_url %>" alt="CaloBox ~ <%= response[6].pouch_name %>">
+                </figure>
+              </a>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= response[6].pouch_name %></p>
+                  <p class="subtitle is-6"><% if (dynamicNavPouchNames[6].quick_desc) { %><%= dynamicNavPouchNames[6].quick_desc %><% } else {%> Coming Soon! <% } %></p>
+
+                  <div class="level is-mobile">
+                    <div class="level-left">
+                      <div class="level-item">
+                        <button
+                          class="snipcart-add-item button is-medium is-primary"
+                          data-item-id="<%= response[6].pouch_id %>"
+                          data-item-name="<%= response[6].pouch_name %>"
+                          data-item-price="<%= response[6].pouch_price %>"
+                          data-item-weight="<%= response[6].net_weight %>"
+                          data-item-url="/individual-snacks/<%= response[6].pouch_name %>"
+                          data-item-image="<%= response[6].pouch_image_url %>"
+                          data-item-has-taxes-included="false">
+                              Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <b>Rs. <%= response[6].pouch_price %> (<%= response[6].net_weight %> gms)</b>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
