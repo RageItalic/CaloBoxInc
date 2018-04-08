@@ -794,7 +794,9 @@ app.get("/individual-snacks", (req, res) => {
     knex.select('*')
         .from('pouches')
     .then((response)=> {
-      console.log("YEH RESPONSE HAI", response);
+      // console.log("YEH RESPONSE HAI", response);
+      const sortedResponse = response.sort((a, b) => a.pouch_price - b.pouch_price)
+      console.log("sortedResponse is here!!", sortedResponse)
       getNavPouches();
       getNavBoxes();
       setTimeout(function() {
