@@ -775,11 +775,13 @@ app.get("/individual-snacks", (req, res) => {
       //now that everything has been selected,
       //send in everything through template vars
       //and display on boxes page as cards.
+      const sortedResponse = response.sort((a, b) => a.pouch_price - b.pouch_price)
+      console.log("sortedResponse is here!!", sortedResponse)
       getNavPouches();
       getNavBoxes();
       setTimeout(function() {
         var templateVars = {
-          response: response,
+          response: sortedResponse,
           name: req.session.name,
           userID: req.session.userID,
           email: req.session.email,
@@ -801,7 +803,7 @@ app.get("/individual-snacks", (req, res) => {
       getNavBoxes();
       setTimeout(function() {
         var templateVars = {
-          response: response,
+          response: sortedResponse,
           name: null,
           userID: null,
           email: null,
