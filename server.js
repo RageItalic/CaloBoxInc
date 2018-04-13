@@ -88,8 +88,11 @@ function getNavBoxes() {
   })
 }
 
-app.get('/email/sendEmailTo/:email', (req, res) => {
-  console.log("PARAMAMAMS, ", req.params.email)
+app.get('/email', (req, res) => {
+  //url structure: /email/?all=true&template={templateName}
+  //or
+  //url structure: /email/?test=true&template={templateName}&to={emailAddress}
+  console.log("KCDJKdns", req.query)
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -99,21 +102,69 @@ app.get('/email/sendEmailTo/:email', (req, res) => {
     }
   });
 
-  let mailOptions = {
-    from: 'Calobox',
-    to: req.params.email,
-    subject: `Welcome to Calo Club!`,
-    html: { path: 'emailTemplates/caloClub1.html' }
-  };
+  // let mailOptions = {
+  //   from: 'Calobox',
+  //   to: req.params.email,
+  //   subject: `Welcome to Calo Club!`,
+  //   html: { path: 'emailTemplates/caloClub1.html' }
+  // };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log("THERE IS AN ERROR", error)
-      res.send("There has been an error, maybe you used the wrong email? Not sure.")
-    }
-      console.log('Message %s sent: %s', info.messageId, info.response)
-      res.send("Email sent. Now LEAVE ME ALONE.")
-  });
+  // transporter.sendMail(mailOptions, (error, info) => {
+  //   if (error) {
+  //     console.log("THERE IS AN ERROR", error)
+  //     res.send("There has been an error, maybe you used the wrong email? Not sure.")
+  //   }
+  //     console.log('Message %s sent: %s', info.messageId, info.response)
+  //     res.send("Email sent. Now LEAVE ME ALONE.")
+  // });
+
+  if(req.query.all === 'true') {
+    knex.select('*')
+      .from('users')
+    .then(users => {
+      console.log("res sauce", users)
+      users.map(user => {
+
+        let mailOptions = {
+          from: 'Calobox',
+          to: user.email,
+          subject: `Calo Club Email Update!`,
+          html: { path: `emailTemplates/${req.query.template}.html` }
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.log("THERE IS AN ERROR", error)
+            res.send("There has been an error, maybe you used the wrong email or url? Not sure.")
+          }
+            console.log('Message %s sent: %s', info.messageId, info.response)
+            res.send("Email sent. Now LEAVE ME ALONE.")
+        });
+
+      })
+    })
+  } else if (req.query.test === 'true') {
+    let mailOptions = {
+      from: 'Calobox',
+      to: req.query.to,
+      subject: `Calo Club Email Update!`,
+      html: { path: `emailTemplates/${req.query.template}.html` }
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log("THERE IS AN ERROR", error)
+        res.send("There has been an error, maybe you used the wrong email or url? Not sure.")
+      }
+        console.log('Message %s sent: %s', info.messageId, info.response)
+        res.send("Email sent. Now LEAVE ME ALONE.")
+    });
+  } else if (!req.query.test || !req.query.all) {
+    res.send("WRONG. FAKE NEWS. INCOORECT URL.")
+  }
+
+
+
 })
 
 app.post('/postToStyledge', (req, res) => {
