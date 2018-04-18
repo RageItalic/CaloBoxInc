@@ -285,16 +285,20 @@
                 </p>
               </div>
               <div class="hidden" id="nutrition-tab-content">
-                <p class="subtitle" style="text-align:center;" id="nutriImage">
-                  <% if (response[0].nutrition_info_image_1) { %>
-                    <img id="img1" src="<%= response[0].nutrition_info_image_1 %>">
-                    <% if (response[0].nutrition_info_image_2) { %>
-                      <img id="img2" src="<%= response[0].nutrition_info_image_2 %>">
+                <center>
+                  <table class="table">
+                    <tr>
+                      <th>Quality Characteristics</th>
+                      <th>Results</th>
+                    </tr>
+                    <% for (var i = 0; i < nutritionArray.length; i++) { %>
+                      <tr>
+                        <td><%= nutritionArray[i].characteristic %></td>
+                        <td><%= nutritionArray[i].result %></td>
+                      </tr>
                     <% } %>
-                  <% } else { %>
-                    Coming Soon!
-                  <% } %>
-                </p>
+                  </table>
+                </center>
               </div>
               <!-- <div class="hidden" id="nutrition-tab-content">
                 <p class="subtitle" style="text-align:center;">

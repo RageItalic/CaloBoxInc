@@ -17,16 +17,14 @@ const bcrypt      = require('bcrypt');
 const stripe      = require('stripe')("sk_test_U3Ww6tPuCCQruhOiLMtFgLBg")
 const session     = require('express-session');
 const nodemailer  = require('nodemailer');
-const cors        = require('cors');
 const request     = require('request');
+const Airtable    = require('airtable');
+const base        = new Airtable({apiKey: 'keyljw93pxQj3jgzN'}).base('appFavqH50Zhl3Wpf');
 
-// app.use(cors({
-//   origin: 'http://localhost:8080',
-//   credentials: true
-// }));
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+const staticPages = require("./routes/staticPages");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -59,9 +57,11 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 //app.use("/api/users", usersRoutes(knex));
+app.use("/", staticPages)
 
-var dynamicNavPouchNameObject = {};
-var dynamicNavBigBoxNameObject = {};
+let dynamicNavPouchNameObject = {};
+let dynamicNavBigBoxNameObject = {};
+let nutritionInfoArray = [];
 
 function getNavPouches() {
   knex.select('pouch_name', 'quick_desc')
@@ -86,6 +86,37 @@ function getNavBoxes() {
     };
     console.log(dynamicNavBigBoxNameObject)
   })
+}
+
+function getNutritionInfo(snackName) {
+  base('Snack Nutrition Info').select({
+    // Selecting the first 3 records in Grid view:
+    // maxRecords: 3,
+    view: "Grid view"
+  }).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+      if(record.get('Snack Name') === snackName) {
+        console.log('Retrieved', record.get('Quality Characteristics'), '~', record.get('Results'));
+        const nutritionObj = {
+          //[record.get('Quality Characteristics')]: record.get('Results')
+          characteristic: record.get('Quality Characteristics'),
+          result: record.get('Results')
+        }
+        nutritionInfoArray.push(nutritionObj)
+        console.log("PUSHED.")
+      }
+    });
+    console.log("KEMCHO", nutritionInfoArray)
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+  }, function done(err) {
+    if (err) { console.error(err); return; }
+  });
 }
 
 app.get('/email', (req, res) => {
@@ -162,8 +193,6 @@ app.get('/email', (req, res) => {
   } else if (!req.query.test || !req.query.all) {
     res.send("WRONG. FAKE NEWS. INCOORECT URL.")
   }
-
-
 
 })
 
@@ -254,6 +283,14 @@ app.post("/webhooks/shipping", (req, res) => {
 
 })
 
+// app.get("/yolo/:snackName", (req, res) => {
+//   getNutritionInfo(req.params.snackName)
+//   setTimeout(function() {
+//     console.log("Does this work? OR NOT?", nutritionInfoArray)
+//   }, 1000);
+//   res.send("CHECK CONSOLE.")
+// })
+
 
 // Home page
 app.get("/", (req, res) => {
@@ -298,341 +335,6 @@ app.get("/", (req, res) => {
     })
   }
 });
-
-app.get('/contact-us', (req, res)=> {
-  if (req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("contact", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("contact", templateVars);
-    }, 500);
-  }
-})
-
-app.get('/calo-club', (req, res) => {
-  if (req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("calo_club", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("calo_club", templateVars);
-    }, 500);
-  }
-})
-
-app.post('/contactEmail', (req, res)=> {
-  console.log('req.body', req.body)
-
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'hello.calobox@gmail.com',
-      pass: process.env.NODEMAILER_PASS
-    }
-  });
-
-  let mailOptions = {
-    from: req.body.email,
-    to: 'hello@calobox.in',
-    subject: `${req.body.pName} wants to get in touch.`,
-    text: `${req.body.pName}, ${req.body.email}, ${req.body.message}`,
-    html: `<div><h4>${req.body.pName} (${req.body.pNumber}) ~ ${req.body.email}</h4> <p>${req.body.message}</p></div>`
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log("THERE IS AN ERROR",error)
-      var templateVar = {
-        message: "There has been a problem. Please try to contact us later. Or send us an email <a href='mailto:info@calobox.in'>here</a>."
-      }
-      res.send(JSON.stringify(templateVar))
-    }
-      console.log('Message %s sent: %s', info.messageId, info.response)
-      var templateVar = {
-        message: "Thank you for writing to us. We will get back to you very soon."
-      }
-      res.send(JSON.stringify(templateVar))
-  });
-})
-
-app.get('/about-us', (req, res)=> {
-  if (req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("about", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("about", templateVars);
-    }, 500);
-  }
-})
-
-app.get('/how-it-works', (req, res) => {
-  if(req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("howItWorks", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("howItWorks", templateVars);
-    }, 500);
-  }
-})
-
-app.get('/faq', (req, res) => {
-  if(req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("faq", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("faq", templateVars);
-    }, 500);
-  }
-})
-
-app.get('/calo-freaks', (req, res) => {
-  if(req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("caloFreaks", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("caloFreaks", templateVars);
-    }, 500);
-  }
-})
-
-app.get('/events', (req, res)=> {
-  if(req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("events", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("events", templateVars);
-    }, 500);
-  }
-})
-
-app.get('/nutrition-prep', (req, res) => {
-  if(req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("nutritionAndPrep", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("nutritionAndPrep", templateVars);
-    }, 500);
-  }
-})
-
-app.get('/health-safety', (req, res) => {
-  if(req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("healthAndSafety", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("healthAndSafety", templateVars);
-    }, 500);
-  }
-})
-
-app.get('/calo-recipes', (req, res) => {
-  if(req.session.userID) {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: req.session.name,
-        userID: req.session.userID,
-        email: req.session.email,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("caloRecipes", templateVars);
-    }, 500);
-  } else {
-    getNavPouches();
-    getNavBoxes();
-    setTimeout(function() {
-      var templateVars = {
-        name: null,
-        userID: null,
-        email: null,
-        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
-      };
-      res.render("caloRecipes", templateVars);
-    }, 500);
-  }
-})
 
 
 app.get('/login', (req, res)=> {
@@ -868,6 +570,10 @@ app.get("/individual-snacks", (req, res) => {
   }
 })
 
+// getNutritionInfo(req.params.snackName)
+//   setTimeout(function() {
+//     console.log("Does this work? OR NOT?", nutritionInfoArray)
+//   }, 1000);
 
 app.get("/individual-snacks/:product_name", (req, res) => {
   if(req.session.userID) {
@@ -875,12 +581,13 @@ app.get("/individual-snacks/:product_name", (req, res) => {
     console.log("req",req.body)
     console.log("name",req.body.name)
     knex.select('*')
-        .from('pouches')
-        .where('pouch_name','=', req.params.product_name)
+      .from('pouches')
+      .where('pouch_name','=', req.params.product_name)
     .then(function(response){
       console.log("YEH RESponse hai",response)
       getNavPouches();
       getNavBoxes();
+      getNutritionInfo(req.params.product_name);
       setTimeout(function() {
         var templateVars = {
           response: response,
@@ -888,10 +595,11 @@ app.get("/individual-snacks/:product_name", (req, res) => {
           name: req.session.name,
           email: req.session.email,
           dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames,
+          nutritionArray: nutritionInfoArray
         }
         res.render("individual-pouch-page", templateVars);
-      }, 500);
+      }, 1000);
     })
   } else {
     console.log("req",req.params)
@@ -902,20 +610,23 @@ app.get("/individual-snacks/:product_name", (req, res) => {
       console.log("YEH RESponse hai",response)
       getNavPouches();
       getNavBoxes();
+      getNutritionInfo(req.params.product_name);
       setTimeout(function() {
-        console.log('LOOOOOOOOOK', dynamicNavPouchNameObject.pouchNames.length)
-        console.log('LOOOOOOOOOK again', dynamicNavBigBoxNameObject.bigBoxNames.length)
+        console.log("SEnDING TO THE FRONTEND", nutritionInfoArray)
         var templateVars = {
           userID: null,
           name: null,
           email: null,
           response: response,
           dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
-          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames,
+          nutritionArray: nutritionInfoArray
         }
         res.render("individual-pouch-page", templateVars);
-      }, 500);
+        nutritionInfoArray = [];
+      }, 1000);
     })
+    // nutritionInfoArray = [];
   }
 })
 
