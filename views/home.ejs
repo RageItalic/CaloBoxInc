@@ -204,33 +204,93 @@
       <h2 class="title">#EatLiteLiveRite</h2>
       <div class="tile is-ancestor" style="overflow: hidden; overflow-x: scroll;">
         <% for (var i = 0; i < response.length; i++) { %>
-          <div class="tile is-parent">
-            <article class="tile is-child box" style="width:329px;">
-              <p class="title" style="font-family: 'Montserrat', sans-serif"><%= response[i].pouch_name %></p>
-              <figure class="image is-4by3">
-                <img src="<%= response[i].pouch_image_url_2 %>" alt="CaloBox ~ <%= response[i].pouch_name %>">
-              </figure>
-              <br />
-              <p class="subtitle is-6"><%= response[i].quick_desc %></p>
-              <b>Rs. <%= response[i].pouch_price %> (<%= response[i].net_weight %> gms)</b>
-              <button
-                class="snipcart-add-item button is-medium is-primary"
-                data-item-id="<%= response[i].pouch_id %>"
-                data-item-name="<%= response[i].pouch_name %>"
-                data-item-price="<%= response[i].pouch_price %>"
-                data-item-weight="<%= response[i].net_weight %>"
-                data-item-url="/individual-snacks/<%= response[i].pouch_name %>"
-                data-item-image="<%= response[i].pouch_image_url %>"
-                data-item-has-taxes-included="false">
-                    Add to Cart
-              </button>
-            </article>
-          </div>
+          <% if (response[i].pouch_price) { %>
+            <div class="tile is-parent">
+              <article class="tile is-child box" style="width:329px;">
+                <p class="title" style="font-family: 'Montserrat', sans-serif"><%= response[i].pouch_name %></p>
+                <figure class="image is-4by3">
+                  <img src="<%= response[i].pouch_image_url_2 %>" alt="CaloBox ~ <%= response[i].pouch_name %>">
+                </figure>
+                <br />
+                <p class="subtitle is-6"><%= response[i].quick_desc %></p>
+                <b>Rs. <%= response[i].pouch_price %> (<%= response[i].net_weight %> gms)</b>
+                <button
+                  class="snipcart-add-item button is-medium is-primary"
+                  data-item-id="<%= response[i].pouch_id %>"
+                  data-item-name="<%= response[i].pouch_name %>"
+                  data-item-price="<%= response[i].pouch_price %>"
+                  data-item-weight="<%= response[i].net_weight %>"
+                  data-item-url="/individual-snacks/<%= response[i].pouch_name %>"
+                  data-item-image="<%= response[i].pouch_image_url %>"
+                  data-item-has-taxes-included="false">
+                      Add to Cart
+                </button>
+              </article>
+            </div>
+          <% } %>
         <% } %>
       </div>
     </section>
 
     <section class="section">
+      <!-- <ul id="rig">
+        <li>
+            <a class="rig-cell" href="#">
+                <img class="rig-img" src="https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG-20180327-WA0007.jpg">
+                <span class="rig-overlay"></span>
+                <span class="rig-text">Lorem Ipsum Dolor</span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <img class="rig-img" src="https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG-20180325-WA0028.jpg">
+                <span class="rig-overlay"></span>
+                <span class="rig-text">Consectetur Adipiscing</span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <img class="rig-img" src="https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG-20180330-WA0002.jpg">
+                <span class="rig-overlay"></span>
+                <span class="rig-text">Vivamus ut Felis</span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <img class="rig-img" src="https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG-20180404-WA0022.jpg">
+                <span class="rig-overlay"></span>
+                <span class="rig-text">Curabitur tempus</span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <img class="rig-img" src="https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG-20180323-WA0009.jpg">
+                <span class="rig-overlay"></span>
+                <span class="rig-text">Sed et nunc luctus</span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <img class="rig-img" src="https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG-20180320-WA0009.jpg">
+                <span class="rig-overlay"></span>
+                <span class="rig-text">Suspendisse tellus</span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <img class="rig-img" src="https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG-20180313-WA0016.jpg">
+                <span class="rig-overlay"></span>
+                <span class="rig-text">pellentesque odio</span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <img class="rig-img" src="https://s3.us-east-2.amazonaws.com/caloimagesandvideos/IMG-20180323-WA0006.jpg">
+                <span class="rig-overlay"></span>
+                <span class="rig-text">Nam euismod</span>
+            </a>
+        </li>
+      </ul> -->
       <div class="container has-text-centered">
         <h2 class="title">#LivingRite on Instagram</h2>
         <div class="columns is-centered">
