@@ -59,10 +59,12 @@ app.use(express.static("public"));
 //app.use("/api/users", usersRoutes(knex));
 app.use("/", staticPages)
 
+//global variables --> BAD IDEA... but it works... for now.
 let dynamicNavPouchNameObject = {};
 let dynamicNavBigBoxNameObject = {};
 let nutritionInfoArray = [];
 
+//For pouch names section of navbar
 function getNavPouches() {
   knex.select('pouch_name', 'quick_desc')
       .from('pouches')
@@ -76,6 +78,7 @@ function getNavPouches() {
   })
 }
 
+//For snack boxes section of navbar
 function getNavBoxes() {
   knex.select('big_box_name')
       .from('big_boxes')
@@ -88,6 +91,7 @@ function getNavBoxes() {
   })
 }
 
+//For nutrition info section of individual-pouch-page.ejs
 function getNutritionInfo(snackName) {
   base('Snack Nutrition Info').select({
     // Selecting the first 3 records in Grid view:
@@ -119,83 +123,76 @@ function getNutritionInfo(snackName) {
   });
 }
 
+//for sending emails to customers who have signed up.
 app.get('/email', (req, res) => {
   //url structure: /email/?all=true&template={templateName}
   //or
   //url structure: /email/?test=true&template={templateName}&to={emailAddress}
-  console.log("KCDJKdns", req.query)
+  if(Object.keys(req.query).length === 0) {
+    console.log("email", req.query)
 
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'hello.calobox@gmail.com',
-      pass: process.env.NODEMAILER_PASS
-    }
-  });
-
-  // let mailOptions = {
-  //   from: 'Calobox',
-  //   to: req.params.email,
-  //   subject: `Welcome to Calo Club!`,
-  //   html: { path: 'emailTemplates/caloClub1.html' }
-  // };
-
-  // transporter.sendMail(mailOptions, (error, info) => {
-  //   if (error) {
-  //     console.log("THERE IS AN ERROR", error)
-  //     res.send("There has been an error, maybe you used the wrong email? Not sure.")
-  //   }
-  //     console.log('Message %s sent: %s', info.messageId, info.response)
-  //     res.send("Email sent. Now LEAVE ME ALONE.")
-  // });
-
-  if(req.query.all === 'true') {
-    knex.select('*')
-      .from('users')
-    .then(users => {
-      console.log("res sauce", users)
-      users.map(user => {
-
-        let mailOptions = {
-          from: 'Calobox',
-          to: user.email,
-          subject: `Calo Club Email Update!`,
-          html: { path: `emailTemplates/${req.query.template}.html` }
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            console.log("THERE IS AN ERROR", error)
-            res.send("There has been an error, maybe you used the wrong email or url? Not sure.")
-          }
-            console.log('Message %s sent: %s', info.messageId, info.response)
-            res.send("Email sent. Now LEAVE ME ALONE.")
-        });
-
-      })
-    })
-  } else if (req.query.test === 'true') {
-    let mailOptions = {
-      from: 'Calobox',
-      to: req.query.to,
-      subject: `Calo Club Email Update!`,
-      html: { path: `emailTemplates/${req.query.template}.html` }
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log("THERE IS AN ERROR", error)
-        res.send("There has been an error, maybe you used the wrong email or url? Not sure.")
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'hello.calobox@gmail.com',
+        pass: process.env.NODEMAILER_PASS
       }
-        console.log('Message %s sent: %s', info.messageId, info.response)
-        res.send("Email sent. Now LEAVE ME ALONE.")
     });
-  } else if (!req.query.test || !req.query.all) {
-    res.send("WRONG. FAKE NEWS. INCOORECT URL.")
-  }
 
+    if(req.query.all === 'true') {
+      knex.select('*')
+        .from('users')
+      .then(users => {
+        console.log("res sauce", users)
+        users.map(user => {
+
+          let mailOptions = {
+            from: 'Calobox',
+            to: user.email,
+            subject: `Calo Club Email Update!`,
+            html: { path: `emailTemplates/${req.query.template}.html` }
+          };
+
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log("THERE IS AN ERROR", error)
+              res.send("There has been an error, maybe you used the wrong email or url? Not sure.")
+            }
+              console.log('Message %s sent: %s', info.messageId, info.response)
+              res.send("Email sent. Bye!.")
+          });
+
+        })
+      })
+    } else if (req.query.test === 'true') {
+      let mailOptions = {
+        from: 'Calobox',
+        to: req.query.to,
+        subject: `Calo Club Email Update!`,
+        html: { path: `emailTemplates/${req.query.template}.html` }
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log("THERE IS AN ERROR", error)
+          res.send("There has been an error, maybe you used the wrong email or url? Not sure.")
+        }
+          console.log('Message %s sent: %s', info.messageId, info.response)
+          res.send("Email sent. Bye!")
+      });
+    } else if (!req.query.test || !req.query.all) {
+      res.send("WRONG. FAKE NEWS. INCORRECT URL.")
+    }
+  } else {
+    const message = {
+      status: 404,
+      content: "Could not find what you were looking for."
+    }
+    res.send(message)
+  }
 })
 
+//for sending order information to the logistics company
 app.post('/postToStyledge', (req, res) => {
   console.log('ORDER ON THE BACKEND, ', req.body.orderInfo)
   var order = req.body.orderInfo;
@@ -251,8 +248,9 @@ app.post('/postToStyledge', (req, res) => {
 
 })
 
+//webhook url for snipcart so that we can calculate the correct shipping amount
 app.post("/webhooks/shipping", (req, res) => {
-  console.log("HEY, Hi, how are you? are you looking for this? ", req.body);
+  console.log("HEY, are you looking for this? ", req.body);
   console.log("You sure got it right!")
   let shippingRate;
   var total = req.body.content.summary.subtotal;
@@ -280,16 +278,7 @@ app.post("/webhooks/shipping", (req, res) => {
     res.status(200);
     res.send(shippingRate);
   }
-
 })
-
-// app.get("/yolo/:snackName", (req, res) => {
-//   getNutritionInfo(req.params.snackName)
-//   setTimeout(function() {
-//     console.log("Does this work? OR NOT?", nutritionInfoArray)
-//   }, 1000);
-//   res.send("CHECK CONSOLE.")
-// })
 
 
 // Home page
@@ -361,10 +350,7 @@ app.post("/loggingIn", (req, res) => {
   knex('users').where({
     email: req.body.email
   }).select('*')
-  .then(function(response){
-    // console.log("THIS IS THE RESPONSE also", response[0].password_hash)
-    // console.log("this is the response that hopefully has the id:", response);
-    // console.log("this is the also response that hopefully has the id:", response[0].users_id);
+  .then((response) => {
     var passwordEntered = req.body.password;
     var existingPassword = response[0].password_hash;
     var passMatch = bcrypt.compareSync(passwordEntered, existingPassword);
@@ -375,11 +361,6 @@ app.post("/loggingIn", (req, res) => {
       req.session.email = response[0].email;
       //session exists now
       console.log('session with userID', req.session);
-      var templateVars = {
-        status: 200,
-        message: null
-      };
-      // res.send(JSON.stringify(templateVars));
       res.redirect('/');
     } else {
       //console.log("THIS IS THE ERROR", err);
@@ -421,9 +402,7 @@ app.get('/signup', (req, res)=> {
 
 app.post("/signingUp", (req, res) => {
   var hashedPassword = bcrypt.hashSync(req.body.confirmPassword, 10);
-  // console.log(req.body.confirmPassword);
   console.log(hashedPassword);
-  //need entirely new DB the routes below will not work.
   knex('users')
   .insert([{
             first_name: req.body.fName,
@@ -443,7 +422,6 @@ app.post("/signingUp", (req, res) => {
         })
     .then(function(resp){
 
-      //email one
       let transporter1 = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -452,6 +430,7 @@ app.post("/signingUp", (req, res) => {
         }
       });
 
+      //email one
       let mailOptions1 = {
         from: 'Calobox',
         to: req.body.email,
@@ -468,14 +447,6 @@ app.post("/signingUp", (req, res) => {
 
 
       //email two
-      let transporter2 = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'hello.calobox@gmail.com',
-          pass: process.env.NODEMAILER_PASS
-        }
-      });
-
       let mailOptions2 = {
         from: 'Calobox',
         to: req.body.email,
@@ -483,7 +454,7 @@ app.post("/signingUp", (req, res) => {
         html: { path: 'emailTemplates/caloClub1.html' }
       };
 
-      transporter2.sendMail(mailOptions2, (error, info) => {
+      transporter1.sendMail(mailOptions2, (error, info) => {
         if (error) {
           console.log("THERE IS AN ERROR", error)
         }
@@ -491,23 +462,18 @@ app.post("/signingUp", (req, res) => {
       });
 
       //res.send("DONE")
-      //SET COOKIE HERE
+      //SETTING COOKIE HERE
       console.log("req.session.userID before", req.session.userID)
-      //The 3 lines below are fine. No need to change them.
+
       req.session.userID = resp[0].users_id;
       req.session.name = resp[0].first_name;
       req.session.email = resp[0].email;
       console.log("req.session after", req.session)
-      var templateVars = {
-        status: 200,
-        message: null
-      };
-      // res.send(JSON.stringify(templateVars));
       res.redirect('/');
     })
   }).catch((err) => {
     console.log('ERROR BUD', err)
-    console.log('mmaybe this person already exists. email does have a .unique() thing in the db. Remember to handle this error.')
+    console.log('Maybe this person already exists. email does have a .unique() in the db.')
     var templateVars = {
       status: 404,
       message: 'I already know you... try <a href="/login">logging in</a> here!'
@@ -516,18 +482,12 @@ app.post("/signingUp", (req, res) => {
   })
 })
 
-//Publishable:    pk_test_zpgFMVyId6qVSFL5slAhndxM
-//Secret:         sk_test_U3Ww6tPuCCQruhOiLMtFgLBg
-
 
 app.get("/individual-snacks", (req, res) => {
   if (req.session.userID) {
     knex.select('*')
         .from('pouches')
     .then(function(response){
-      //now that everything has been selected,
-      //send in everything through template vars
-      //and display on boxes page as cards.
       const sortedResponse = response.sort((a, b) => a.pouch_price - b.pouch_price)
       console.log("sortedResponse is here!!", sortedResponse)
       getNavPouches();
@@ -549,7 +509,7 @@ app.get("/individual-snacks", (req, res) => {
     knex.select('*')
         .from('pouches')
     .then((response)=> {
-      // console.log("YEH RESPONSE HAI", response);
+      // console.log(response);
       const sortedResponse = response.sort((a, b) => a.pouch_price - b.pouch_price)
       console.log("sortedResponse is here!!", sortedResponse)
       getNavPouches();
@@ -563,17 +523,12 @@ app.get("/individual-snacks", (req, res) => {
           dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
           dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         };
-        //console.log(templateVars.boxImage);
         res.render("pouches", templateVars);
       }, 500);
     })
   }
 })
 
-// getNutritionInfo(req.params.snackName)
-//   setTimeout(function() {
-//     console.log("Does this work? OR NOT?", nutritionInfoArray)
-//   }, 1000);
 
 app.get("/individual-snacks/:product_name", (req, res) => {
   if(req.session.userID) {
@@ -626,7 +581,6 @@ app.get("/individual-snacks/:product_name", (req, res) => {
         nutritionInfoArray = [];
       }, 1000);
     })
-    // nutritionInfoArray = [];
   }
 })
 
@@ -648,7 +602,6 @@ app.get('/snack-boxes', (req, res)=> {
           dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
           dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         };
-        //console.log(templateVars.boxImage);
         res.render("big_boxes", templateVars);
       }, 500);
     })
@@ -669,7 +622,6 @@ app.get('/snack-boxes', (req, res)=> {
           dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
           dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
         };
-        //console.log(templateVars.boxImage);
         res.render("big_boxes", templateVars);
       }, 500);
     })

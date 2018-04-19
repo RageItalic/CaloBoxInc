@@ -10,9 +10,11 @@ const nodemailer  = require('nodemailer');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}))
 
+//global variables --> BAD IDEA... but it works... for now.
 var dynamicNavPouchNameObject = {};
 var dynamicNavBigBoxNameObject = {};
 
+//For pouch names section of navbar
 function getNavPouches() {
   knex.select('pouch_name', 'quick_desc')
       .from('pouches')
@@ -26,6 +28,7 @@ function getNavPouches() {
   })
 }
 
+//For snack boxes section of navbar
 function getNavBoxes() {
   knex.select('big_box_name')
       .from('big_boxes')
@@ -38,6 +41,7 @@ function getNavBoxes() {
   })
 }
 
+//Contact Us form page --> Not needed anymore
 // router.get('/contact-us', (req, res)=> {
 //   if (req.session.userID) {
 //     getNavPouches();
@@ -68,6 +72,7 @@ function getNavBoxes() {
 //   }
 // })
 
+//Contact form post route --> not needed anymore, using drift for conversations.
 // router.post('/contactEmail', (req, res)=> {
 //   console.log('req.body', req.body)
 
@@ -102,6 +107,8 @@ function getNavBoxes() {
 //       res.send(JSON.stringify(templateVar))
 //   });
 // })
+
+//Static pages from here on.
 
 router.get('/calo-club', (req, res) => {
   if (req.session.userID) {
