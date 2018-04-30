@@ -672,6 +672,45 @@ app.get('/snack-boxes/:product_name', (req, res)=> {
   }
 })
 
+app.get('/purchase/blogger-kit', (req, res) => {
+  console.log("QUERYY", req.query)
+  if (req.session.userID) {
+    if (req.query.superSecretPassword && req.query.superSecretPassword === 'blogger') {
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          userID: req.session.userID,
+          name: req.session.name,
+          email: req.session.email,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+        }
+        res.render("blogger-kit", templateVars);
+      }, 500);
+    } else {
+      res.send('Error! Please check the url or try again later.').status(400)
+    }
+  } else {
+    if (req.query.superSecretPassword && req.query.superSecretPassword === 'blogger') {
+      getNavPouches();
+      getNavBoxes();
+      setTimeout(function() {
+        var templateVars = {
+          userID: null,
+          name: null,
+          email: null,
+          dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+          dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+        }
+        res.render("blogger-kit", templateVars);
+      }, 500);
+    } else {
+      res.send('Error! Please check the url or try again later.').status(400)
+    }
+  }
+})
+
 
 app.get('/logout', (req, res) => {
   req.session.destroy(function(err) {
