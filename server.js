@@ -672,6 +672,36 @@ app.get('/snack-boxes/:product_name', (req, res)=> {
   }
 })
 
+app.get('/coming-soon/calo-bars', (req, res) => {
+  if (req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        userID: req.session.userID,
+        name: req.session.name,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      }
+      res.render("caloBars", templateVars);
+    }, 500);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        userID: null,
+        name: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      }
+      res.render("caloBars", templateVars);
+    }, 500);
+  }
+})
+
 app.get('/purchase/blogger-kit', (req, res) => {
   console.log("QUERYY", req.query)
   if (req.session.userID) {
