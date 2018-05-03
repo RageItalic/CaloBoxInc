@@ -200,6 +200,36 @@ router.get('/how-it-works', (req, res) => {
   }
 })
 
+router.get('/our-story', (req, res) => {
+  if(req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: req.session.name,
+        userID: req.session.userID,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("ourStory", templateVars);
+    }, 500);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        name: null,
+        userID: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      };
+      res.render("ourStory", templateVars);
+    }, 500);
+  }
+})
+
 router.get('/faq', (req, res) => {
   if(req.session.userID) {
     getNavPouches();
