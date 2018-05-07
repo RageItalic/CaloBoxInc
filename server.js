@@ -741,6 +741,36 @@ app.get('/purchase/blogger-kit', (req, res) => {
   }
 })
 
+app.get('/purchase/mothers-day-box', (req, res) => {
+  if (req.session.userID) {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        userID: req.session.userID,
+        name: req.session.name,
+        email: req.session.email,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      }
+      res.render("mothersBox", templateVars);
+    }, 500);
+  } else {
+    getNavPouches();
+    getNavBoxes();
+    setTimeout(function() {
+      var templateVars = {
+        userID: null,
+        name: null,
+        email: null,
+        dynamicNavPouchNames: dynamicNavPouchNameObject.pouchNames,
+        dynamicNavBigBoxNames: dynamicNavBigBoxNameObject.bigBoxNames
+      }
+      res.render("mothersBox", templateVars);
+    }, 500);
+  }
+})
+
 
 app.get('/logout', (req, res) => {
   req.session.destroy(function(err) {
